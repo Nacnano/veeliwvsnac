@@ -23,4 +23,8 @@ public class Position {
 	public int getColumn() {
 		return this.column;
 	}
+	
+	public int getDistanceFrom(Position p) {
+		return Math.abs(this.row-p.row) + Math.abs(this.column - p.column);
+	}
 }

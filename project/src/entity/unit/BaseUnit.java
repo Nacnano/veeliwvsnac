@@ -1,5 +1,7 @@
 package entity.unit;
 
+import game.Position;
+
 public class BaseUnit implements Attackable, Movable{
 	private int people;
 	private int attackRange;
@@ -8,13 +10,16 @@ public class BaseUnit implements Attackable, Movable{
 	
 	public BaseUnit(int people, int attackRange, int moveRange, boolean isMoved ) {
 		setPeople(people);
+		setAttackRange(attackRange);
+		setMoveRange(moveRange);
+		setIsMoved(isMoved);
 	}
 	
-	public void attack() {
+	public void attack(BaseUnit enemy) {
 		
 	}
 	
-	public void move () {
+	public void move (Position p) {
 		
 	}
 	
