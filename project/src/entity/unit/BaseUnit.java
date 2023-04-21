@@ -10,6 +10,16 @@ public class BaseUnit implements Attackable, Movable{
 		setPeople(people);
 	}
 	
+	public void attack() {
+		
+	}
+	
+	public void move () {
+		
+	}
+	
+	
+	
 	public void setPeople(int people) {
 		this.people = people;
 	}
