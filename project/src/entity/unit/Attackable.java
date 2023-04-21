@@ -2,5 +2,5 @@ package entity.unit;
 
 public interface Attackable {
 
-	public void attack();
+	public void attack(BaseUnit u);
 }
