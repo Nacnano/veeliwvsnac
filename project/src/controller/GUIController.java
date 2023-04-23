@@ -1,5 +1,8 @@
 package controller;
 
+import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
+
 public class GUIController {
 	private static HBox root;
 	private static GamePane gamePane;
