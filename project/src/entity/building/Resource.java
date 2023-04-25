@@ -1,9 +1,17 @@
 package entity.building;
 
-public class Resource extends BaseBuilding {
+public abstract class Resource extends BaseBuilding {
+
 	private int maxPeople;
 	private int currentPeople;
 	private float fatalityRate;
+	
+	public Resource(int durability, int maxPeople, int fatalityRate) {
+		super(durability);
+		setMaxPeople(maxPeople);
+		setCurrentPeople(0);
+		setFatalityRate(fatalityRate);
+	}
 	
 	public int getMaxPeople() {
 		return maxPeople;
