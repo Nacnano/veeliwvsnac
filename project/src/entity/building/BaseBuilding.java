@@ -1,12 +1,11 @@
 package entity.building;
 
-public class BaseBuilding implements Buildable {
+public abstract class BaseBuilding implements Buildable {
 
 	private int durability;
-
-	public void build(BaseBuilding b) {
-		
-		
+	
+	public BaseBuilding(int durability) {
+		setDurability(durability);
 	}
 
 	public int getDurability() {
@@ -16,4 +15,5 @@ public class BaseBuilding implements Buildable {
 	public void setDurability(int durability) {
 		this.durability = durability;
 	}
+
 }

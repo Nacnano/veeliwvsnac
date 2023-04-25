@@ -1,6 +1,8 @@
 package entity.building;
 
+import game.Terrain;
+
 public interface Buildable {
 
-	public void build(BaseBuilding b);
+	public boolean canBuildOn(Terrain t);
 }
