@@ -1,6 +1,9 @@
 package application;
 
+import controller.GUIController;
 import javafx.application.Application;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class Main extends Application{
 	
@@ -8,10 +11,9 @@ public class Main extends Application{
     public void start(Stage primaryStage) {
 
         HBox root = GUIController.initialize();
-        GameController.initialize("map_1");
 
-        primaryStage.setTitle("GrimStroke");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Game Name");
+//        primaryStage.setScene(new Scene(root));
 //      primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -24,4 +26,5 @@ public class Main extends Application{
     public static void main(String[] args) {
         launch(args);
     }
+
 }
