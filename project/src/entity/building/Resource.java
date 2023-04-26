@@ -6,7 +6,7 @@ public abstract class Resource extends BaseBuilding {
 	private int currentPeople;
 	private float fatalityRate;
 	
-	public Resource(int durability, int maxPeople, int fatalityRate) {
+	public Resource(int durability, int maxPeople, float fatalityRate) {
 		super(durability);
 		setMaxPeople(maxPeople);
 		setCurrentPeople(0);

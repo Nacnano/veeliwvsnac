@@ -2,10 +2,10 @@ package entity.building;
 
 import game.Terrain;
 
-public class House extends Resource {
+public class House extends BaseBuilding {
 
 	public House(int durability) {
-		super(durability, 0, 0);
+		super(durability);
 	}
 
 	public boolean canBuildOn(Terrain t) {
