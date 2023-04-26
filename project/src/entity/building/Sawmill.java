@@ -1,12 +1,12 @@
 package entity.building;
 
-import config.Confic;
+import config.Config;
 import game.Terrain;
 
 public class Sawmill extends Resource {
 
 	public Sawmill() {
-		super(Confic.SAWMILL_DURABILITY, Confic.SAWMILL_MAX_PEOPLE, Confic.SAWMILL_FATALITY_RATE);
+		super(Config.SAWMILL_DURABILITY, Config.SAWMILL_MAX_PEOPLE, Config.SAWMILL_FATALITY_RATE);
 	}
 
 	public boolean canBuildOn(Terrain t) {
