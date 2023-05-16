@@ -1,12 +1,12 @@
 package entity.building;
 
-import config.Confic;
+import config.Config;
 import game.Terrain;
 
 public class Mine extends Resource {
 
 	public Mine() {
-		super(Confic.MINE_DURABILITY, Confic.MINE_MAX_PEOPLE, Confic.MINE_FATALITY_RATE);
+		super(Config.MINE_DURABILITY, Config.MINE_MAX_PEOPLE, Config.MINE_FATALITY_RATE);
 	}
 
 	public boolean canBuildOn(Terrain t) {
