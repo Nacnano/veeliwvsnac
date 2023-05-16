@@ -5,7 +5,8 @@ public class Position {
 	private int column;
 	
 	public Position(int row, int column) {
-		
+		setRow(row);
+		setColumn(column);
 	}
 	
 	public void setRow(int row) {
@@ -24,6 +25,7 @@ public class Position {
 		return this.column;
 	}
 	
+	// Manhattan distance?
 	public int getDistanceFrom(Position p) {
 		return Math.abs(this.row-p.row) + Math.abs(this.column - p.column);
 	}

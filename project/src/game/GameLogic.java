@@ -80,6 +80,18 @@ public class GameLogic {
 			buildings.remove(p1);
 			buildings.put(p2, b);
 		}
-		
+	}
+	
+	public void attackUnit(BaseUnit attacker, BaseUnit attacked) {
+		attacker.attack(attacked);
+	}
+	
+	public void moveUnit(BaseUnit unit, Position destination) {
+		if(ourUnits.containsKey(unit)) {
+			ourUnits.put(unit, destination);
+		}
+		else if(enemyUnits.containsKey(unit)) {
+			enemyUnits.put(unit, destination);
+		}
 	}
 }

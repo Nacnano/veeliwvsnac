@@ -2,6 +2,8 @@ package config;
 
 public class Config {
 	
+	// Resources Production
+	
 	public static final int FIELD_DURABILITY = 100;
 	public static final int MINE_DURABILITY = 100;
 	public static final int SAWMILL_DURABILITY = 100;
@@ -23,8 +25,6 @@ public class Config {
 	public static final float MINE_WORK_RATE = (float) 0.50;
 	public static final float SAWMILL_WORK_RATE = (float) 0.50;
 	public static final float SMELTER_WORK_RATE = (float) 0.50;
-	
-	public static final int MILITARY_SIZE = 100;
 	
 	// Materials requirement for crafting each resources
 	
@@ -57,5 +57,29 @@ public class Config {
 	public static final int MILITARYCAMP_REQUIRE_WOOD = 100;
 	public static final int MILITARYCAMP_REQUIRE_STONE = 100;
 	public static final int MILITARYCAMP_REQUIRE_IRON = 100;
+	
+	//	Military 
+	
+	public static final int MILITARY_SIZE = 100;
+	
+	public static final int SWORDMAN_ATTACK_RANGE = 2;
+	public static final int SWORDMAN_MOVE_RANGE = 4;
+	public static final float SWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	
+	public static final int FORESTSWORDMAN_ATTACK_RANGE = 2;
+	public static final int FORESTSWORDMAN_MOVE_RANGE = 4;
+	public static final float FORESTSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	
+	public static final int FIELDSWORDMAN_ATTACK_RANGE = 2;
+	public static final int FIELDSWORDMAN_MOVE_RANGE = 4;
+	public static final float FIELDSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	
+	public static final int MOUNTAINSWORDMAN_ATTACK_RANGE = 2;
+	public static final int MOUNTAINSWORDMAN_MOVE_RANGE = 4;
+	public static final float MOUNTAINSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	
+	public static final int ARCHER_ATTACK_RANGE = 5;
+	public static final int ARCHER_MOVE_RANGE = 4;
+	public static final float ARCHER_ATTACK_MULTIPLIER = (float) 0.2;
 	
 }
