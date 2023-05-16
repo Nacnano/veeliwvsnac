@@ -13,6 +13,7 @@ public class Config {
 	public static final int MINE_MAX_PEOPLE = 50;
 	public static final int SAWMILL_MAX_PEOPLE = 50;
 	public static final int SMELTER_MAX_PEOPLE = 50;
+	public static final int HOUSE_MAX_PEOPLE = 50;
 	
 	public static final float FIELD_FATALITY_RATE = (float) 0.75;
 	public static final float MINE_FATALITY_RATE = (float) 0.75;
@@ -23,6 +24,8 @@ public class Config {
 	public static final float MINE_WORK_RATE = (float) 0.50;
 	public static final float SAWMILL_WORK_RATE = (float) 0.50;
 	public static final float SMELTER_WORK_RATE = (float) 0.50;
+	
+	public static final float HOUSE_BORN_RATE = (float) 0.10;
 	
 	public static final int MILITARY_SIZE = 100;
 	
@@ -58,4 +61,10 @@ public class Config {
 	public static final int MILITARYCAMP_REQUIRE_STONE = 100;
 	public static final int MILITARYCAMP_REQUIRE_IRON = 100;
 	
+	// Materials price
+	
+	public static final int FOOD_PRICE = 5;
+	public static final int WOOD_PRICE = 5;
+	public static final int STONE_PRICE = 5;
+	public static final int IRON_PRICE = 5;
 }
