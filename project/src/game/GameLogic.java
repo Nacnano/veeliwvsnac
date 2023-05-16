@@ -35,14 +35,37 @@ public class GameLogic {
 	
 	// Functions for buildings
 	
-	public void addBuilding(BaseBuilding b, Position p) {
-		if (b.canBuildOn(map.get(p)) && !buildings.containsKey(p)) {
-			buildings.put(p, b);
-		}
-	}
+//  Maybe this one is not necessary since there is BuildBuilding below
+//	public void addBuilding(BaseBuilding b, Position p) {
+//		if (b.canBuildOn(map.get(p)) && !buildings.containsKey(p)) {
+//			buildings.put(p, b);
+//		}
+//	}
 	
 	public void removeBuilding(Position p) {
+		BaseBuilding b = buildings.get(p);
 		buildings.remove(p);
+
+		if (b instanceof Field) {
+			currentPopulation -= ((Field) b).getCurrentPeople() * ((Field) b).getFatalityRate();
+		}
+		else if (b instanceof Mine) {
+			currentPopulation -= ((Mine) b).getCurrentPeople() * ((Mine) b).getFatalityRate();
+		}
+		else if (b instanceof Sawmill) {
+			currentPopulation -= ((Sawmill) b).getCurrentPeople() * ((Sawmill) b).getFatalityRate();
+		}
+		else if (b instanceof Smelter) {
+			currentPopulation -= ((Smelter) b).getCurrentPeople() * ((Smelter) b).getFatalityRate();
+		}
+		else if (b instanceof House)  {
+//			Guess it does not have to do anything
+//			currentPopulation = Math.min(currentPopulation, getMaxPopulation());
+		}
+		else if (b instanceof MilitaryCamp) {
+//			Not sure about military unit yet
+//			It also has fatality rate
+		}
 	}
 	
 	public void QuitJob(Position p, int amount) {
@@ -101,8 +124,9 @@ public class GameLogic {
 	}
 	
 	public void updateCurrentPopulation() {
+		if (currentPopulation >= getMaxPopulation()) return;
 		int newPopulation = currentPopulation + (int) (currentPopulation * Config.HOUSE_BORN_RATE);
-		currentPopulation = Math.max(getMaxPopulation(), newPopulation);
+		currentPopulation = Math.min(getMaxPopulation(), newPopulation);
 	}
 	
 	private boolean hasEnoughMaterial(BaseBuilding b) {
@@ -185,7 +209,6 @@ public class GameLogic {
 	}
 	
 	public void buildBuilding(BaseBuilding b, Position p) {
-		// How to make parameter which building to build?
 		if (!b.canBuildOn(map.get(p))) return;
 		if (buildings.containsKey(p)) return;
 		if (!hasEnoughMaterial(b)) return;
@@ -193,7 +216,6 @@ public class GameLogic {
 		deductMaterial(b);
 		buildings.put(p, b);
 	}
-	
 	
 	public void saleMaterial(Material m, int amount) {
 		if (m == Material.FOOD && food >= amount) {

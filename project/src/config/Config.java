@@ -19,6 +19,7 @@ public class Config {
 	public static final float MINE_FATALITY_RATE = (float) 0.75;
 	public static final float SAWMILL_FATALITY_RATE = (float) 0.75;
 	public static final float SMELTER_FATALITY_RATE = (float) 0.75;
+	public static final float MILITARYCAMP_FATALITY_RATE = (float) 0.75;
 	
 	public static final float FIELD_WORK_RATE = (float) 0.50;
 	public static final float MINE_WORK_RATE = (float) 0.50;
