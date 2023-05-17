@@ -30,8 +30,6 @@ public class Config {
 	
 	public static final float HOUSE_BORN_RATE = (float) 0.10;
 	
-	public static final int MILITARY_SIZE = 100;
-	
 	// Materials requirement for crafting each resources
 	
 	public static final int FIELD_REQUIRE_MONEY = 1000;
