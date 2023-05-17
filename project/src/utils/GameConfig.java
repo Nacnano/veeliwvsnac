@@ -31,9 +31,11 @@ public class GameConfig {
 	
 	public static final String ICON_NAME = "icon.png";
 	
-	public static final int SCREEN_RESPONSIVE = 800;
+	public static final int SCREEN_RESPONSIVE = 1200;
 	
 	public static final boolean STAGE_SCALABLE = false;
+	
+	public static final int SPRITE_SIZE = 16;
 	
 	
 	

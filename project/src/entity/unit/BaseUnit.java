@@ -9,19 +9,20 @@ public class BaseUnit implements Attackable, Movable{
 	private int moveRange;
 	private float attackMultiplier;
 	private boolean isMoved;
-	// private Position position;
+	private boolean isAttacked;
 	
-	public BaseUnit(int people, int attackRange, int moveRange, float attackMultiplier, boolean isMoved ) {
+	public BaseUnit(int people, int attackRange, int moveRange, float attackMultiplier ) {
 		setPeople(people);
 		setAttackRange(attackRange);
 		setMoveRange(moveRange);
 		setAttackMultiplier(attackMultiplier);
-		setIsMoved(isMoved);
+		setIsMoved(false);
+		setIsAttacked(false);
 	}
 	
 	public void attack(BaseUnit enemy) {
 		// if(getAttackRange() <= getPosition.getDistanceFrom(enemy.getPosition))
-		enemy.setPeople(enemy.people-getPeople()*getAttackMultiplier());
+		enemy.setPeople(enemy.people - (int)(getPeople()*getAttackMultiplier()) );
 	}
 	
 	public void move (Position destination) {
@@ -50,6 +51,10 @@ public class BaseUnit implements Attackable, Movable{
 	public void setIsMoved(boolean isMoved) {
 		this.isMoved = isMoved;
 	}
+
+	public void setIsAttacked(boolean isAttacked) {
+		this.isAttacked = isAttacked;
+	}
 	
 	public int getPeople () {
 		return this.people;
@@ -63,11 +68,16 @@ public class BaseUnit implements Attackable, Movable{
 		return this.moveRange;
 	}
 	
-	public int getAttackMultiplier() {
+	public float getAttackMultiplier() {
 		return this.attackMultiplier;
 	}
 	
 	public boolean getIsMoved() {
 		return this.isMoved;
 	}
+
+	public boolean getIsAttacked() {
+		return isAttacked;
+	}
+
 }

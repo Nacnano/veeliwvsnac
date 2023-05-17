@@ -1,11 +1,6 @@
 package utils;
 
 import gui.MessagePane;
-import effects.Immobilize;
-import entity.DarkMage;
-import entity.Player;
-import entity.base.Entity;
-import entity.base.Monster;
 import entity.unit.BaseUnit;
 import scene.GameScene;
 

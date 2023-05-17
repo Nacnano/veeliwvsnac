@@ -75,7 +75,6 @@ public class AudioUtil {
 	 */
 	private static MediaPlayer loadAudioLoop(String filePath) {
 		URL resource = ClassLoader.getSystemResource(filePath);
-		System.out.println(filePath + resource);
 		MediaPlayer player = new MediaPlayer(new Media(resource.toString()));
 
 		player.setOnEndOfMedia(new Runnable() {

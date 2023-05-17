@@ -175,9 +175,9 @@ public class LandingScene {
 	 * Initialize the title text.
 	 */
 	private static void setupTitleText() {
-		titleText = new Text("Pixoul");
+		titleText = new Text(GameConfig.GAME_TITLE);
 		titleText.setFont(FontUtil.getFont("large"));
-		titleText.setFill(Color.CRIMSON);
+		titleText.setFill(Color.WHITE);
 		VBox.setMargin(titleText, new Insets(0, 0, 15, 0));
 		titleText.setTextAlignment(TextAlignment.CENTER);
 	}
