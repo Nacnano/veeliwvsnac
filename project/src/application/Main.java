@@ -1,6 +1,6 @@
 package application;
 
-import gui.GUIController;
+import controller.SceneController;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

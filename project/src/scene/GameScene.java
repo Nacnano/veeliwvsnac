@@ -1,10 +1,7 @@
 package scene;
 
-import components.EffectPane;
-import components.InventoryPane;
-import components.MessagePane;
-import components.PausePane;
-import components.StatusPane;
+import gui.MessagePane;
+import gui.PausePane;
 import controller.InterruptController;
 import entity.base.DispatchAction;
 import javafx.geometry.Insets;
@@ -22,10 +19,10 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import logic.GameLogic;
-import logic.MapRenderer;
+import game.GameLogic;
+//import game.MapRenderer;
 import utils.DrawUtil;
-import utils.GameAudioUtils;
+import utils.AudioUtil;
 import utils.GameConfig;
 
 /**
@@ -39,27 +36,6 @@ public class GameScene {
 	 * The game scene.
 	 */
 	private static Scene scene = null;
-
-	/**
-	 * The {@link StatusPane status pane} on the game scene.
-	 */
-	private static StatusPane statusPane;
-
-	/**
-	 * The {@link MessagePane message pane} on the game scene.
-	 */
-	private static MessagePane messagePane;
-
-	/**
-	 * The {@link EffectPane effect pane} on the game scene.
-	 */
-	private static EffectPane effectPane;
-
-	/**
-	 * The {@link InventoryPane inventory pane} that will display when the player
-	 * click inventory button.
-	 */
-	private static InventoryPane inventoryPane;
 
 	/**
 	 * The {@link PausePane pause pane} that will display when the player click
@@ -104,17 +80,17 @@ public class GameScene {
 		root = new StackPane();
 		root.setPadding(new Insets(0));
 		root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-		root.setMinSize(GameConfig.getScreenWidth(), GameConfig.getScreenHeight());
-		root.setMaxSize(GameConfig.getScreenWidth(), GameConfig.getScreenHeight());
-		scene = new Scene(root, GameConfig.getScreenWidth(), GameConfig.getScreenHeight());
+		root.setMinSize(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
+		root.setMaxSize(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
+		scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
 
 		setupGamePane();
 		setupGameUI();
 
-		StackPane.setAlignment(new Group(inventoryPane), Pos.CENTER);
-		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
+//		StackPane.setAlignment(new Group(inventoryPane), Pos.CENTER);
+//		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
 
-		MapRenderer.render();
+//		MapRenderer.render();
 	}
 
 	/**

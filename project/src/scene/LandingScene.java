@@ -2,8 +2,8 @@ package scene;
 
 import gui.SettingPane;
 import gui.StyledButton;
-import game.GameController;
-import gui.GUIController;
+import controller.SceneController;
+import controller.GameController;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,7 +26,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import utils.AudioUtil;
+import utils.DrawUtil;
+import utils.FontUtil;
 import utils.GameConfig;
+import utils.TransitionUtil;
 
 /**
  * The LandingPane class represent the {@link Scene} which display for the first.
@@ -98,7 +102,7 @@ public class LandingScene {
 	/**
 	 * Represent the background music of main page / landing page.
 	 */
-	private static MediaPlayer bgm = AudioUtils.getLandingSceneBGM();
+	private static MediaPlayer bgm = AudioUtil.getLandingSceneBGM();
 
 	/**
 	 * Get the {@link #cachedScene landingScene}.
@@ -128,7 +132,7 @@ public class LandingScene {
 		container.getChildren().addAll(titleText, buttonBox);
 		buttonBox.getChildren().addAll(startBtn, optionBtn, exitBtn);
 
-		cachedScene = GUIController.makeNewScene(root);
+		cachedScene = SceneController.makeNewScene(root);
 		return cachedScene;
 	}
 
@@ -190,7 +194,7 @@ public class LandingScene {
 		fading.setOnFinished((event) -> {
 			bgm.stop();
 			bgm.seek(Duration.ZERO);
-			GameController.start();
+//			GameController.start();
 			container.setOpacity(1.0);
 		});
 	}

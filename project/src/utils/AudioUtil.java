@@ -13,7 +13,7 @@ import scene.LandingScene;
  * The GameAudioUtils class is the class that provide the {@link MediaPlayer}
  * for audio and update volume method.
  */
-public class AudioUtils {
+public class AudioUtil {
 
 	/**
 	 * The {@link GameScene} background music.
@@ -55,13 +55,13 @@ public class AudioUtils {
 	 * Load music audio.
 	 */
 	static {
-		gameSceneBGM = loadAudioLoop("bgm/BGMDungeon.mp3");
-		landingSceneBGM = loadAudioLoop("bgm/BGMMainScene.mp3");
-		trainingSFX = loadSFX("sfx/open_inventory.mp3");
-		buildingSFX = loadSFX("sfx/close_inventory.mp3");
-		destroyingSFX = loadSFX("sfx/destroy.mp3");
-		attackingSFX = loadSFX("sfx/attack.mp3");
-		dyingSFX = loadSFX("sfx/death.mp3");
+		gameSceneBGM = loadAudioLoop(GameConfig.GAME_SCENE_BGM);
+		landingSceneBGM = loadAudioLoop(GameConfig.LANDING_SCENE_BGM);
+		trainingSFX = loadSFX(GameConfig.TRAINING_SFX);
+		buildingSFX = loadSFX(GameConfig.BUILDING_SFX);
+		destroyingSFX = loadSFX(GameConfig.DESTROYING_SFX);
+		attackingSFX = loadSFX(GameConfig.ATTACKING_SFX);
+		dyingSFX = loadSFX(GameConfig.DYING_SFX);
 
 		updateBGMVolume();
 		updateEffectVolume();
@@ -75,6 +75,7 @@ public class AudioUtils {
 	 */
 	private static MediaPlayer loadAudioLoop(String filePath) {
 		URL resource = ClassLoader.getSystemResource(filePath);
+		System.out.println(filePath + resource);
 		MediaPlayer player = new MediaPlayer(new Media(resource.toString()));
 
 		player.setOnEndOfMedia(new Runnable() {
@@ -105,19 +106,19 @@ public class AudioUtils {
 	 * Update all background music volume to current setting.
 	 */
 	public static void updateBGMVolume() {
-		gameSceneBGM.setVolume(GameConfig.bgmVolume);
-		landingSceneBGM.setVolume(GameConfig.bgmVolume);
+		gameSceneBGM.setVolume(GameConfig.getBgmVolume());
+		landingSceneBGM.setVolume(GameConfig.getBgmVolume());
 	}
 
 	/**
 	 * Update all effect volume to current setting.
 	 */
 	public static void updateEffectVolume() {
-		trainingSFX.setVolume(GameConfig.effectVolume);
-		buildingSFX.setVolume(GameConfig.effectVolume);
-		destroyingSFX.setVolume(GameConfig.effectVolume);
-		attackingSFX.setVolume(GameConfig.effectVolume);
-		dyingSFX.setVolume(GameConfig.effectVolume);
+		trainingSFX.setVolume(GameConfig.getEffectVolume());
+		buildingSFX.setVolume(GameConfig.getEffectVolume());
+		destroyingSFX.setVolume(GameConfig.getEffectVolume());
+		attackingSFX.setVolume(GameConfig.getEffectVolume());
+		dyingSFX.setVolume(GameConfig.getEffectVolume());
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class AudioUtils {
 	 * @param gameSceneBGM new instance of {@link #gameSceneBGM}
 	 */
 	public static void setGameSceneBGM(MediaPlayer gameSceneBGM) {
-		AudioUtils.gameSceneBGM = gameSceneBGM;
+		AudioUtil.gameSceneBGM = gameSceneBGM;
 	}
 
 	/**
@@ -153,7 +154,7 @@ public class AudioUtils {
 	 * @param landingSceneBGM new instance of {@link #landingSceneBGM}
 	 */
 	public static void setLandingSceneBGM(MediaPlayer landingSceneBGM) {
-		AudioUtils.landingSceneBGM = landingSceneBGM;
+		AudioUtil.landingSceneBGM = landingSceneBGM;
 	}
 
 	/**
@@ -171,7 +172,7 @@ public class AudioUtils {
 	 * @param trainingSFX the new {@link #traningSFX}
 	 */
 	public static void settrainingSFX(AudioClip trainingSFX) {
-		AudioUtils.trainingSFX = trainingSFX;
+		AudioUtil.trainingSFX = trainingSFX;
 	}
 	
 	/**
@@ -189,7 +190,7 @@ public class AudioUtils {
 	 * @param buidingSFX the new {@link #buidingSFX}
 	 */
 	public static void setBuildingSFX(AudioClip buildingSFX) {
-		AudioUtils.buildingSFX = buildingSFX;
+		AudioUtil.buildingSFX = buildingSFX;
 	}
 	
 	/**
@@ -207,7 +208,7 @@ public class AudioUtils {
 	 * @param dsetroyingSFX the new {@link #destroyingSFX}
 	 */
 	public static void setDestroyingSFX(AudioClip destroyingSFX) {
-		AudioUtils.destroyingSFX = destroyingSFX;
+		AudioUtil.destroyingSFX = destroyingSFX;
 	}
 
 	/**
@@ -225,7 +226,7 @@ public class AudioUtils {
 	 * @param attackingSFX the new {@link #attackingSFX}
 	 */
 	public static void setAttackingSFX(AudioClip attackingSFX) {
-		AudioUtils.attackingSFX = attackingSFX;
+		AudioUtil.attackingSFX = attackingSFX;
 	}
 	
 	/**
@@ -243,6 +244,6 @@ public class AudioUtils {
 	 * @param dsetroyingSFX the new {@link #destroyingSFX}
 	 */
 	public static void setDyingSFX(AudioClip dyingSFX) {
-		AudioUtils.dyingSFX = dyingSFX;
+		AudioUtil.dyingSFX = dyingSFX;
 	}
 }

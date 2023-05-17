@@ -6,10 +6,67 @@ public class GameConfig {
 	// We also need to do the document for these T_T.
 	
 	
+	
+	// GRAPHIC
+	
+	/**
+	 * Represent the default width of scene.
+	 */
+	private static int screenWidth = 800;
+
+	/**
+	 * Represent the default height of scene.
+	 */
+	private static int screenHeight = 450;
+
+	/**
+	 * Represent the scale factor of sprite, components and font which it depends on
+	 * window width and height.
+	 */
+	private static int scale = 2;
+	
+	private static boolean isSkipMoveAnimation = false;
+	
+	public static final double SCREEN_SCALING = 0.9;
+	
+	public static final String ICON_NAME = "icon.png";
+	
+	public static final int SCREEN_RESPONSIVE = 800;
+	
+	public static final boolean STAGE_SCALABLE = false;
+	
+	
+	
+	// Game Info
+	
+	private static int mapSize = 20;
+	
+	private static int enemyWaveNumber = 5;
+	
+	private static int dayPerWave = 5;
+	
+	private static int preparationWaveNumber = 10;
+	
+	public static final String GAME_TITLE = "Veeliw";
+	
+	
+	
 	// Audio
 	
-	public static double bgmVolume = 0.1;
-	public static double effectVolume = 0.4;
+	private static double bgmVolume = 0.1;
+	
+	private static double effectVolume = 0.4;
+	
+	public static final String GAME_SCENE_BGM = "bgm/BGMGame.mp3";
+	public static final String LANDING_SCENE_BGM = "bgm/BGMLanding.mp3";
+	
+	public static final String TRAINING_SFX = "sfx/training.mp3";
+	public static final String BUILDING_SFX = "sfx/building.mp3";
+	public static final String DESTROYING_SFX = "sfx/destroying.mp3";
+	public static final String ATTACKING_SFX = "sfx/attacking.mp3";
+	public static final String DYING_SFX = "sfx/dying.mp3";
+	
+	
 	
 	// Resources Production
 	
@@ -38,6 +95,8 @@ public class GameConfig {
 	public static final float SMELTER_WORK_RATE = (float) 0.50;
 	
 	public static final float HOUSE_BORN_RATE = (float) 0.10;
+	
+	
 	
 	// Materials requirement for crafting each resources
 	
@@ -71,12 +130,16 @@ public class GameConfig {
 	public static final int MILITARYCAMP_REQUIRE_STONE = 100;
 	public static final int MILITARYCAMP_REQUIRE_IRON = 100;
 	
+	
+	
 	// Materials price
 	
 	public static final int FOOD_PRICE = 5;
 	public static final int WOOD_PRICE = 5;
 	public static final int STONE_PRICE = 5;
 	public static final int IRON_PRICE = 5;
+	
+	
 	
 	//	Military 
 	
@@ -103,5 +166,88 @@ public class GameConfig {
 	public static final float ARCHER_ATTACK_MULTIPLIER = (float) 0.2;
 	
 	public static final int MILLITARY_UPGRADE_PRICE = 1000;
+
+	
+	
+	
+	public static int getScreenWidth() {
+		return screenWidth;
+	}
+
+	public static void setScreenWidth(int screenWidth) {
+		GameConfig.screenWidth = screenWidth;
+	}
+
+	public static int getScreenHeight() {
+		return screenHeight;
+	}
+
+	public static void setScreenHeight(int screenHeight) {
+		GameConfig.screenHeight = screenHeight;
+	}
+
+	public static int getScale() {
+		return scale;
+	}
+
+	public static void setScale(int scale) {
+		GameConfig.scale = scale;
+	}
+
+	public static boolean isSkipMoveAnimation() {
+		return isSkipMoveAnimation;
+	}
+
+	public static void setSkipMoveAnimation(boolean isSkipMoveAnimation) {
+		GameConfig.isSkipMoveAnimation = isSkipMoveAnimation;
+	}
+
+	public static int getMapSize() {
+		return mapSize;
+	}
+
+	public static void setMapSize(int mapSize) {
+		GameConfig.mapSize = mapSize;
+	}
+
+	public static int getEnemyWaveNumber() {
+		return enemyWaveNumber;
+	}
+
+	public static void setEnemyWaveNumber(int enemyWaveNumber) {
+		GameConfig.enemyWaveNumber = enemyWaveNumber;
+	}
+
+	public static int getDayPerWave() {
+		return dayPerWave;
+	}
+
+	public static void setDayPerWave(int dayPerWave) {
+		GameConfig.dayPerWave = dayPerWave;
+	}
+
+	public static int getPreparationWaveNumber() {
+		return preparationWaveNumber;
+	}
+
+	public static void setPreparationWaveNumber(int preparationWaveNumber) {
+		GameConfig.preparationWaveNumber = preparationWaveNumber;
+	}
+
+	public static double getBgmVolume() {
+		return bgmVolume;
+	}
+
+	public static void setBgmVolume(double bgmVolume) {
+		GameConfig.bgmVolume = bgmVolume;
+	}
+
+	public static double getEffectVolume() {
+		return effectVolume;
+	}
+
+	public static void setEffectVolume(double effectVolume) {
+		GameConfig.effectVolume = effectVolume;
+	}
 	
 }
