@@ -256,4 +256,32 @@ public class GameLogic {
 			enemyUnits.put(unit, destination);
 		}
 	}
+	
+	public static boolean militaryIsInCamp(MilitaryCamp camp, BaseUnit unit) {
+		if (!ourUnits.containsKey(unit)) return false;
+		Position unitPos = ourUnits.get(unit);
+		return buildings.get(unitPos) == camp;		
+	} 
+	
+	public static boolean payToUpgrateMilitary() {
+		if (money < Config.MILLITARY_UPGRADE_PRICE) return false;
+		money -= Config.MILLITARY_UPGRADE_PRICE;
+		return true;
+	}
+	
+	public static void changeMilitary(BaseUnit unit_old, BaseUnit unit_new) {
+		if (!ourUnits.containsKey(unit_old)) return;
+		Position pos = ourUnits.get(unit_old);
+		ourUnits.remove(unit_old);
+		ourUnits.put(unit_new, pos);
+	}
+	
+	public static Terrain getOurUnitTerrain(BaseUnit unit) {
+		Position pos = ourUnits.get(unit);
+		return map.get(pos);
+	}
+	
+	public static void addOurUnit(BaseUnit unit, Position pos) {
+		ourUnits.put(unit, pos);
+	}
 }

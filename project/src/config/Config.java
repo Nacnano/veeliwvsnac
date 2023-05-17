@@ -68,6 +68,7 @@ public class Config {
 	public static final int WOOD_PRICE = 5;
 	public static final int STONE_PRICE = 5;
 	public static final int IRON_PRICE = 5;
+	
 	//	Military 
 	
 	public static final int MILITARY_SIZE = 100;
@@ -91,5 +92,7 @@ public class Config {
 	public static final int ARCHER_ATTACK_RANGE = 5;
 	public static final int ARCHER_MOVE_RANGE = 4;
 	public static final float ARCHER_ATTACK_MULTIPLIER = (float) 0.2;
+	
+	public static final int MILLITARY_UPGRADE_PRICE = 1000;
 	
 }
