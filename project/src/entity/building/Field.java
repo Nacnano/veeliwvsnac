@@ -1,13 +1,12 @@
 package entity.building;
 
 import game.Terrain;
-
-import config.Config;
+import utils.GameConfig;
 
 public class Field extends Resource {
 	
 	public Field() {
-		super(Config.FIELD_DURABILITY, Config.FIELD_MAX_PEOPLE, Config.FIELD_FATALITY_RATE);
+		super(GameConfig.FIELD_DURABILITY, GameConfig.FIELD_MAX_PEOPLE, GameConfig.FIELD_FATALITY_RATE);
 	}
 
 	public boolean canBuildOn(Terrain t) {

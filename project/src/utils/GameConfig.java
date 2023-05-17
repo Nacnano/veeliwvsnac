@@ -1,6 +1,15 @@
-package config;
+package utils;
 
-public class Config {
+public class GameConfig {
+	
+	// TODO: Add getter and setter for all of theses?
+	// We also need to do the document for these T_T.
+	
+	
+	// Audio
+	
+	public static double bgmVolume = 0.1;
+	public static double effectVolume = 0.4;
 	
 	// Resources Production
 	

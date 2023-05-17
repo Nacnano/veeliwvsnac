@@ -1,6 +1,6 @@
 package entity.unit;
 
-import config.Config;
+import utils.GameConfig;
 
 public class FieldSwordMan extends SwordMan implements Attackable, Movable{
 

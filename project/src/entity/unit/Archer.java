@@ -1,11 +1,11 @@
 package entity.unit;
 
-import config.Config;
+import utils.GameConfig;
 
 public class Archer extends BaseUnit implements Movable, Attackable{
 
 	public Archer() {
-		super(Config.MILITARY_SIZE, Config.ARCHER_ATTACK_RANGE, Config.ARCHER_MOVE_RANGE, Config.ARCHER_ATTACK_MULTIPLIER, false);
+		super(GameConfig.MILITARY_SIZE, GameConfig.ARCHER_ATTACK_RANGE, GameConfig.ARCHER_MOVE_RANGE, GameConfig.ARCHER_ATTACK_MULTIPLIER, false);
 	}
 	
 	// attack and move can be used by calling "super" for BaseUnit's method (The logics are the same.)
