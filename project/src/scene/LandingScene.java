@@ -2,7 +2,6 @@ package scene;
 
 import gui.SettingPane;
 import gui.StyledButton;
-import config.Config;
 import game.GameController;
 import gui.GUIController;
 import javafx.animation.FadeTransition;
@@ -27,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import utils.GameConfig;
 
 /**
  * The LandingPane class represent the {@link Scene} which display for the first.
@@ -138,7 +138,7 @@ public class LandingScene {
 	private static void setupContainer() {
 		container = new VBox();
 
-		BackgroundSize bgSize = new BackgroundSize(Config.getScreenWidth(), Config.getScreenHeight(), false,
+		BackgroundSize bgSize = new BackgroundSize(GameConfig.getScreenWidth(), GameConfig.getScreenHeight(), false,
 				false, false, false);
 
 		WritableImage bgImg = DrawUtil.getWritableImage("landingBG.jpg");

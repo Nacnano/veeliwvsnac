@@ -1,12 +1,12 @@
 package entity.building;
 
-import config.Config;
 import game.Terrain;
+import utils.GameConfig;
 
 public class Smelter extends Resource {
 
 	public Smelter() {
-		super(Config.SMELTER_DURABILITY, Config.SMELTER_MAX_PEOPLE, Config.SMELTER_FATALITY_RATE);
+		super(GameConfig.SMELTER_DURABILITY, GameConfig.SMELTER_MAX_PEOPLE, GameConfig.SMELTER_FATALITY_RATE);
 	}
 
 	public boolean canBuildOn(Terrain t) {

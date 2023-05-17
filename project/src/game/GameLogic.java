@@ -3,7 +3,6 @@ package game;
 import java.util.ArrayList;
 import java.util.Map;
 
-import config.Config;
 import entity.building.BaseBuilding;
 import entity.building.Buildable;
 import entity.building.Field;
@@ -14,6 +13,7 @@ import entity.building.Resource;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import entity.unit.BaseUnit;
+import utils.GameConfig;
 
 public class GameLogic {
 	private static int day, boardWidth, boardHeight, wave, period;
@@ -89,7 +89,7 @@ public class GameLogic {
 			if (b instanceof House) 
 				countHouse++;
 		}
-		return Config.HOUSE_MAX_PEOPLE * countHouse;
+		return GameConfig.HOUSE_MAX_PEOPLE * countHouse;
 	}
 	
 	public int getUnemployed() {
@@ -108,103 +108,103 @@ public class GameLogic {
 			int currentPeople = ((Resource) b).getCurrentPeople();
 			
 			if (b instanceof Field) {
-				food += Config.FIELD_WORK_RATE * currentPeople;
+				food += GameConfig.FIELD_WORK_RATE * currentPeople;
 			}
 			else if (b instanceof Mine) {
-				stone += Config.MINE_WORK_RATE * currentPeople;
-				ironOre += Config.MINE_WORK_RATE * currentPeople;
+				stone += GameConfig.MINE_WORK_RATE * currentPeople;
+				ironOre += GameConfig.MINE_WORK_RATE * currentPeople;
 			}
 			else if (b instanceof Sawmill) {
-				wood += Config.SAWMILL_WORK_RATE * currentPeople;
+				wood += GameConfig.SAWMILL_WORK_RATE * currentPeople;
 			}
 			else if (b instanceof Smelter) {
-				iron += Config.SMELTER_WORK_RATE * currentPeople;
+				iron += GameConfig.SMELTER_WORK_RATE * currentPeople;
 			}
 		}
 	}
 	
 	public void updateCurrentPopulation() {
 		if (currentPopulation >= getMaxPopulation()) return;
-		int newPopulation = currentPopulation + (int) (currentPopulation * Config.HOUSE_BORN_RATE);
+		int newPopulation = currentPopulation + (int) (currentPopulation * GameConfig.HOUSE_BORN_RATE);
 		currentPopulation = Math.min(getMaxPopulation(), newPopulation);
 	}
 	
 	private boolean hasEnoughMaterial(BaseBuilding b) {
 		if (b instanceof Field) {
-			return money >= Config.FIELD_REQUIRE_MONEY &&
-				   wood >= Config.FIELD_REQUIRE_WOOD &&
-				   stone >= Config.FILED_REQUIRE_STONE &&
-				   iron >= Config.FIELD_REQUIRE_IRON;
+			return money >= GameConfig.FIELD_REQUIRE_MONEY &&
+				   wood >= GameConfig.FIELD_REQUIRE_WOOD &&
+				   stone >= GameConfig.FILED_REQUIRE_STONE &&
+				   iron >= GameConfig.FIELD_REQUIRE_IRON;
 		}
 		else if (b instanceof Mine) {
-			return money >= Config.MINE_REQUIRE_MONEY &&
-					   wood >= Config.MINE_REQUIRE_WOOD &&
-					   stone >= Config.MINE_REQUIRE_STONE &&
-					   iron >= Config.MINE_REQUIRE_IRON;
+			return money >= GameConfig.MINE_REQUIRE_MONEY &&
+					   wood >= GameConfig.MINE_REQUIRE_WOOD &&
+					   stone >= GameConfig.MINE_REQUIRE_STONE &&
+					   iron >= GameConfig.MINE_REQUIRE_IRON;
 		}
 		else if (b instanceof Sawmill) {
-			return money >= Config.SAWMILL_REQUIRE_MONEY &&
-					   wood >= Config.SAWMILL_REQUIRE_WOOD &&
-					   stone >= Config.SAWMILL_REQUIRE_STONE &&
-					   iron >= Config.SAWMILL_REQUIRE_IRON;
+			return money >= GameConfig.SAWMILL_REQUIRE_MONEY &&
+					   wood >= GameConfig.SAWMILL_REQUIRE_WOOD &&
+					   stone >= GameConfig.SAWMILL_REQUIRE_STONE &&
+					   iron >= GameConfig.SAWMILL_REQUIRE_IRON;
 		}
 		else if (b instanceof Smelter) {
-			return money >= Config.SMELTER_REQUIRE_MONEY &&
-					   wood >= Config.SMELTER_REQUIRE_WOOD &&
-					   stone >= Config.SMELTER_REQUIRE_STONE &&
-					   iron >= Config.SMELTER_REQUIRE_IRON;
+			return money >= GameConfig.SMELTER_REQUIRE_MONEY &&
+					   wood >= GameConfig.SMELTER_REQUIRE_WOOD &&
+					   stone >= GameConfig.SMELTER_REQUIRE_STONE &&
+					   iron >= GameConfig.SMELTER_REQUIRE_IRON;
 		}
 		else if (b instanceof House) {
-			return money >= Config.HOUSE_REQUIRE_MONEY &&
-					   wood >= Config.HOUSE_REQUIRE_WOOD &&
-					   stone >= Config.HOUSE_REQUIRE_STONE &&
-					   iron >= Config.HOUSE_REQUIRE_IRON;
+			return money >= GameConfig.HOUSE_REQUIRE_MONEY &&
+					   wood >= GameConfig.HOUSE_REQUIRE_WOOD &&
+					   stone >= GameConfig.HOUSE_REQUIRE_STONE &&
+					   iron >= GameConfig.HOUSE_REQUIRE_IRON;
 		}
 		else if (b instanceof MilitaryCamp) {
-			return money >= Config.MILITARYCAMP_REQUIRE_MONEY &&
-					   wood >= Config.MILITARYCAMP_REQUIRE_WOOD &&
-					   stone >= Config.MILITARYCAMP_REQUIRE_STONE &&
-					   iron >= Config.MILITARYCAMP_REQUIRE_IRON;
+			return money >= GameConfig.MILITARYCAMP_REQUIRE_MONEY &&
+					   wood >= GameConfig.MILITARYCAMP_REQUIRE_WOOD &&
+					   stone >= GameConfig.MILITARYCAMP_REQUIRE_STONE &&
+					   iron >= GameConfig.MILITARYCAMP_REQUIRE_IRON;
 		}
 		else return false;
 	}
 	
 	private void deductMaterial(BaseBuilding b) {
 		if (b instanceof Field) {
-			money -= Config.FIELD_REQUIRE_MONEY;
-			wood -= Config.FIELD_REQUIRE_WOOD;
-			stone -= Config.FILED_REQUIRE_STONE;
-			iron -= Config.FIELD_REQUIRE_IRON;
+			money -= GameConfig.FIELD_REQUIRE_MONEY;
+			wood -= GameConfig.FIELD_REQUIRE_WOOD;
+			stone -= GameConfig.FILED_REQUIRE_STONE;
+			iron -= GameConfig.FIELD_REQUIRE_IRON;
 		}
 		else if (b instanceof Mine) {
-			money -= Config.MINE_REQUIRE_MONEY;
-			wood -= Config.MINE_REQUIRE_WOOD;
-			stone -= Config.MINE_REQUIRE_STONE;
-			iron -= Config.MINE_REQUIRE_IRON;
+			money -= GameConfig.MINE_REQUIRE_MONEY;
+			wood -= GameConfig.MINE_REQUIRE_WOOD;
+			stone -= GameConfig.MINE_REQUIRE_STONE;
+			iron -= GameConfig.MINE_REQUIRE_IRON;
 		}
 		else if (b instanceof Sawmill) {
-			money -= Config.SAWMILL_REQUIRE_MONEY;
-			wood -= Config.SAWMILL_REQUIRE_WOOD;
-			stone -= Config.SAWMILL_REQUIRE_STONE;
-			iron -= Config.SAWMILL_REQUIRE_IRON;
+			money -= GameConfig.SAWMILL_REQUIRE_MONEY;
+			wood -= GameConfig.SAWMILL_REQUIRE_WOOD;
+			stone -= GameConfig.SAWMILL_REQUIRE_STONE;
+			iron -= GameConfig.SAWMILL_REQUIRE_IRON;
 		}
 		else if (b instanceof Smelter) {
-			money -= Config.SMELTER_REQUIRE_MONEY;
-			wood -= Config.SMELTER_REQUIRE_WOOD;
-			stone -= Config.SMELTER_REQUIRE_STONE;
-			iron -= Config.SMELTER_REQUIRE_IRON;
+			money -= GameConfig.SMELTER_REQUIRE_MONEY;
+			wood -= GameConfig.SMELTER_REQUIRE_WOOD;
+			stone -= GameConfig.SMELTER_REQUIRE_STONE;
+			iron -= GameConfig.SMELTER_REQUIRE_IRON;
 		}
 		else if (b instanceof House) {
-			money -= Config.HOUSE_REQUIRE_MONEY;
-			wood -= Config.HOUSE_REQUIRE_WOOD;
-			stone -= Config.HOUSE_REQUIRE_STONE;
-			iron -= Config.HOUSE_REQUIRE_IRON;
+			money -= GameConfig.HOUSE_REQUIRE_MONEY;
+			wood -= GameConfig.HOUSE_REQUIRE_WOOD;
+			stone -= GameConfig.HOUSE_REQUIRE_STONE;
+			iron -= GameConfig.HOUSE_REQUIRE_IRON;
 		}
 		else if (b instanceof MilitaryCamp) {
-			money -= Config.MILITARYCAMP_REQUIRE_MONEY;
-			wood -= Config.MILITARYCAMP_REQUIRE_WOOD;
-			stone -= Config.MILITARYCAMP_REQUIRE_STONE;
-			iron -= Config.MILITARYCAMP_REQUIRE_IRON;
+			money -= GameConfig.MILITARYCAMP_REQUIRE_MONEY;
+			wood -= GameConfig.MILITARYCAMP_REQUIRE_WOOD;
+			stone -= GameConfig.MILITARYCAMP_REQUIRE_STONE;
+			iron -= GameConfig.MILITARYCAMP_REQUIRE_IRON;
 		}
 	}
 	
@@ -220,19 +220,19 @@ public class GameLogic {
 	public void saleMaterial(Material m, int amount) {
 		if (m == Material.FOOD && food >= amount) {
 			food -= amount;
-			money += Config.FOOD_PRICE * amount;
+			money += GameConfig.FOOD_PRICE * amount;
 		}
 		else if (m == Material.WOOD && wood >= amount) {
 			wood -=  amount;
-			money += Config.WOOD_PRICE * amount;
+			money += GameConfig.WOOD_PRICE * amount;
 		} 
 		else if (m == Material.STONE && stone >= amount) {
 			stone -= amount;
-			money += Config.STONE_PRICE * amount;
+			money += GameConfig.STONE_PRICE * amount;
 		}
 		else if (m == Material.IRON && iron >= amount) {
 			iron -= amount;
-			money += Config.IRON_PRICE * amount;
+			money += GameConfig.IRON_PRICE * amount;
 		}
 	}
 	
@@ -264,8 +264,8 @@ public class GameLogic {
 	} 
 	
 	public static boolean payToUpgrateMilitary() {
-		if (money < Config.MILLITARY_UPGRADE_PRICE) return false;
-		money -= Config.MILLITARY_UPGRADE_PRICE;
+		if (money < GameConfig.MILLITARY_UPGRADE_PRICE) return false;
+		money -= GameConfig.MILLITARY_UPGRADE_PRICE;
 		return true;
 	}
 	

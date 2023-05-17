@@ -1,6 +1,5 @@
 package entity.building;
 
-import config.Config;
 import entity.unit.Archer;
 import entity.unit.BaseUnit;
 import entity.unit.FieldSwordMan;
@@ -9,13 +8,14 @@ import entity.unit.MountainSwordMan;
 import entity.unit.SwordMan;
 import game.GameLogic;
 import game.Terrain;
+import utils.GameConfig;
 
 public class MilitaryCamp extends BaseBuilding {
 	
 	private BaseUnit military;
 	
 	public MilitaryCamp() {
-		super(Config.MILITARYCAMP_DURABILITY);
+		super(GameConfig.MILITARYCAMP_DURABILITY);
 	}
 	
 	public boolean canBuildOn(Terrain t) {
@@ -52,6 +52,6 @@ public class MilitaryCamp extends BaseBuilding {
 		// full pack
 		if (military == null) return;
 		if (!GameLogic.militaryIsInCamp(this, military)) return;
-		military.setPeople(Config.MILITARY_SIZE);
+		military.setPeople(GameConfig.MILITARY_SIZE);
 	}
 }

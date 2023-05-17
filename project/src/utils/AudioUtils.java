@@ -105,19 +105,19 @@ public class AudioUtils {
 	 * Update all background music volume to current setting.
 	 */
 	public static void updateBGMVolume() {
-		gameSceneBGM.setVolume(GameConfig.getBgmVolume());
-		landingSceneBGM.setVolume(GameConfig.getBgmVolume());
+		gameSceneBGM.setVolume(GameConfig.bgmVolume);
+		landingSceneBGM.setVolume(GameConfig.bgmVolume);
 	}
 
 	/**
 	 * Update all effect volume to current setting.
 	 */
 	public static void updateEffectVolume() {
-		trainingSFX.setVolume(GameConfig.getEffectVolume());
-		buildingSFX.setVolume(GameConfig.getEffectVolume());
-		destroyingSFX.setVolume(GameConfig.getEffectVolume());
-		attackingSFX.setVolume(GameConfig.getEffectVolume());
-		dyingSFX.setVolume(GameConfig.getEffectVolume());
+		trainingSFX.setVolume(GameConfig.effectVolume);
+		buildingSFX.setVolume(GameConfig.effectVolume);
+		destroyingSFX.setVolume(GameConfig.effectVolume);
+		attackingSFX.setVolume(GameConfig.effectVolume);
+		dyingSFX.setVolume(GameConfig.effectVolume);
 	}
 
 	/**
