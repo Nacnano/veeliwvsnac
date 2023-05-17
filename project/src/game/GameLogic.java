@@ -233,6 +233,26 @@ public class GameLogic {
 		else if (m == Material.IRON && iron >= amount) {
 			iron -= amount;
 			money += Config.IRON_PRICE * amount;
+	}
+	
+	public void moveBuilding(Position p1, Position p2) {
+		BaseBuilding b = buildings.get(p1);
+		if (b.canBuildOn(map.get(p2)) && !buildings.containsKey(p2)) {
+			buildings.remove(p1);
+			buildings.put(p2, b);
+		}
+	}
+	
+	public void attackUnit(BaseUnit attacker, BaseUnit attacked) {
+		attacker.attack(attacked);
+	}
+	
+	public void moveUnit(BaseUnit unit, Position destination) {
+		if(ourUnits.containsKey(unit)) {
+			ourUnits.put(unit, destination);
+		}
+		else if(enemyUnits.containsKey(unit)) {
+			enemyUnits.put(unit, destination);
 		}
 	}
 }
