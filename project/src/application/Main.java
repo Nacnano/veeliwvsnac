@@ -29,11 +29,8 @@ public class Main extends Application {
 		double MaxY = screenBound.getMaxY() * GameConfig.SCREEN_SCALING;
 		double rectangleSize = Math.min(MaxX, MaxY);
 
-		GameConfig.setScreenWidth((int) rectangleSize);
+		GameConfig.setScreenWidth((int) (16 * rectangleSize / 9) );
 		GameConfig.setScreenHeight((int) rectangleSize);
-		if (rectangleSize > GameConfig.SCREEN_RESPONSIVE) {
-			GameConfig.setScale(3);
-		}
 
 		primaryStage.getIcons().add(new Image(iconPath));
 		primaryStage.setTitle(GameConfig.GAME_TITLE);

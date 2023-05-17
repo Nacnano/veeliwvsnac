@@ -23,15 +23,13 @@ public class GameConfig {
 	 * Represent the scale factor of sprite, components and font which it depends on
 	 * window width and height.
 	 */
-	private static int scale = 2;
+	private static int scale = 3;
 	
 	private static boolean isSkipMoveAnimation = false;
 	
-	public static final double SCREEN_SCALING = 0.9;
+	public static final double SCREEN_SCALING = 0.8;
 	
 	public static final String ICON_NAME = "icon.png";
-	
-	public static final int SCREEN_RESPONSIVE = 1200;
 	
 	public static final boolean STAGE_SCALABLE = false;
 	
@@ -40,6 +38,8 @@ public class GameConfig {
 	
 	
 	// Game Info
+
+	public static final String GAME_TITLE = "Veeliw vs Nac";
 	
 	private static int mapSize = 20;
 	
@@ -48,8 +48,6 @@ public class GameConfig {
 	private static int dayPerWave = 5;
 	
 	private static int preparationWaveNumber = 10;
-	
-	public static final String GAME_TITLE = "Veeliw";
 	
 	
 	
