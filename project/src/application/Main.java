@@ -1,20 +1,28 @@
 package application;
 
-import controller.GUIController;
+import gui.GUIController;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class Main extends Application{
-	
-	@Override
+/**
+ * Main class of the application.
+ */
+public class Main extends Application {
+
+	 /**
+     * JavaFX method. Called when the JavaFX application launches.
+     * @param primaryStage The main stage of the application.
+     */
+    @Override
     public void start(Stage primaryStage) {
 
         HBox root = GUIController.initialize();
+//        GameController.initialize("map_1");
 
-        primaryStage.setTitle("Game Name");
-//        primaryStage.setScene(new Scene(root));
-//      primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.setTitle("GrimStroke");
+        primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
@@ -26,5 +34,4 @@ public class Main extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-
 }

@@ -1,4 +1,4 @@
-package controller;
+package gui;
 
 import javafx.scene.layout.AnchorPane;
 
