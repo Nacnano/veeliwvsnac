@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
  * The CellImage represents images with the size of a cell.
  */
 public class CellImage extends ImageView {
+	
     /**
      * The constructor for the CellImage class. It creates a new CellImage with the given ImageName.
      * @param imageName The name of the image of the cell.
