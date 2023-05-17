@@ -16,22 +16,22 @@ import entity.building.Smelter;
 import entity.unit.BaseUnit;
 
 public class GameLogic {
-	private int day, boardWidth, boardHeight, wave, period;
-	private int wood, stone, ironOre, iron, money, food;
+	private static int day, boardWidth, boardHeight, wave, period;
+	private static int wood, stone, ironOre, iron, money, food;
 	
 //  Turn these into functions instead
 //	private int jumberjack, miner, farmer, maxPopulation;
 	
 //	Add a new variable
-	private int currentPopulation;
+	private static int currentPopulation;
 	
-	private Map<BaseUnit, Position> ourUnits, enemyUnits;
-	private ArrayList<Position> unemployed;
+	private static Map<BaseUnit, Position> ourUnits, enemyUnits;
+	private static ArrayList<Position> unemployed;
 	// private Map<Terrain, Position> map;
-	private Map<Position, Terrain> map;
-	private boolean[][] territory;
+	private static Map<Position, Terrain> map;
+	private static boolean[][] territory;
 	// private Map<BaseBuilding, Position> buildings;	
-	private Map<Position, BaseBuilding> buildings;
+	private static Map<Position, BaseBuilding> buildings;
 	
 	// Functions for buildings
 	
@@ -233,6 +233,7 @@ public class GameLogic {
 		else if (m == Material.IRON && iron >= amount) {
 			iron -= amount;
 			money += Config.IRON_PRICE * amount;
+		}
 	}
 	
 	public void moveBuilding(Position p1, Position p2) {
@@ -247,7 +248,7 @@ public class GameLogic {
 		attacker.attack(attacked);
 	}
 	
-	public void moveUnit(BaseUnit unit, Position destination) {
+	public static void moveUnit(BaseUnit unit, Position destination) {
 		if(ourUnits.containsKey(unit)) {
 			ourUnits.put(unit, destination);
 		}
