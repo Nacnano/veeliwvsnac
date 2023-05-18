@@ -226,7 +226,7 @@ public class LandingScene {
 	 * Initialize {@link StyledButton} which used for exit button.
 	 */
 	private static void setupExitButton() {
-		exitBtn = new StyledButton(widthBox, "Exitttttt", Color.WHITE, Color.BLACK);
+		exitBtn = new StyledButton(widthBox, "Exit", Color.WHITE, Color.BLACK);
 		exitBtn.setTextFill(Color.WHITE);
 		exitBtn.setOnMouseClicked((event) -> SceneController.exitGame());
 	}

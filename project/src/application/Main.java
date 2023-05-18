@@ -39,7 +39,7 @@ public class Main extends Application {
 
 		SceneController.setMainStage(primaryStage);
 		
-//		SceneController.setSceneToStage(TestGameScene.getScene());
+		SceneController.setSceneToStage(TestGameScene.getScene());
 //		SceneController.setSceneToStage(LandingScene.getScene());
 
 		SceneController.showStage();
