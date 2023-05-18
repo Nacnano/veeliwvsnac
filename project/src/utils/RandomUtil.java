@@ -1,9 +1,13 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import entity.unit.BaseUnit;
+import entity.unit.SwordMan;
 
 
 /**
@@ -30,6 +34,19 @@ public class RandomUtil {
 			return 0;
 		return st + rand.nextInt(ed - st + 1);
 	}
+	
+	/**
+	 * Random the float in range st and ed (inclusive).
+	 * 
+	 * @param st the starting of range
+	 * @param ed the ending of range
+	 * @return the random float in range
+	 */
+	public static float randomFloat(float st, float ed) {
+		if(st > ed)
+			return 0;
+		return (float) (st + Math.random()*(ed-st));
+	}
 
 	/**
 	 * The utility method that shuffle the {@link Integer} array.
@@ -52,6 +69,32 @@ public class RandomUtil {
 		List<int[]> list = Arrays.asList(array);
 		Collections.shuffle(list);
 		list.toArray(array);
+	}
+	
+	public static ArrayList<BaseUnit> randomEnemyList(int enemyWave) {
+		int allEnemyNumber = enemyWave*5;
+
+		ArrayList<BaseUnit> enemyList = new ArrayList<>();
+		
+		
+		int enemyMinPeople = enemyWave * 3;
+		int enemyMaxPeople = enemyWave * 6;
+
+		float enemyMinAttackMultiplier = (float) 0.1;
+		float enemyMaxAttackMultiplier = (float) Math.min(0.75, enemyWave*0.1);
+	
+		int swordmanNumber = RandomUtil.random(1, allEnemyNumber/4);
+		for (int i = 0; i < swordmanNumber; i++) {
+			int randomPeople = random(enemyMinPeople, enemyMaxPeople);
+			float randomAttackMultiplier = randomFloat(enemyMinAttackMultiplier, enemyMaxAttackMultiplier);
+			enemyList
+					.add(new SwordMan(randomPeople, GameConfig.SWORDMAN_ATTACK_RANGE, GameConfig.SWORDMAN_MOVE_RANGE, randomAttackMultiplier));
+		}
+		allEnemyNumber -= swordmanNumber;
+		
+		// TODO: Add more enemy types
+		
+		return enemyList;
 	}
 
 }

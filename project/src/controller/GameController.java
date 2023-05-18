@@ -27,12 +27,7 @@ import utils.TransitionUtil;
 public class GameController {
 
 	/**
-	 * The {@link ArrayList} represents the map of each level.
-	 */
-	private static ArrayList<GameMap> levelMapList = new ArrayList<>();
-
-	/**
-	 * Represent the {@link GameMap} of current level.
+	 * Represent the {@link GameMap} of current map.
 	 */
 	private static GameMap gameMap;
 
@@ -42,28 +37,9 @@ public class GameController {
 	private static MediaPlayer bgm = AudioUtil.getGameSceneBGM();
 
 	/**
-	 * Represent the level of current floor.
-	 */
-	private static int level;
-
-	/**
 	 * Represent the current {@link Player} instance.
 	 */
 	private static Player player;
-
-	/**
-	 * Getter {@link GameMap} by floor level number method.
-	 * 
-	 * @param floor the number which want to get map
-	 * @return {@link GameMap} map of current floor
-	 * @throws InvalidFloorException throw if level is invalid
-	 */
-	public static GameMap getFloor(int floor) throws InvalidFloorException {
-		if ((levelMapList.size() < floor) || (floor <= 0)) {
-			throw new InvalidFloorException("The floor number is out of range");
-		}
-		return levelMapList.get(floor - 1);
-	}
 
 	/**
 	 * Create new {@link GameMap} and add to {@link #levelMapList}.
