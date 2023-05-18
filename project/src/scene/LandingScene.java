@@ -194,7 +194,7 @@ public class LandingScene {
 		fading.setOnFinished((event) -> {
 			bgm.stop();
 			bgm.seek(Duration.ZERO);
-//			GameController.start();
+			GameController.start();
 			container.setOpacity(1.0);
 		});
 	}

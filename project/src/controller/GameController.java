@@ -3,12 +3,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.Player;
-import exception.InvalidFloorException;
-import items.base.Armor;
-import items.base.Potion;
-import items.base.Weapon;
-import items.potion.InstantHealPotion;
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.media.MediaPlayer;
@@ -21,7 +15,7 @@ import scene.CongratulationScene;
 import scene.GameOverScene;
 import scene.GameScene;
 import scene.LandingScene;
-import utils.GameAudioUtils;
+import utils.AudioUtil;
 import utils.GameConfig;
 import utils.RandomUtil;
 import utils.TransitionUtil;
@@ -45,7 +39,7 @@ public class GameController {
 	/**
 	 * The {@link MediaPlayer} represent the background music of GameScene.
 	 */
-	private static MediaPlayer bgm = GameAudioUtils.getGameSceneBGM();
+	private static MediaPlayer bgm = AudioUtil.getGameSceneBGM();
 
 	/**
 	 * Represent the level of current floor.
