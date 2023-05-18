@@ -78,7 +78,6 @@ public class AudioUtil {
 		MediaPlayer player = new MediaPlayer(new Media(resource.toString()));
 
 		player.setOnEndOfMedia(new Runnable() {
-
 			@Override
 			public void run() {
 				player.seek(Duration.ZERO);

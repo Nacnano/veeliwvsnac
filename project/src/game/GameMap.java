@@ -20,11 +20,6 @@ public class GameMap {
 	private Cell gameMap[][];
 
 	/**
-	 * The List of room position on this level.
-	 */
-	private List<Pair<Integer, Integer>> roomList;
-
-	/**
 	 * The List of {@link Monster} on this level.
 	 */
 	private List<BaseUnit> enemyList;
@@ -35,7 +30,6 @@ public class GameMap {
 	public GameMap() {
 		gameMap = new Cell[GameConfig.getMapSize() + 10][GameConfig.getMapSize()+ 10];
 		enemyList = new CopyOnWriteArrayList<BaseUnit>();
-		roomList = new CopyOnWriteArrayList<Pair<Integer, Integer>>();
 	}
 
 	/**

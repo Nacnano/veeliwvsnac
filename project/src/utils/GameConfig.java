@@ -29,7 +29,7 @@ public class GameConfig {
 	
 	public static final double SCREEN_SCALING = 0.8;
 	
-	public static final String ICON_NAME = "icon.png";
+	public static final String ICON_NAME = "gameIcon.png";
 	
 	public static final boolean STAGE_SCALABLE = false;
 	

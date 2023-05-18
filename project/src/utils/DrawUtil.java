@@ -18,6 +18,7 @@ import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import game.Cell;
+import game.Terrain;
 import scene.GameScene;
 
 /**
@@ -41,7 +42,7 @@ public class DrawUtil {
 	 * Loads resources.
 	 */
 	static {
-//		cellSprites = getImagePixelReader("sprites/cell.png");
+		cellSprites = getImagePixelReader("unit/SwordMan.png");
 	}
 
 	/**
@@ -52,11 +53,11 @@ public class DrawUtil {
 	 * @param x    Position in the X-axis
 	 * @param cell The cell to be rendered
 	 */
-//	public static void drawCell(int y, int x, Cell cell) {
-//		GraphicsContext gc = GameScene.getGraphicsContext();
-//			WritableImage img = new WritableImage(cellSprites, 32, 40);
-//			gc.drawImage(scaleUp(img, GameConfig.getScale()), x, y - 8 * GameConfig.getScale());
-//	}
+	public static void drawTerrain(int y, int x, Terrain terrain) {
+		GraphicsContext gc = GameScene.getGraphicsContext();
+			WritableImage img = new WritableImage(cellSprites, 32, 40);
+			gc.drawImage(scaleUp(img, GameConfig.getScale()), x, y - 8 * GameConfig.getScale());
+	}
 
 
 	/**
