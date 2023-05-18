@@ -10,8 +10,9 @@ public class BaseUnit implements Attackable, Movable{
 	private float attackMultiplier;
 	private boolean isMoved;
 	private boolean isAttacked;
+	private Position position;
 	
-	public BaseUnit(int people, int attackRange, int moveRange, float attackMultiplier ) {
+	public BaseUnit(int people, int attackRange, int moveRange, float attackMultiplier) {
 		setPeople(people);
 		setAttackRange(attackRange);
 		setMoveRange(moveRange);
@@ -78,6 +79,14 @@ public class BaseUnit implements Attackable, Movable{
 
 	public boolean getIsAttacked() {
 		return isAttacked;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 }

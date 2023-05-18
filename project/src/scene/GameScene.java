@@ -3,7 +3,6 @@ package scene;
 import gui.MessagePane;
 import gui.PausePane;
 import controller.InterruptController;
-import entity.base.DispatchAction;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -42,6 +41,11 @@ public class GameScene {
 	 * pause button.
 	 */
 	private static PausePane pausePane;
+	
+	/**
+	 * The {@link MessagePane} that will display message.
+	 */
+	private static MessagePane messagePane;
 
 	/**
 	 * The pane for entity button.
@@ -80,15 +84,15 @@ public class GameScene {
 		root = new StackPane();
 		root.setPadding(new Insets(0));
 		root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-		root.setMinSize(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
-		root.setMaxSize(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
-		scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
+		root.setMinSize(GameConfig.getScreenWidth(), GameConfig.getScreenHeight());
+		root.setMaxSize(GameConfig.getScreenWidth(), GameConfig.getScreenHeight());
+		scene = new Scene(root, GameConfig.getScreenWidth(), GameConfig.getScreenHeight());
 
 		setupGamePane();
 		setupGameUI();
 
 //		StackPane.setAlignment(new Group(inventoryPane), Pos.CENTER);
-//		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
+		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
 
 //		MapRenderer.render();
 	}
@@ -117,47 +121,16 @@ public class GameScene {
 		ui.setPickOnBounds(false);
 		gamePane.getChildren().add(ui);
 
-		addInventoryButton(ui);
 		addPauseButton(ui);
 
-		statusPane = new StatusPane();
-		messagePane = new MessagePane();
-		effectPane = new EffectPane();
-		inventoryPane = new InventoryPane();
+//		statusPane = new StatusPane();
+//		messagePane = new MessagePane();
 		pausePane = new PausePane();
 
-		ui.getChildren().addAll(statusPane, messagePane, effectPane);
+//		ui.getChildren().addAll(statusPane, messagePane, effectPane);
 	}
 
-	/**
-	 * Add inventory button to the user interface pane.
-	 * 
-	 * @param ui The user interface pane
-	 */
-	private static void addInventoryButton(AnchorPane ui) {
-		Canvas inventoryBtn = new Canvas(32 * GameConfig.getScale(), 32 * GameConfig.getScale());
-		ui.getChildren().add(inventoryBtn);
 
-		AnchorPane.setBottomAnchor(inventoryBtn, 5.0 * GameConfig.getScale());
-		AnchorPane.setRightAnchor(inventoryBtn, 5.0 * GameConfig.getScale());
-
-		inventoryBtn.getGraphicsContext2D().drawImage(DrawUtil.scaleUp(backpackSprite, GameConfig.getScale()), 0, 0);
-
-		inventoryBtn.setOnMouseClicked((event) -> {
-			if (InterruptController.isPauseOpen() || InterruptController.isTransition()) {
-				return;
-			}
-			AudioClip openSFX = GameAudioUtils.getOpenInventorySFX();
-
-			gamePane.getChildren().add(inventoryPane);
-			inventoryPane.requestFocus();
-			InterruptController.setInventoryOpen(true);
-
-			if (!openSFX.isPlaying()) {
-				openSFX.play();
-			}
-		});
-	}
 
 	/**
 	 * Add pause button to the user interface pane.
@@ -198,21 +171,21 @@ public class GameScene {
 			KeyCode keycode = event.getCode();
 
 			switch (keycode) {
-			case A:
-				GameLogic.gameUpdate(DispatchAction.MOVE_LEFT);
-				break;
-			case D:
-				GameLogic.gameUpdate(DispatchAction.MOVE_RIGHT);
-				break;
-			case W:
-				GameLogic.gameUpdate(DispatchAction.MOVE_UP);
-				break;
-			case S:
-				GameLogic.gameUpdate(DispatchAction.MOVE_DOWN);
-				break;
-			case Q:
-				GameLogic.gameUpdate(DispatchAction.STAY_STILL);
-				break;
+//			case A:
+//				GameLogic.gameUpdate(DispatchAction.MOVE_LEFT);
+//				break;
+//			case D:
+//				GameLogic.gameUpdate(DispatchAction.MOVE_RIGHT);
+//				break;
+//			case W:
+//				GameLogic.gameUpdate(DispatchAction.MOVE_UP);
+//				break;
+//			case S:
+//				GameLogic.gameUpdate(DispatchAction.MOVE_DOWN);
+//				break;
+//			case Q:
+//				GameLogic.gameUpdate(DispatchAction.STAY_STILL);
+//				break;
 			default:
 				System.out.println("Invalid key");
 				break;
@@ -233,17 +206,6 @@ public class GameScene {
 
 	}
 
-	/**
-	 * Getter for status pane.
-	 * 
-	 * @return Status pane
-	 */
-	public static StatusPane getStatusPane() {
-		if (statusPane == null) {
-			initScene();
-		}
-		return statusPane;
-	}
 
 	/**
 	 * Getter for message pane.
@@ -257,29 +219,6 @@ public class GameScene {
 		return messagePane;
 	}
 
-	/**
-	 * Getter for effect pane.
-	 * 
-	 * @return Effect pane
-	 */
-	public static EffectPane getEffectPane() {
-		if (effectPane == null) {
-			initScene();
-		}
-		return effectPane;
-	}
-
-	/**
-	 * Getter for inventory pane.
-	 * 
-	 * @return Inventory pane
-	 */
-	public static InventoryPane getInventoryPane() {
-		if (inventoryPane == null) {
-			initScene();
-		}
-		return inventoryPane;
-	}
 
 	/**
 	 * Getter for pause pane.
