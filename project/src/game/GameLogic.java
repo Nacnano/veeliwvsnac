@@ -335,4 +335,15 @@ public class GameLogic {
 		GameLogic.food = food;
 	}
 	
+	// Get number of workers
+	
+	public static int getNumberOfWorkers(String resourceName) {
+		int cnt = 0;
+		for (BaseBuilding b : buildings.values()) {
+			if (!(b instanceof Resource)) continue;
+			if (b.getClass().getSimpleName() == resourceName)
+				cnt += ((Resource) b).getCurrentPeople();
+		}
+		return cnt;
+	}
 }
