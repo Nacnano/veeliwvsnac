@@ -218,7 +218,8 @@ public class GameLogic {
 		buildings.put(p, b);
 	}
 	
-	public void saleMaterial(Material m, int amount) {
+	public static void sellMaterial(Material m, int amount) {
+		System.out.println("Selling " + m + "  amount = " + amount);
 		if (m == Material.FOOD && food >= amount) {
 			food -= amount;
 			money += GameConfig.FOOD_PRICE * amount;

@@ -48,6 +48,9 @@ public class TestGameScene {
 		HBox materialStatus = new gui.MaterialStatus();
 		root.add(materialStatus, 2, 0);
 		
+		VBox shopPopUp = new gui.ShopPopUp();
+		root.add(shopPopUp, 0, 1);
+		
 		cachedScene = SceneController.makeNewScene(root);
 		return cachedScene;
 	}

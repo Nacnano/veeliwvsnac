@@ -76,6 +76,7 @@ public class MaterialStatus extends HBox {
 		money_box.setAlignment(Pos.CENTER);
 		
 		this.getChildren().addAll(food_box, wood_box, stone_box, iron_box, ironOre_box, money_box);
+	
 	}
 	
 	public void update() {

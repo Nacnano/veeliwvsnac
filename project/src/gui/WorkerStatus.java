@@ -37,4 +37,27 @@ public class WorkerStatus extends VBox {
 		this.getChildren().addAll(field, mine, sawmill, smelter);
 	}
 	
+	public void update() {
+		this.setField(GameLogic.getNumberOfWorkers("Field"));
+		this.setMine(GameLogic.getNumberOfWorkers("Mine"));
+		this.setSawmill(GameLogic.getNumberOfWorkers("Sawmill"));
+		this.setSmelter(GameLogic.getNumberOfWorkers("Smelter"));
+	}
+	
+	public void setField(int field) {
+		this.field.setText("Field Workers: " + Integer.toString(field));
+	}
+	
+	public void setMine(int mine) {
+		this.mine.setText("Mine Workers: " + Integer.toString(mine));
+	}
+	
+	public void setSawmill(int sawmill) {
+		this.sawmill.setText("Sawmill Workers: " + Integer.toString(sawmill));
+	}
+	
+	public void setSmelter(int smelter) {
+		this.smelter.setText("Smelter Workers: " + Integer.toString(smelter));
+	}
+	
 }
