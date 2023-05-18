@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import scene.LandingScene;
+import scene.TestGameScene;
 import utils.GameConfig;
 
 /**
@@ -37,7 +38,9 @@ public class Main extends Application {
 		primaryStage.setResizable(GameConfig.STAGE_SCALABLE);
 
 		SceneController.setMainStage(primaryStage);
-		SceneController.setSceneToStage(LandingScene.getScene());
+		
+//		SceneController.setSceneToStage(TestGameScene.getScene());
+//		SceneController.setSceneToStage(LandingScene.getScene());
 
 		SceneController.showStage();
 	}

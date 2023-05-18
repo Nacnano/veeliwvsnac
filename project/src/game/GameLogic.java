@@ -284,4 +284,55 @@ public class GameLogic {
 	public static void addOurUnit(BaseUnit unit, Position pos) {
 		ourUnits.put(unit, pos);
 	}
+	
+	// Getters and Setters for materials
+
+	public static int getWood() {
+		return wood;
+	}
+
+	public static void setWood(int wood) {
+		GameLogic.wood = wood;
+	}
+
+	public static int getStone() {
+		return stone;
+	}
+
+	public static void setStone(int stone) {
+		GameLogic.stone = stone;
+	}
+
+	public static int getIronOre() {
+		return ironOre;
+	}
+
+	public static void setIronOre(int ironOre) {
+		GameLogic.ironOre = ironOre;
+	}
+
+	public static int getIron() {
+		return iron;
+	}
+
+	public static void setIron(int iron) {
+		GameLogic.iron = iron;
+	}
+
+	public static int getMoney() {
+		return money;
+	}
+
+	public static void setMoney(int money) {
+		GameLogic.money = money;
+	}
+
+	public static int getFood() {
+		return food;
+	}
+
+	public static void setFood(int food) {
+		GameLogic.food = food;
+	}
+	
 }
