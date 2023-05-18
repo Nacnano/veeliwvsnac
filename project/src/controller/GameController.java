@@ -7,10 +7,12 @@ import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Pair;
-import logic.GameMap;
-import logic.MapGenerator;
-import logic.MapRenderer;
-import logic.Sprites;
+import game.Camera;
+import game.GameLogic;
+import game.GameMap;
+import game.MapGenerator;
+import game.MapRenderer;
+import game.Position;
 import scene.CongratulationScene;
 import scene.GameOverScene;
 import scene.GameScene;
@@ -37,96 +39,36 @@ public class GameController {
 	private static MediaPlayer bgm = AudioUtil.getGameSceneBGM();
 
 	/**
-	 * Represent the current {@link Player} instance.
+	 * Represent the current {@link Camera} instance.
 	 */
-	private static Player player;
+	private static Camera camera;
+	
+	/**
+	 * Represent the current day.
+	 */
+	private static int day;
 
 	/**
 	 * Create new {@link GameMap} and add to {@link #levelMapList}.
 	 * 
 	 * @return {@link GameMap} new floor which added to {@link #levelMapList}
 	 */
-	private static GameMap addNewFloor() {
-		GameMap newFloor = MapGenerator.generateMap();
-		levelMapList.add(newFloor);
-		return newFloor;
+	private static GameMap initGameMap() {
+		GameMap gameMap = MapGenerator.generateMap("default");
+		return gameMap;
 	}
 
-	/**
-	 * If level reaches {@link GameConfig#LEVEL_BOUND level_bound} and disable the
-	 * endless mode then change to the {@link CongratulationScene} otherwise change
-	 * {@link #gameMap} to lower level and making fade transition if able to do.
-	 * 
-	 * @return return true if {@link #player} can go to lower level otherwise false
-	 */
-	public static boolean descending() {
-		level += 1;
-		GameMap newMap = null;
-
-		if (level == GameConfig.LEVEL_BOUND) {
-			bgm.stop();
-			FadeTransition fadeOut = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 1.0, 0.0);
-			
-			InterruptController.setTransition(true);
-			fadeOut.play();
-
-			fadeOut.setOnFinished((event) -> {
-				InterruptController.setTransition(false);
-				SceneController.setSceneToStage(CongratulationScene.getScene());
-			});
-
-			return false;
-		}
-
-		try {
-			newMap = getFloor(level);
-		} catch (InvalidFloorException e) {
-			newMap = addNewFloor();
-		}
-
-		FadeTransition fadeOut = makeFadingScene(GameScene.getGamePane(), 1.0, 0.0, newMap, false);
-
-		fadeOut.play();
-		InterruptController.setTransition(true);
-
-		return true;
-	}
-
-	/**
-	 * Change {@link #gameMap} to upper level and making {@link FadeTransition} if
-	 * able to do.
-	 * 
-	 * @return return true if {@link #player} can go to upper level otherwise false
-	 */
-	public static boolean ascending() {
-		try {
-			GameMap newMap = getFloor(level - 1);
-
-			FadeTransition fadeOut = makeFadingScene(GameScene.getGamePane(), 1.0, 0.0, newMap, true);
-
-			fadeOut.play();
-			InterruptController.setTransition(true);
-		} catch (InvalidFloorException e) {
-			return false;
-		}
-
-		level -= 1;
-
-		return true;
-	}
 
 	/**
 	 * Initialize new game.
 	 */
 	public static void start() {
-		RandomUtil.resetFilterIndex();
-		levelMapList.clear();
-		level = 1;
+		 day = 1;
 
-		GameMap newFloor = addNewFloor();
-		setGameMap(newFloor);
+		GameMap gameMap = initGameMap();
+		setGameMap(gameMap);
 
-		player = makeNewPlayer();
+		camera = makeNewCamera();
 
 		sceneSetup();
 		initialTransition();
@@ -154,7 +96,7 @@ public class GameController {
 	 *         false
 	 */
 	public static boolean isGameOver() {
-		if (player.getHealth() <= 0) {
+		if (GameLogic.isGameOver()) {
 			bgm.stop();
 			FadeTransition fadeOut = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 1.0, 0.0);
 
@@ -188,99 +130,61 @@ public class GameController {
 	}
 
 	/**
-	 * Get roomList from {@link #gameMap}.
+	 * Getter for {@link #camera}.
 	 * 
-	 * @return Room list of {@link #gameMap}
+	 * @return {@link #camera}
 	 */
-	public static List<Pair<Integer, Integer>> getRoomList() {
-		return getGameMap().getRoomList();
+	public static Camera getCamera() {
+		return camera;
 	}
 
 	/**
-	 * Getter for {@link #player}.
+	 * Setter for {@link #camera}.
 	 * 
-	 * @return {@link #player}
+	 * @param newCamera for the new {@link #camera}
 	 */
-	public static Player getPlayer() {
-		return player;
+	public static void setCamera(Camera newCamera) {
+		camera = newCamera;
 	}
 
 	/**
-	 * Setter for {@link #player}.
+	 * Getter for {@link #day}.
 	 * 
-	 * @param newPlayer the new {@link #player}
+	 * @return {@link #day}
 	 */
-	public static void setPlayer(Player newPlayer) {
-		player = newPlayer;
+	public static int getDay() {
+		return day;
 	}
-
+	
 	/**
-	 * Getter for {@link #level}.
+	 * Setter for {@link #day}.
 	 * 
-	 * @return {@link #level}
+	 * @param newDaythe new {@link #day}
 	 */
-	public static int getLevel() {
-		return level;
+	public static void setDay(int newDay) {
+		day = newDay;
 	}
 
-	/**
-	 * Utility method that creating {@link FadeTransition} for switching floor.
-	 * 
-	 * @param node        the target node that we want to make a fade
-	 * @param from        starting opacity
-	 * @param to          ending opacity
-	 * @param newMap      the map that we want to render
-	 * @param isAscending true if the type of switching floor is ascending otherwise
-	 *                    false
-	 * @return {@link FadeTransition} instance which used for making transition
-	 *         between floor
-	 */
-	private static FadeTransition makeFadingScene(Node node, double from, double to, GameMap newMap,
-			boolean isAscending) {
-		// Fade in, Fade out setup
-		FadeTransition fadeFirst = TransitionUtil.makeFadingNode(GameScene.getGamePane(), from, to);
-		FadeTransition fadeSecond = TransitionUtil.makeFadingNode(GameScene.getGamePane(), to, from);
-
-		// Fade out when finished
-		fadeSecond.setOnFinished((event) -> InterruptController.setTransition(false));
-
-		// Fade in when finished
-		fadeFirst.setOnFinished((event) -> {
-			gameMap.get(player.getPosY(), player.getPosX()).setEntity(null);
-
-			setGameMap(newMap);
-			List<Pair<Integer, Integer>> roomList = newMap.getRoomList();
-
-			int idxPos = 0;
-
-			if (isAscending) {
-				idxPos = roomList.size() - 1;
-			}
-
-			int posX = roomList.get(idxPos).getValue();
-			int posY = roomList.get(idxPos).getKey();
-
-			player.setPositionOnMap(posY, posX);
-			newMap.get(posY, posX).setEntity(player);
-			MapRenderer.render();
-			fadeSecond.play();
-		});
-
-		return fadeFirst;
-	}
 
 	/**
 	 * Setup {@link GameScene} when start or restart game.
 	 */
 	private static void sceneSetup() {
 		InterruptController.resetInterruptState();
-		GameScene.getMessagePane().resetMessage();
-//		GameScene.getEffectPane().update();
-//		GameScene.getStatusPane().update();
-//		GameScene.getInventoryPane().update();
 		SceneController.setSceneToStage(GameScene.getScene());
 	}
+	
+	/**
+	 * Create new {@link Player} instance and register to the {@link GameMap}.
+	 * 
+	 * @return {@link Player} new player instance
+	 */
+	private static Camera makeNewCamera() {
+		Camera newCamera = new Camera();
+		newCamera.setPosition(new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2));
 
+		return newCamera;
+	}
 	
 	/**
 	 * Create new {@link FadeTransition} then play transition along with background

@@ -285,6 +285,10 @@ public class GameLogic {
 		ourUnits.put(unit, pos);
 	}
 	
+	public static boolean isGameOver() {
+		return buildings.isEmpty();
+	}
+	
 	// Getters and Setters for materials
 
 	public static int getWood() {
