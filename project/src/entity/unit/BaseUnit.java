@@ -54,7 +54,7 @@ public class BaseUnit implements Attackable, Movable{
 	}
 
 	public void setIsAttacked(boolean isAttacked) {
-		this.isAttacked = isAttacked;
+		this.setAttacked(isAttacked);
 	}
 	
 	public int getPeople () {
@@ -77,16 +77,20 @@ public class BaseUnit implements Attackable, Movable{
 		return this.isMoved;
 	}
 
-	public boolean getIsAttacked() {
-		return isAttacked;
-	}
-
 	public Position getPosition() {
 		return position;
 	}
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	public boolean isAttacked() {
+		return isAttacked;
+	}
+
+	public void setAttacked(boolean isAttacked) {
+		this.isAttacked = isAttacked;
 	}
 
 }
