@@ -1,14 +1,12 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 import controller.GameController;
 import entity.unit.BaseUnit;
-import javafx.util.Pair;
 import utils.GameConfig;
 import utils.RandomUtil;
+import utils.TextFileUtil;
 
 /**
  * The MapGenerator class is used to generate {@link GameMap}.
@@ -16,125 +14,72 @@ import utils.RandomUtil;
  */
 public class MapGenerator {
 
-	/**
-	 * The Array of integer that represents a terrain of each cell.
-	 */
-	private static int map[][];
+	private static GameMap gameMap;
+
 
 	/**
 	 * Generates new {@link GameMap}.
 	 * 
 	 * @return Randomly generated {@link GameMap}
 	 */
-	public static GameMap generateMap() {
+	public static GameMap generateMap(String mapName) {
 		GameMap gameMap = buildNewEmptyMap();
-
+		buildNewMap(gameMap, mapName);
 		generateEnemyOnMap(gameMap);
 
 		return gameMap;
 	}
-
-	/**
-	 * A class to represent position and direction. This class is used for path
-	 * creating only.
-	 *
-	 */
 	
-
 	/**
 	 * Generates new empty map.
 	 * 
-	 * @return Randomly generated empty map
+	 * @return  generated empty map
 	 */
 	private static GameMap buildNewEmptyMap() {
-		GameMap gameMap;
-		do {
-			gameMap = new GameMap();
-			map = new int[GameConfig.getMapSize() + 10][GameConfig.getMapSize() + 10];
-
-			// Generates rooms
-			int roomCnt = 1;
-			while (roomCnt <= MAX_ROOM) {
-				int y = RandomUtil.random(1, GameConfig.getMapSize() - 1);
-				int x = RandomUtil.random(1, GameConfig.getMapSize() - 1);
-				if (makeRoom(y, x, roomCnt)) {
-					gameMap.getRoomList().add(new Pair<>(y, x));
-					roomCnt++;
-				}
+		gameMap = new GameMap();
+		for (int i = 0; i <= GameConfig.getMapSize(); i++) {
+			for (int j = 0; j <= GameConfig.getMapSize(); j++) {
+				gameMap.getGameMap()[i][j] = new Cell();
 			}
-
-			// Generates paths
-			int pathCnt = 1;
-			while (pathCnt <= MAX_PATH) {
-				int x, y;
-				do {
-					y = RandomUtil.random(1, GameConfig.getMapSize() - 1);
-					x = RandomUtil.random(1, GameConfig.getMapSize() - 1);
-
-					// Random until the cell type is room's wall
-				} while (map[y][x] < 1);
-
-				State state = new State(y, x, RandomUtil.random(0, 3));
-				int tmp = state.getCellType();
-
-				// Changes cell type from room's wall to void
-				state.setCellType(VOID);
-				if (makePath(state, tmp, 0)) {
-
-					// If path generated successfully, changes cell type to PATH
-					state.setCellType(PATH);
-					pathCnt++;
-				} else {
-					// otherwise changes cell type back to room's wall
-					state.setCellType(tmp);
-				}
-			}
-			makeMap(gameMap.getGameMap());
-
-			// If the map is not valid, generates again
-		} while (!isValid(gameMap));
-
+		}
+			
 		return gameMap;
 	}
-
 
 	/**
 	 * Creates {@link Cell} array from array of cell type
 	 * 
 	 * @param gameMap The array of {@link Cell} to store the result in
 	 */
-	private static void makeMap(Cell[][] gameMap) {
+	private static void buildNewMap(GameMap gameMap, String mapName) {
+		
+		String[] mapContents = TextFileUtil.ReadTextFile("map/" + mapName + ".txt");
+				
+		for (int i = 0; i < GameConfig.getMapSize(); i++) {
+			for (int j = 0; j < GameConfig.getMapSize(); j++) {
 
-		// Sets PATH
-		for (int i = 0; i <= GameConfig.getMapSize(); i++) {
-			for (int j = 0; j <= GameConfig.getMapSize(); j++) {
-				gameMap[i][j] = new Cell(Cell.VOID);
-				if ((map[i][j] == ROOM) || (map[i][j] == PATH)) {
-					gameMap[i][j].setType(Cell.PATH);
+				switch (Character.toString(mapContents[i].charAt(j))) {
+					case "P":
+						gameMap.get(i, j).setTerrain(Terrain.PLAIN);
+						break;
+					case "M":
+						gameMap.get(i, j).setTerrain(Terrain.MOUNTAIN);
+						break;
+					case "F":
+						gameMap.get(i, j).setTerrain(Terrain.FOREST);
+						break;
+					case "W":
+						gameMap.get(i, j).setTerrain(Terrain.WATER);
+						break;
+					default:
+						System.out.println(mapContents[i].charAt(j));
+						System.out.println("Text file invalid for map: " + mapName);
 				}
-			}
-		}
-
-		// Sets WALL
-		for (int i = 0; i <= GameConfig.getMapSize(); i++) {
-			for (int j = 0; j <= GameConfig.getMapSize(); j++) {
-				int pathCount = 0;
-				for (int k = i - 1; k <= i + 1; k++) {
-					for (int l = j - 1; l <= j + 1; l++) {
-						if ((k < 0) || (l < 0) || (k > GameConfig.getMapSize()) || (l > GameConfig.getMapSize())) {
-							continue;
-						}
-						if (gameMap[k][l].getType() == Cell.PATH) {
-							pathCount += 1;
-						}
-					}
-				}
-				if ((pathCount > 0) && (gameMap[i][j].getType() != Cell.PATH)) {
-					gameMap[i][j].setType(Cell.WALL);
-				}
+				
 			}
 		}
 	}
+
 
 	/**
 	 * Generate new set of {@link Monster} which will assign to {@link GameMap}
@@ -142,9 +87,9 @@ public class MapGenerator {
 	 * @param gameMap the {@link GameMap} that assign {@link Monster} to
 	 */
 	public static void generateEnemyOnMap(GameMap gameMap) {
-		int level = GameController.getLevel();
+		int day = GameController.getDay();
 
-		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(level);
+		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day);
 		gameMap.getEnemyList().addAll(enemyList);
 
 		for (BaseUnit enemy : enemyList) {
@@ -155,7 +100,7 @@ public class MapGenerator {
 
 				Cell currentCell = gameMap.get(randomY, randomX);
 
-				// TODO: Add logic to check not in our territory
+				// TODO: Add logic to check not to add enemy in our territory
 				if (currentCell.getTerrain() == Terrain.WATER && currentCell.getUnit() == null) {
 					enemy.setPosition(new Position(randomY, randomX));
 					gameMap.get(randomY, randomX).setUnit(enemy);

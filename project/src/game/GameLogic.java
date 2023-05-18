@@ -284,4 +284,8 @@ public class GameLogic {
 	public static void addOurUnit(BaseUnit unit, Position pos) {
 		ourUnits.put(unit, pos);
 	}
+	
+	public static boolean isGameOver() {
+		return buildings.isEmpty();
+	}
 }

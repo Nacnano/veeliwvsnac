@@ -58,14 +58,9 @@ public class GameScene {
 	private static GraphicsContext gc;
 
 	/**
-	 * Backpack sprite for the inventory button.
-	 */
-	private static WritableImage backpackSprite = DrawUtil.getWritableImage("sprites/backpack.png");
-
-	/**
 	 * Pause sprite for the pause button.
 	 */
-	private static WritableImage pauseSprite = DrawUtil.getWritableImage("sprites/pause.png");
+	private static WritableImage pauseSprite = DrawUtil.getWritableImage("icon/pause.png");
 
 	/**
 	 * The pane that contains all of the component in game scene.
