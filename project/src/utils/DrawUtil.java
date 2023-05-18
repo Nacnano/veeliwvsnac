@@ -32,6 +32,17 @@ public class DrawUtil {
 	 * Cell sprites.
 	 */
 	private static PixelReader cellSprites;
+	
+	/**
+	 * Barn sprites.
+	 */
+	private static PixelReader barnSprites;
+	
+	/**
+	 * Swordman sprites.
+	 */
+	private static PixelReader SwordManSprites;
+
 
 	/**
 	 * Attack mouse icon.
@@ -43,6 +54,8 @@ public class DrawUtil {
 	 */
 	static {
 		cellSprites = getImagePixelReader("unit/SwordMan.png");
+		barnSprites = getImagePixelReader("unit/SwordMan.png");
+		SwordManSprites = getImagePixelReader("unit/SwordMan.png");
 	}
 
 	/**
@@ -55,7 +68,7 @@ public class DrawUtil {
 	 */
 	public static void drawTerrain(int y, int x, Terrain terrain) {
 		GraphicsContext gc = GameScene.getGraphicsContext();
-			WritableImage img = new WritableImage(cellSprites, 32, 40);
+			WritableImage img = new WritableImage(cellSprites, 32, 32);
 			gc.drawImage(scaleUp(img, GameConfig.getScale()), x, y - 8 * GameConfig.getScale());
 	}
 
@@ -100,6 +113,28 @@ public class DrawUtil {
 				2 * GameConfig.getScale());
 	}
 	
+	/**
+	 * Renders {@link Entity entity} at the specified position on the game scene.
+	 * 
+	 * @param y      Position in the Y-axis
+	 * @param x      Position in the X-axis
+	 * @param entity The entity to be rendered
+	 */
+	public static void drawBuilding(int y, int x, BaseBuilding building) {
+		if (building == null) {
+			return;
+		}
+
+		GraphicsContext gc = GameScene.getGraphicsContext();
+
+		WritableImage img = new WritableImage(barnSprites, 32, 32);
+		img = scaleUp(img, GameConfig.getScale());
+		if (building.isAttacked()) {
+			img = changeColor(img);
+		}
+
+		gc.drawImage(img, x, y);
+	}
 
 	/**
 	 * Renders {@link Entity entity} at the specified position on the game scene.
@@ -109,27 +144,21 @@ public class DrawUtil {
 	 * @param entity The entity to be rendered
 	 * @param frame  The current animation frame
 	 */
-//	public static void drawEntity(int y, int x, Entity entity, int frame) {
-//		if (entity == null) {
-//			return;
-//		}
-//
-//		GraphicsContext gc = GameScene.getGraphicsContext();
-//		int directionIndex = Direction.getSpriteIndex(entity.getDirection());
-//		int walkIndex = (frame / 8 + 1) % 4;
-//		if (walkIndex == 3 || !entity.isMoving()) {
-//			walkIndex = 1;
-//		}
-//
-//		WritableImage img = new WritableImage(entitySprites, (96 * entity.getSymbol()) + 32 * walkIndex,
-//				directionIndex * 32, 32, 32);
-//		img = scaleUp(img, GameConfig.getScale());
-//		if (entity.isAttacked()) {
-//			img = changeColor(img);
-//		}
-//
-//		gc.drawImage(img, x, y);
-//	}
+	public static void drawUnit(int y, int x, BaseUnit unit, int frame) {
+		if (unit == null) {
+			return;
+		}
+
+		GraphicsContext gc = GameScene.getGraphicsContext();
+
+		WritableImage img = new WritableImage(SwordManSprites, 32, 32);
+		img = scaleUp(img, GameConfig.getScale());
+		if (unit.isAttacked()) {
+			img = changeColor(img);
+		}
+
+		gc.drawImage(img, x, y);
+	}
 
 	/**
 	 * Adds an invisible button on the entity at the specified position so the
@@ -139,9 +168,9 @@ public class DrawUtil {
 	 * @param x      Position in the X-axis
 	 * @param entity The entity to adds the button on
 	 */
-	public static void addEntityButton(int y, int x, BaseUnit enemy) {
+	public static void addUnitButton(int y, int x, BaseUnit unit) {
 		// TODO: add logic for checking ours or enemy
-		if (enemy == null) {
+		if (unit == null) {
 			return;
 		}
 

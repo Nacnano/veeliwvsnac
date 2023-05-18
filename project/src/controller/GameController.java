@@ -196,7 +196,7 @@ public class GameController {
 		InterruptController.setTransition(true);
 		FadeTransition fadeIn = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 0.0, 1.0);
 
-//		MapRenderer.render();
+		MapRenderer.render();
 
 		fadeIn.play();
 		fadeIn.setOnFinished((event) -> InterruptController.setTransition(false));
