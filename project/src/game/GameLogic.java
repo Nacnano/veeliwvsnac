@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import entity.building.BaseBuilding;
@@ -31,7 +32,7 @@ public class GameLogic {
 	private static Map<Position, Terrain> map;
 	private static boolean[][] territory;
 	// private Map<BaseBuilding, Position> buildings;	
-	private static Map<Position, BaseBuilding> buildings;
+	private static Map<Position, BaseBuilding> buildings = new HashMap<>();
 	
 	// Functions for buildings
 	
@@ -349,5 +350,9 @@ public class GameLogic {
 				cnt += ((Resource) b).getCurrentPeople();
 		}
 		return cnt;
+	}
+	
+	public static Map<Position, BaseBuilding> getBuildings() {
+		return buildings;
 	}
 }

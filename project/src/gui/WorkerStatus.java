@@ -18,17 +18,23 @@ public class WorkerStatus extends VBox {
 	
 	public WorkerStatus() {
 		this.setBackground(new Background(new BackgroundFill(Color.DARKORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
-		this.setPrefSize(40 * GameConfig.getScale(), 40 * GameConfig.getScale());
+		this.setPrefSize(50 * GameConfig.getScale(), 50 * GameConfig.getScale());
 		this.setSpacing(10);
 		this.setAlignment(Pos.CENTER);
 		
 		field = new Text("Field Workers: " + Integer.toString(GameLogic.getNumberOfWorkers("Field")));
-//		field.setFont(FontUtil.getFont("extraSmall"));
+		field.setFont(FontUtil.getFont("extraSmall"));
 		
-//		mine = new Text("Mine Workers: " + Integer.toString(GameLogic.getNumberOfWorkers("Mine")));
-//		mine.setFont(FontUtil.getFont("extraSmall"));
+		mine = new Text("Mine Workers: " + Integer.toString(GameLogic.getNumberOfWorkers("Mine")));
+		mine.setFont(FontUtil.getFont("extraSmall"));
 		
-//		this.getChildren().addAll(field, mine);
+		sawmill = new Text("Sawmill Workers: " + Integer.toString(GameLogic.getNumberOfWorkers("Sawmill")));
+		sawmill.setFont(FontUtil.getFont("extraSmall"));
+		
+		smelter = new Text("Smelter Workers: " + Integer.toString(GameLogic.getNumberOfWorkers("Smelter")));
+		smelter.setFont(FontUtil.getFont("extraSmall"));
+		
+		this.getChildren().addAll(field, mine, sawmill, smelter);
 	}
 	
 }

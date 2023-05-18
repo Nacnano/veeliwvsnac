@@ -3,16 +3,23 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.building.Field;
+import entity.building.House;
+import entity.building.Mine;
+import entity.building.Sawmill;
+import entity.building.Smelter;
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Pair;
 import game.Camera;
+import game.Cell;
 import game.GameLogic;
 import game.GameMap;
 import game.MapGenerator;
 import game.MapRenderer;
 import game.Position;
+import game.Terrain;
 import scene.CongratulationScene;
 import scene.GameOverScene;
 import scene.GameScene;
@@ -55,6 +62,28 @@ public class GameController {
 	 */
 	private static GameMap initGameMap() {
 		GameMap gameMap = MapGenerator.generateMap("default");
+		
+		House house = new House();
+		gameMap.get(0, 0).setBuilding(house);
+		GameLogic.getBuildings().put(new Position(0,0), house);
+		
+		Field field = new Field();
+		gameMap.get(1, 0).setBuilding(field);
+		GameLogic.getBuildings().put(new Position(1,0), field);
+		
+		Mine mine = new Mine();
+		gameMap.get(2, 0).setBuilding(mine);
+		GameLogic.getBuildings().put(new Position(2,0), mine);
+		
+		Sawmill sawmill = new Sawmill();
+		gameMap.get(3, 0).setBuilding(sawmill);
+		GameLogic.getBuildings().put(new Position(3,0), sawmill);
+		
+		Smelter smelter = new Smelter();
+		gameMap.get(4, 0).setBuilding(smelter);
+		GameLogic.getBuildings().put(new Position(4,0), smelter);
+		
+		
 		return gameMap;
 	}
 

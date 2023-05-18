@@ -9,6 +9,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
@@ -37,10 +38,15 @@ public class TestGameScene {
 		
 		root = new GridPane();
 		root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-
-		HBox materialStatus = new gui.MaterialStatus();
-		root.add(materialStatus, 0, 0);
 		
+		VBox workerStatus = new gui.WorkerStatus();
+		root.add(workerStatus, 0, 0);
+		
+		VBox resourceStatus = new gui.ResourceStatus();
+		root.add(resourceStatus, 1, 0);
+		
+		HBox materialStatus = new gui.MaterialStatus();
+		root.add(materialStatus, 2, 0);
 		
 		cachedScene = SceneController.makeNewScene(root);
 		return cachedScene;
