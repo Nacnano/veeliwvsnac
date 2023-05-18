@@ -29,9 +29,24 @@ import scene.GameScene;
 public class DrawUtil {
 
 	/**
-	 * Cell sprites.
+	 * Plan sprites.
 	 */
-	private static PixelReader cellSprites;
+	private static PixelReader plainSprites;
+	
+	/**
+	 * Plan sprites.
+	 */
+	private static PixelReader forestSprites;
+	
+	/**
+	 * Plan sprites.
+	 */
+	private static PixelReader mountainSprites;
+	
+	/**
+	 * Plan sprites.
+	 */
+	private static PixelReader waterSprites;
 	
 	/**
 	 * Barn sprites.
@@ -43,19 +58,30 @@ public class DrawUtil {
 	 */
 	private static PixelReader SwordManSprites;
 
-
 	/**
 	 * Attack mouse icon.
 	 */
 	private static Image attackMouseIcon;
+	
+	/**
+	 * Attack mouse icon.
+	 */
+	private static PixelReader debugSprites;
 
 	/**
 	 * Loads resources.
 	 */
 	static {
-		cellSprites = getImagePixelReader("unit/SwordMan.png");
-		barnSprites = getImagePixelReader("unit/SwordMan.png");
+		plainSprites = getImagePixelReader("unit/SwordMan.png");
+		forestSprites = getImagePixelReader("unit/SwordMan.png");
+		mountainSprites = getImagePixelReader("unit/SwordMan.png");
+		waterSprites = getImagePixelReader("unit/SwordMan.png");
+		
+		barnSprites = getImagePixelReader("buildings/Barn.png");
+		
 		SwordManSprites = getImagePixelReader("unit/SwordMan.png");
+		
+		debugSprites = getImagePixelReader("unit/SwordMan.png");
 	}
 
 	/**
@@ -68,7 +94,26 @@ public class DrawUtil {
 	 */
 	public static void drawTerrain(int y, int x, Terrain terrain) {
 		GraphicsContext gc = GameScene.getGraphicsContext();
-			WritableImage img = new WritableImage(cellSprites, 32, 32);
+			
+		PixelReader drawSprites;
+			switch(terrain) {
+				case PLAIN:
+					drawSprites = plainSprites;
+					break;
+				case FOREST:
+					drawSprites = forestSprites;
+					break;
+				case MOUNTAIN:
+					drawSprites = mountainSprites;
+					break;
+				case WATER:
+					drawSprites = waterSprites;
+					break;
+				default:
+					System.out.println("Invalid terrain for drawTerrain");
+					drawSprites = debugSprites;
+			}
+			WritableImage img = new WritableImage(drawSprites, 32, 32);
 			gc.drawImage(scaleUp(img, GameConfig.getScale()), x, y - 8 * GameConfig.getScale());
 	}
 
