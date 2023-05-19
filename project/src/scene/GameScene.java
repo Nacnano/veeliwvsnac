@@ -9,6 +9,8 @@ import gui.ResourceStatus;
 import gui.ShopPopUp;
 import gui.WorkerStatus;
 import controller.InterruptController;
+import entity.building.BaseBuilding;
+import entity.building.Resource;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -187,6 +189,8 @@ public class GameScene {
 				shopPopUp.remove();
 				return;
 			}
+			
+			
 			gamePane.getChildren().add(shopPopUp);
 			shopPopUp.requestFocus();
 			InterruptController.setIsShopOpen(true);
