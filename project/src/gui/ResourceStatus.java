@@ -1,6 +1,8 @@
 package gui;
 
 import entity.building.Resource;
+import game.GameLogic;
+import game.Position;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
@@ -13,6 +15,7 @@ import utils.FontUtil;
 import utils.GameConfig;
 
 public class ResourceStatus extends VBox {
+	private Text name;
 	private Text currentPeople;
 	private Text durability;
 	
@@ -21,6 +24,7 @@ public class ResourceStatus extends VBox {
 		this.setPrefSize(50 * GameConfig.getScale(), 50 * GameConfig.getScale());
 		this.setSpacing(10);
 		this.setAlignment(Pos.CENTER);
+		name = new Text("Buidling: -");
 		currentPeople = new Text("People: -");
 		currentPeople.setFont(FontUtil.getFont("extraSmall"));
 		durability = new Text("Durability: -");
@@ -29,11 +33,15 @@ public class ResourceStatus extends VBox {
 		this.getChildren().addAll(currentPeople, durability);
 	}
 	
-	public ResourceStatus(Resource resource) {
+	public ResourceStatus(Position pos) {
+		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
 		this.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setPrefSize(50 * GameConfig.getScale(), 50 * GameConfig.getScale());
 		this.setSpacing(10);
 		this.setAlignment(Pos.CENTER);
+		
+		name = new Text("Building: " + resource.getClass().getSimpleName());
+		name.setFont(FontUtil.getFont("extraSmell"));
 		currentPeople = new Text("People: " + resource.getCurrentPeople() + "/" + resource.getMaxPeople());
 		currentPeople.setFont(FontUtil.getFont("extraSmall"));
 		durability = new Text("Durability: " + resource.getDurability());

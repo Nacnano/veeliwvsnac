@@ -2,6 +2,9 @@ package scene;
 
 import controller.GameController;
 import controller.SceneController;
+import entity.building.Field;
+import game.GameLogic;
+import game.Position;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -36,6 +39,12 @@ public class TestGameScene {
 
 		System.out.println("Opening Test Game Scene...");
 		
+		GameLogic.SetCurrentPopulation(50);
+		Position pos1 = new Position(0, 0);
+		Field field1 = new Field();
+		GameLogic.getBuildings().put(pos1, field1);
+		GameLogic.setNumberOfWorkers(pos1, 10);
+		
 		root = new GridPane();
 		root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 		
@@ -50,6 +59,9 @@ public class TestGameScene {
 		
 		VBox shopPopUp = new gui.ShopPopUp();
 		root.add(shopPopUp, 0, 1);
+		
+		VBox changeJobPopUp = new gui.ChangeJobPopUp(pos1);
+		root.add(changeJobPopUp, 1, 1);
 		
 		cachedScene = SceneController.makeNewScene(root);
 		return cachedScene;

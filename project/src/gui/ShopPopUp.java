@@ -41,7 +41,7 @@ public class ShopPopUp extends VBox {
 	 */
 	private final int widthBox = 200;
 	
-	private final int textFieldWidth = 30;
+	private final int textFieldWidth = 50;
 
 	TextField food_amount, wood_amount, stone_amount, iron_amount;
 	

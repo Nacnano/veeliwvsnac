@@ -69,20 +69,35 @@ public class GameLogic {
 		}
 	}
 	
-	public void QuitJob(Position p, int amount) {
-		int currentPeople = ((Resource) buildings.get(p)).getCurrentPeople();
-		if (currentPeople >= amount) {
-			((Resource) buildings.get(p)).setCurrentPeople(currentPeople - amount);
-		}
-	}
+//	public static void QuitJob(Position p, int amount) {
+//		if (amount < 0) return;
+//		int currentPeople = ((Resource) buildings.get(p)).getCurrentPeople();
+//		if (currentPeople >= amount) {
+//			((Resource) buildings.get(p)).setCurrentPeople(currentPeople - amount);
+//		}
+//	}
+//	
+//	public static void EnrollJob(Position p, int amount) {
+//		if (amount > getUnemployed() || amount < 0) return;
+//		int currentPeople = ((Resource) buildings.get(p)).getCurrentPeople();
+//		int maxPeople = ((Resource) buildings.get(p)).getMaxPeople();
+//		if (currentPeople + amount <= maxPeople) {
+//			((Resource) buildings.get(p)).setCurrentPeople(currentPeople + amount);
+//		}
+//	}
 	
-	public void EnrollJob(Position p, int amount) {
+	public static void setNumberOfWorkers(Position p, int newNumber) {
 		int currentPeople = ((Resource) buildings.get(p)).getCurrentPeople();
 		int maxPeople = ((Resource) buildings.get(p)).getMaxPeople();
-		if (currentPeople + amount <= maxPeople) {
-			((Resource) buildings.get(p)).setCurrentPeople(currentPeople + amount);
+		if (newNumber < 0 || newNumber > maxPeople) return;
+		
+		if (newNumber > currentPeople) {
+			// Enroll Job more than unemployed
+			if (newNumber - currentPeople > getUnemployed()) return;
 		}
-	}
+		
+		((Resource) buildings.get(p)).setCurrentPeople(newNumber);
+	} 
 	
 	public int getMaxPopulation() {
 		int countHouse = 0;
@@ -93,7 +108,7 @@ public class GameLogic {
 		return GameConfig.HOUSE_MAX_PEOPLE * countHouse;
 	}
 	
-	public int getUnemployed() {
+	public static int getUnemployed() {
 		int sumEmployed = 0;
 		for (BaseBuilding b : buildings.values()) {
 			if (b instanceof Resource) 
@@ -355,5 +370,10 @@ public class GameLogic {
 	
 	public static Map<Position, BaseBuilding> getBuildings() {
 		return buildings;
+	}
+	
+	//For testing
+	public static void SetCurrentPopulation(int amount) {
+		currentPopulation = amount;
 	}
 }
