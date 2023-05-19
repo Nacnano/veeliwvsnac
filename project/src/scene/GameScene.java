@@ -8,6 +8,7 @@ import gui.PausePane;
 import gui.ResourceStatus;
 import gui.ShopPopUp;
 import gui.WorkerStatus;
+import controller.GameController;
 import controller.InterruptController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,6 +25,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import game.ControlAction;
 import game.GameLogic;
 //import game.MapRenderer;
 import utils.DrawUtil;
@@ -238,23 +240,20 @@ public class GameScene {
 			KeyCode keycode = event.getCode();
 
 			switch (keycode) {
-//			case A:
-//				GameLogic.gameUpdate(DispatchAction.MOVE_LEFT);
-//				break;
-//			case D:
-//				GameLogic.gameUpdate(DispatchAction.MOVE_RIGHT);
-//				break;
-//			case W:
-//				GameLogic.gameUpdate(DispatchAction.MOVE_UP);
-//				break;
-//			case S:
-//				GameLogic.gameUpdate(DispatchAction.MOVE_DOWN);
-//				break;
-//			case Q:
-//				GameLogic.gameUpdate(DispatchAction.STAY_STILL);
-//				break;
+			case A:
+				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_LEFT);
+				break;
+			case D:
+				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_RIGHT);
+				break;
+			case W:
+				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_UP);
+				break;
+			case S:
+				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_DOWN);
+				break;
 			default:
-				System.out.println("Invalid key");
+				GameController.cameraUpdate(ControlAction.CAMERA_STAY_STILL);
 				break;
 			}
 		});

@@ -14,6 +14,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Pair;
 import game.Camera;
 import game.Cell;
+import game.ControlAction;
 import game.GameLogic;
 import game.GameMap;
 import game.MapGenerator;
@@ -24,6 +25,7 @@ import scene.CongratulationScene;
 import scene.GameOverScene;
 import scene.GameScene;
 import scene.LandingScene;
+import utils.AnimationUtil;
 import utils.AudioUtil;
 import utils.GameConfig;
 import utils.RandomUtil;
@@ -213,6 +215,45 @@ public class GameController {
 		newCamera.setPosition(new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2));
 
 		return newCamera;
+	}
+	
+	public static void cameraUpdate(ControlAction action) {
+		Position cameraPosition= camera.getPosition();
+		boolean isMoved = true;
+		switch (action) {
+		case CAMERA_MOVE_UP:
+			camera.move(cameraPosition.moveUp());
+			break;
+		case CAMERA_MOVE_DOWN:
+			camera.move(cameraPosition.moveDown());
+			break;
+		case CAMERA_MOVE_LEFT:
+			camera.move(cameraPosition.moveLeft());
+			break;
+		case CAMERA_MOVE_RIGHT:
+			camera.move(cameraPosition.moveRight());
+			break;
+		case CAMERA_STAY_STILL:
+			isMoved = false;
+		default:
+			break;
+		}
+			InterruptController.setStillAnimation(true);
+			new Thread(() -> {
+				try {
+					AnimationUtil.playAnimation(2).join();
+				} catch (InterruptedException e) {
+					System.out.println("Move animation interrupted");
+				}
+				Platform.runLater(() -> {
+					if (isMoved) {
+						GameLogic.postMoveUpdate(false);
+					} else {
+						GameLogic.postMoveUpdate(true);
+					}
+					postGameUpdate();
+				});
+			}).start();
 	}
 	
 	/**

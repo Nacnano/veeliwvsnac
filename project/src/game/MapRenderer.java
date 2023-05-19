@@ -177,11 +177,11 @@ public class MapRenderer {
 			int posY = newSpriteSize * i - startY;
 			int posX = newSpriteSize * j - startX;
 			Cell thisCell = gameMap.get(i, j);
-			BaseUnit unit = thisCell.getUnit();
 			int shiftX = 0;
 			int shiftY = 0;
 
-			// for animation
+//			for animation
+//			BaseUnit unit = thisCell.getUnit();
 //			if ((unit != null)) {
 //				shiftX = -Direction.getMoveX(entity.getDirection(), frame * GameConfig.getScale());
 //				shiftY = -Direction.getMoveY(entity.getDirection(), frame * GameConfig.getScale());

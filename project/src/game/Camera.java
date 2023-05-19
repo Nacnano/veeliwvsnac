@@ -22,6 +22,11 @@ public class Camera implements Movable {
 	 * Position of the camera.
 	 */
 	private Position position;
+	
+	/**
+	 * Moving status of the camera.
+	 */
+	private boolean isMoving;
 
 	
 	/**
@@ -50,5 +55,17 @@ public class Camera implements Movable {
 	public void setPosition(Position position) {
 		// TODO: add logic to control the camera to be only in the map
 		this.position = position;
+	}
+
+
+
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
 	}
 }
