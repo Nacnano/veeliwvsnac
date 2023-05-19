@@ -5,6 +5,7 @@ import controller.SceneController;
 import entity.building.Field;
 import game.GameLogic;
 import game.Position;
+import game.Terrain;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -42,8 +43,16 @@ public class TestGameScene {
 		GameLogic.SetCurrentPopulation(50);
 		Position pos1 = new Position(0, 0);
 		Field field1 = new Field();
+		Position pos2 = new Position(1, 0);
+		
 		GameLogic.getBuildings().put(pos1, field1);
 		GameLogic.setNumberOfWorkers(pos1, 10);
+		GameLogic.getMap().put(pos2, Terrain.FOREST);
+		
+		GameLogic.setWood(500);
+		GameLogic.setStone(500);
+		GameLogic.setIron(500);
+		GameLogic.setMoney(3000);
 		
 		root = new GridPane();
 		root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -51,7 +60,7 @@ public class TestGameScene {
 		VBox workerStatus = new gui.WorkerStatus();
 		root.add(workerStatus, 0, 0);
 		
-		VBox resourceStatus = new gui.ResourceStatus();
+		VBox resourceStatus = new gui.ResourceStatus(pos1);
 		root.add(resourceStatus, 1, 0);
 		
 		HBox materialStatus = new gui.MaterialStatus();
@@ -62,6 +71,9 @@ public class TestGameScene {
 		
 		VBox changeJobPopUp = new gui.ChangeJobPopUp(pos1);
 		root.add(changeJobPopUp, 1, 1);
+		
+		VBox buildPopUp = new gui.BuildPopUp(pos2);
+		root.add(buildPopUp, 2, 1);
 		
 		cachedScene = SceneController.makeNewScene(root);
 		return cachedScene;

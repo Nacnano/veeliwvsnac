@@ -29,7 +29,7 @@ public class GameLogic {
 	private static Map<BaseUnit, Position> ourUnits, enemyUnits;
 	private static ArrayList<Position> unemployed;
 	// private Map<Terrain, Position> map;
-	private static Map<Position, Terrain> map;
+	private static Map<Position, Terrain> map = new HashMap<>();
 	private static boolean[][] territory;
 	// private Map<BaseBuilding, Position> buildings;	
 	private static Map<Position, BaseBuilding> buildings = new HashMap<>();
@@ -145,7 +145,7 @@ public class GameLogic {
 		currentPopulation = Math.min(getMaxPopulation(), newPopulation);
 	}
 	
-	private boolean hasEnoughMaterial(BaseBuilding b) {
+	private static boolean hasEnoughMaterial(BaseBuilding b) {
 		if (b instanceof Field) {
 			return money >= GameConfig.FIELD_REQUIRE_MONEY &&
 				   wood >= GameConfig.FIELD_REQUIRE_WOOD &&
@@ -185,7 +185,7 @@ public class GameLogic {
 		else return false;
 	}
 	
-	private void deductMaterial(BaseBuilding b) {
+	private static void deductMaterial(BaseBuilding b) {
 		if (b instanceof Field) {
 			money -= GameConfig.FIELD_REQUIRE_MONEY;
 			wood -= GameConfig.FIELD_REQUIRE_WOOD;
@@ -224,10 +224,17 @@ public class GameLogic {
 		}
 	}
 	
-	public void buildBuilding(BaseBuilding b, Position p) {
-		if (!b.canBuildOn(map.get(p))) return;
-		if (buildings.containsKey(p)) return;
-		if (!hasEnoughMaterial(b)) return;
+	public static boolean canBuildBuilding(BaseBuilding b, Position p) {
+		if (!b.canBuildOn(map.get(p))) return false;
+		if (buildings.containsKey(p)) return false;
+		if (!hasEnoughMaterial(b)) return false;
+		
+		System.out.println("Accept " + b.getClass().getSimpleName() + " on " + map.get(p));
+		return true;
+	}
+	
+	public static void buildBuilding(BaseBuilding b, Position p) {
+		if (!canBuildBuilding(b, p)) return;
 		
 		deductMaterial(b);
 		buildings.put(p, b);
@@ -372,8 +379,13 @@ public class GameLogic {
 		return buildings;
 	}
 	
+	public static Map<Position, Terrain> getMap() {
+		return map;
+	}
+	
 	//For testing
 	public static void SetCurrentPopulation(int amount) {
 		currentPopulation = amount;
 	}
+	
 }
