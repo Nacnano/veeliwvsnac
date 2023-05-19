@@ -22,6 +22,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -57,11 +58,11 @@ public class ShopPopUp extends VBox {
 
 		setOnKeyPressed((event) -> {
 			if (event.getCode() == KeyCode.ESCAPE) {
-				((Pane) this.getParent()).getChildren().remove(this);
+				remove();
 			}
 		});
 
-		InterruptController.setSettingOpen(true);
+		InterruptController.setIsShopOpen(false);
 	}
 
 	/**
@@ -160,8 +161,7 @@ public class ShopPopUp extends VBox {
 		closeText.setOnMouseClicked((event) -> {
 			try {
 				sellMaterial();
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -182,6 +182,20 @@ public class ShopPopUp extends VBox {
 		optionTitle.setFill(Color.BLACK);
 
 		this.getChildren().add(optionTitle);
+	}
+	
+	/**
+	 * Handle when component is removed from the scene.
+	 */
+	public void remove() {
+		try {
+			((StackPane) getParent()).getChildren().remove(this);
+			InterruptController.setIsShopOpen(false);
+		} catch (ClassCastException e) {
+			System.out.println(this.getClass().getName() + " has already closed");
+		} catch (NullPointerException e) {
+			System.out.println(this.getClass().getName() + " has not opened yet.");
+		}
 	}
 
 }

@@ -4,12 +4,10 @@ import controller.InterruptController;
 import entity.unit.BaseUnit;
 import entity.unit.SwordMan;
 import game.GameLogic;
-import game.Material;
 import game.Terrain;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -20,6 +18,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -54,11 +53,11 @@ public class HelpMilitaryPopUp extends VBox {
 
 		setOnKeyPressed((event) -> {
 			if (event.getCode() == KeyCode.ESCAPE) {
-				((Pane) this.getParent()).getChildren().remove(this);
+				remove();
 			}
 		});
 
-		InterruptController.setSettingOpen(true);
+		InterruptController.setIsHelpMilitaryOpen(false);
 	}
 
 	/**
@@ -103,8 +102,7 @@ public class HelpMilitaryPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.heal(unit);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -126,8 +124,7 @@ public class HelpMilitaryPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.upgradeSwordMan(unit);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -152,8 +149,7 @@ public class HelpMilitaryPopUp extends VBox {
 
 		closeText.setOnMouseClicked((event) -> {
 			try {
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -174,5 +170,19 @@ public class HelpMilitaryPopUp extends VBox {
 		optionTitle.setFill(Color.BLACK);
 
 		this.getChildren().add(optionTitle);
+	}
+	
+	/**
+	 * Handle when component is removed from the scene.
+	 */
+	public void remove() {
+		try {
+			((StackPane) getParent()).getChildren().remove(this);
+			InterruptController.setIsHelpMilitaryOpen(false);
+		} catch (ClassCastException e) {
+			System.out.println(this.getClass().getName() + " has already closed");
+		} catch (NullPointerException e) {
+			System.out.println(this.getClass().getName() + " has not opened yet.");
+		}
 	}
 }

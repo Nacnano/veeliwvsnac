@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -59,11 +60,11 @@ public class BuildPopUp extends VBox {
 
 		setOnKeyPressed((event) -> {
 			if (event.getCode() == KeyCode.ESCAPE) {
-				((Pane) this.getParent()).getChildren().remove(this);
+				remove();
 			}
 		});
 
-		InterruptController.setSettingOpen(true);
+		InterruptController.setIsBuildOpen(false);
 	}
 
 	/**
@@ -136,8 +137,7 @@ public class BuildPopUp extends VBox {
 		build.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(field, pos);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -168,8 +168,7 @@ public class BuildPopUp extends VBox {
 		build.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(mine, pos);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -200,8 +199,7 @@ public class BuildPopUp extends VBox {
 		build.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(sawmill, pos);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -232,8 +230,7 @@ public class BuildPopUp extends VBox {
 		build.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(smelter, pos);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -264,8 +261,7 @@ public class BuildPopUp extends VBox {
 		build.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(house, pos);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -296,8 +292,7 @@ public class BuildPopUp extends VBox {
 		build.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(militaryCamp, pos);
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -331,8 +326,7 @@ public class BuildPopUp extends VBox {
 
 		closeText.setOnMouseClicked((event) -> {
 			try {
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -343,4 +337,17 @@ public class BuildPopUp extends VBox {
 		this.getChildren().add(closeBox);
 	}
 	
+	/**
+	 * Handle when component is removed from the scene.
+	 */
+	public void remove() {
+		try {
+			((StackPane) getParent()).getChildren().remove(this);
+			InterruptController.setIsBuildOpen(false);
+		} catch (ClassCastException e) {
+			System.out.println(this.getClass().getName() + " has already closed");
+		} catch (NullPointerException e) {
+			System.out.println(this.getClass().getName() + " has not opened yet.");
+		}
+	}
 }

@@ -1,7 +1,13 @@
 package scene;
 
+import gui.CurrentDay;
+import gui.MaterialStatus;
 import gui.MessagePane;
+import gui.NextDay;
 import gui.PausePane;
+import gui.ResourceStatus;
+import gui.ShopPopUp;
+import gui.WorkerStatus;
 import controller.InterruptController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,6 +52,36 @@ public class GameScene {
 	 * The {@link MessagePane} that will display message.
 	 */
 	private static MessagePane messagePane;
+	
+	/**
+	 * The {@link MaterialStatus} that will display material.
+	 */
+	private static MaterialStatus materialStatus;
+	
+	/**
+	 * The {@link ShopPopUp} that will display shop.
+	 */
+	private static ShopPopUp shopPopUp;
+	
+	/**
+	 * The {@link ResourceStatus} that will display resource detail.
+	 */
+	private static ResourceStatus resourceStatus;
+	
+	/**
+	 * The {@link WorkerStatus} that will display number of workers.
+	 */
+	private static WorkerStatus workerStatus;
+	
+	/**
+	 * The {@link CurrentDay} that will display current day.
+	 */
+	private static CurrentDay currentDay;
+	
+	/**
+	 * The {@link NextDay} that will go to the next day.
+	 */
+	private static NextDay nextDay;
 
 	/**
 	 * The pane for entity button.
@@ -88,6 +124,7 @@ public class GameScene {
 
 //		StackPane.setAlignment(new Group(inventoryPane), Pos.CENTER);
 		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
+		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
 
 //		MapRenderer.render();
 	}
@@ -121,8 +158,43 @@ public class GameScene {
 //		statusPane = new StatusPane();
 //		messagePane = new MessagePane();
 		pausePane = new PausePane();
+		shopPopUp = new ShopPopUp();
+		
+		currentDay = new CurrentDay();
+		AnchorPane.setTopAnchor(currentDay, 5.0 * GameConfig.getScale());
+		AnchorPane.setLeftAnchor(currentDay, 5.0 * GameConfig.getScale());
+		
+		nextDay = new NextDay();
+		AnchorPane.setTopAnchor(nextDay, 5.0 * GameConfig.getScale());
+		AnchorPane.setRightAnchor(nextDay, 25.0 * GameConfig.getScale());
+		
+		workerStatus = new WorkerStatus();
+		AnchorPane.setBottomAnchor(workerStatus, 0.0);
+		
+		resourceStatus = new ResourceStatus();
+		AnchorPane.setBottomAnchor(resourceStatus, 0.0);
+		AnchorPane.setLeftAnchor(resourceStatus, 50.0 * GameConfig.getScale());
+		
+		materialStatus = new MaterialStatus();
+		AnchorPane.setBottomAnchor(materialStatus, 0.0);
+		AnchorPane.setLeftAnchor(materialStatus, 100.0 * GameConfig.getScale());
+		
+		materialStatus.setOnMouseClicked((event) -> {
+			if (InterruptController.isPauseOpen() || InterruptController.isTransition()) {
+				return;
+			}
+			if (InterruptController.isShopOpen()) {
+				shopPopUp.remove();
+				return;
+			}
+			gamePane.getChildren().add(shopPopUp);
+			shopPopUp.requestFocus();
+			InterruptController.setIsShopOpen(true);
+		});
+		
 
 //		ui.getChildren().addAll(statusPane, messagePane, effectPane);
+		ui.getChildren().addAll(currentDay, nextDay, workerStatus, resourceStatus, materialStatus);
 	}
 
 
@@ -142,7 +214,7 @@ public class GameScene {
 		pauseBtn.getGraphicsContext2D().drawImage(DrawUtil.scaleUp(pauseSprite, GameConfig.getScale()), 0, 0);
 
 		pauseBtn.setOnMouseClicked((event) -> {
-			if (InterruptController.isInventoryOpen() || InterruptController.isTransition()) {
+			if (InterruptController.isShopOpen() || InterruptController.isTransition()) {
 				return;
 			}
 			if (InterruptController.isPauseOpen()) {
@@ -226,6 +298,18 @@ public class GameScene {
 		}
 		return pausePane;
 	}
+	
+	/**
+	 * Getter for Shop Pop Up.
+	 * 
+	 * @return Shop Pop Up
+	 */
+	public static ShopPopUp getShopPopUp() {
+		if (shopPopUp == null) {
+			initScene();
+		}
+		return shopPopUp;
+	}
 
 	/**
 	 * Getter for button pane.
@@ -238,7 +322,43 @@ public class GameScene {
 		}
 		return buttonPane;
 	}
+	
+	/**
+	 * Getter for Material Status.
+	 * 
+	 * @return Material Status
+	 */
+	public static MaterialStatus getMaterialStatus() {
+		if (materialStatus == null) {
+			initScene();
+		}
+		return materialStatus;
+	}
+	
+	/**
+	 * Getter for Resource Status.
+	 * 
+	 * @return Resource Status
+	 */
+	public static ResourceStatus getResourceStatus() {
+		if (resourceStatus == null) {
+			initScene();
+		}
+		return resourceStatus;
+	}
 
+	/**
+	 * Getter for Worker Status.
+	 * 
+	 * @return Worker Status
+	 */
+	public static WorkerStatus getWorkerStatus() {
+		if (workerStatus == null) {
+			initScene();
+		}
+		return workerStatus;
+	}
+	
 	/**
 	 * Getter for graphic context of the map canvas.
 	 * 

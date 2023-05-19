@@ -22,7 +22,7 @@ public class CurrentDay extends HBox {
 	/**
 	 * Represent the height of the pane.
 	 */
-	private final int heightBox = 15;
+	private final int heightBox = 16;
 
 	/**
 	 * Represent the width of the pane.
@@ -40,8 +40,8 @@ public class CurrentDay extends HBox {
 		setBackground(new Background(new BackgroundFill(Color.LIGHTSALMON, null, null)));
 		setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		setPadding(new Insets(20));
-		setSpacing(10);
+//		setPadding(new Insets(20));
+//		setSpacing(10);
 
 		setAlignment(Pos.CENTER);
 		setPrefHeight(heightBox * GameConfig.getScale());

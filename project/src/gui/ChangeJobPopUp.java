@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -55,11 +56,11 @@ public class ChangeJobPopUp extends VBox {
 
 		setOnKeyPressed((event) -> {
 			if (event.getCode() == KeyCode.ESCAPE) {
-				((Pane) this.getParent()).getChildren().remove(this);
+				remove();
 			}
 		});
 
-		InterruptController.setSettingOpen(true);
+		InterruptController.setIsChangeJobOpen(false);
 	}
 	
 	/**
@@ -127,8 +128,7 @@ public class ChangeJobPopUp extends VBox {
 		closeText.setOnMouseClicked((event) -> {
 			try {
 				quitJob();
-				((Pane) this.getParent()).getChildren().remove(this);
-				InterruptController.setSettingOpen(false);
+				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -150,5 +150,19 @@ public class ChangeJobPopUp extends VBox {
 		optionTitle.setFill(Color.BLACK);
 
 		this.getChildren().add(optionTitle);
+	}
+	
+	/**
+	 * Handle when component is removed from the scene.
+	 */
+	public void remove() {
+		try {
+			((StackPane) getParent()).getChildren().remove(this);
+			InterruptController.setIsChangeJobOpen(false);
+		} catch (ClassCastException e) {
+			System.out.println(this.getClass().getName() + " has already closed");
+		} catch (NullPointerException e) {
+			System.out.println(this.getClass().getName() + " has not opened yet.");
+		}
 	}
 }

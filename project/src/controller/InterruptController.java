@@ -38,6 +38,16 @@ public class InterruptController {
 	 * Represent that the scene is still animating or not.
 	 */
 	private static boolean isStillAnimation;
+	
+	private static boolean isShopOpen;
+	
+	private static boolean isBuildOpen;
+	
+	private static boolean isBuildMilitaryOpen;
+	
+	private static boolean isChangeJobOpen;
+	
+	private static boolean isHelpMilitaryOpen;
 
 	/**
 	 * Reset all interrupted state.
@@ -49,6 +59,11 @@ public class InterruptController {
 		isTransition = false;
 		isImmobilize = false;
 		isStillAnimation = false;
+		isShopOpen = false;
+		isBuildOpen = false;
+		isBuildMilitaryOpen = false;
+		isChangeJobOpen = false;
+		isHelpMilitaryOpen = false;
 	}
 
 	/**
@@ -69,7 +84,7 @@ public class InterruptController {
 	 *         false
 	 */
 	public static boolean isInterruptPlayerMovingInput() {
-		return isPauseOpen || isInventoryOpen || isTransition || isStillAnimation;
+		return isPauseOpen || isSettingOpen || isInventoryOpen || isTransition || isStillAnimation;
 	}
 
 	/**
@@ -178,6 +193,46 @@ public class InterruptController {
 	 */
 	public static void setStillAnimation(boolean isStillAnimation) {
 		InterruptController.isStillAnimation = isStillAnimation;
+	}
+	
+	public static boolean isShopOpen() {
+		return isShopOpen;
+	}
+	
+	public static void setIsShopOpen(boolean isShopOpen) {
+		InterruptController.isShopOpen = isShopOpen;
+	}
+	
+	public static boolean isBuildOpen() {
+		return isBuildOpen;
+	}
+	
+	public static void setIsBuildOpen(boolean isBuildOpen) {
+		InterruptController.isBuildOpen = isBuildOpen;
+	}
+	
+	public static boolean isBuildMilitaryOpen() {
+		return isBuildMilitaryOpen;
+	}
+	
+	public static void setIsBuildMilitaryOpen(boolean isBuildMilitaryOpen) {
+		InterruptController.isBuildMilitaryOpen = isBuildMilitaryOpen;
+	}
+	
+	public static boolean isChangeJobOpen() {
+		return isChangeJobOpen;
+	}
+	
+	public static void setIsChangeJobOpen(boolean isChangeJobOpen) {
+		InterruptController.isChangeJobOpen = isChangeJobOpen;
+	}
+	
+	public static boolean isHelpMilitaryOpen() {
+		return isHelpMilitaryOpen;
+	}
+	
+	public static void setIsHelpMilitaryOpen(boolean isHelpMilitaryOpen) {
+		InterruptController.isHelpMilitaryOpen = isHelpMilitaryOpen;
 	}
 
 }
