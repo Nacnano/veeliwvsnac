@@ -13,7 +13,12 @@ import entity.building.Mine;
 import entity.building.Resource;
 import entity.building.Sawmill;
 import entity.building.Smelter;
+import entity.unit.Archer;
 import entity.unit.BaseUnit;
+import entity.unit.FieldSwordMan;
+import entity.unit.ForestSwordMan;
+import entity.unit.MountainSwordMan;
+import entity.unit.SwordMan;
 import utils.GameConfig;
 
 public class GameLogic {
@@ -26,7 +31,8 @@ public class GameLogic {
 //	Add a new variable
 	private static int currentPopulation;
 	
-	private static Map<BaseUnit, Position> ourUnits, enemyUnits;
+	private static Map<BaseUnit, Position> ourUnits = new HashMap<>();
+	private static Map<BaseUnit, Position> enemyUnits = new HashMap<>();
 	private static ArrayList<Position> unemployed;
 	// private Map<Terrain, Position> map;
 	private static Map<Position, Terrain> map = new HashMap<>();
@@ -113,6 +119,9 @@ public class GameLogic {
 		for (BaseBuilding b : buildings.values()) {
 			if (b instanceof Resource) 
 				sumEmployed += ((Resource) b).getCurrentPeople();
+		}
+		for (BaseUnit u : ourUnits.keySet()) {
+			sumEmployed += u.getPeople();
 		}
 		return currentPopulation - sumEmployed;
 	}
@@ -296,6 +305,7 @@ public class GameLogic {
 	public static void changeMilitary(BaseUnit unit_old, BaseUnit unit_new) {
 		if (!ourUnits.containsKey(unit_old)) return;
 		Position pos = ourUnits.get(unit_old);
+		unit_new.setPeople(unit_old.getPeople());
 		ourUnits.remove(unit_old);
 		ourUnits.put(unit_new, pos);
 	}
@@ -303,6 +313,37 @@ public class GameLogic {
 	public static Terrain getOurUnitTerrain(BaseUnit unit) {
 		Position pos = ourUnits.get(unit);
 		return map.get(pos);
+	}
+	
+	public static void upgradeSwordMan(BaseUnit unit) {
+		Position pos = ourUnits.get(unit);
+		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
+		if (!payToUpgrateMilitary()) return;
+		
+		Terrain terrain = map.get(pos);
+		if (terrain == Terrain.FOREST) 
+			GameLogic.changeMilitary(unit, new ForestSwordMan());
+		else if (terrain == Terrain.MOUNTAIN)
+			GameLogic.changeMilitary(unit, new MountainSwordMan());
+		else if (terrain == Terrain.PLAIN)
+			GameLogic.changeMilitary(unit, new FieldSwordMan());
+	}
+	
+	public static void buildMilitary(Position pos, String militaryType) {
+		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
+		if (getUnemployed() < GameConfig.MILITARY_SIZE) return;
+		BaseUnit unit;
+		if (militaryType == "SwordMan") 
+			unit = new SwordMan();
+		else
+			unit = new Archer();
+		ourUnits.put(unit, pos);		
+	}
+	
+	public static void heal(BaseUnit unit) {
+		Position pos = ourUnits.get(unit);
+		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
+		unit.setPeople(Math.min(getUnemployed(), GameConfig.MILITARY_SIZE));
 	}
 	
 	public static void addOurUnit(BaseUnit unit, Position pos) {
@@ -381,6 +422,10 @@ public class GameLogic {
 	
 	public static Map<Position, Terrain> getMap() {
 		return map;
+	}
+	
+	public static Map<BaseUnit, Position> getOurUnits() {
+		return ourUnits;
 	}
 	
 	//For testing

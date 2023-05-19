@@ -3,6 +3,8 @@ package scene;
 import controller.GameController;
 import controller.SceneController;
 import entity.building.Field;
+import entity.unit.BaseUnit;
+import entity.unit.SwordMan;
 import game.GameLogic;
 import game.Position;
 import game.Terrain;
@@ -40,14 +42,16 @@ public class TestGameScene {
 
 		System.out.println("Opening Test Game Scene...");
 		
-		GameLogic.SetCurrentPopulation(50);
+		GameLogic.SetCurrentPopulation(200);
 		Position pos1 = new Position(0, 0);
 		Field field1 = new Field();
 		Position pos2 = new Position(1, 0);
+		BaseUnit unit1 = new SwordMan();
 		
 		GameLogic.getBuildings().put(pos1, field1);
 		GameLogic.setNumberOfWorkers(pos1, 10);
 		GameLogic.getMap().put(pos2, Terrain.FOREST);
+		GameLogic.getOurUnits().put(unit1, pos2);
 		
 		GameLogic.setWood(500);
 		GameLogic.setStone(500);
@@ -74,6 +78,12 @@ public class TestGameScene {
 		
 		VBox buildPopUp = new gui.BuildPopUp(pos2);
 		root.add(buildPopUp, 2, 1);
+		
+		VBox buildMilitaryPopUp = new gui.BuildMilitaryPopUp(pos2);
+		root.add(buildMilitaryPopUp, 3, 1);
+		
+		VBox helpMilitaryPopUp = new gui.HelpMilitaryPopUp(unit1);
+		root.add(helpMilitaryPopUp, 3, 2);
 		
 		cachedScene = SceneController.makeNewScene(root);
 		return cachedScene;
