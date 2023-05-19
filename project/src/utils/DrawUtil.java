@@ -77,7 +77,7 @@ public class DrawUtil {
 		mountainSprites = getImagePixelReader("unit/SwordMan.png");
 		waterSprites = getImagePixelReader("unit/SwordMan.png");
 		
-		barnSprites = getImagePixelReader("buildings/Barn.png");
+		barnSprites = getImagePixelReader("building/Barn.png");
 		
 		SwordManSprites = getImagePixelReader("unit/SwordMan.png");
 		
