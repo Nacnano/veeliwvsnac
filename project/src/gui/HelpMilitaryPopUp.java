@@ -37,6 +37,7 @@ public class HelpMilitaryPopUp extends VBox {
 	 * Represent the width of the pane.
 	 */
 	private final int widthBox = 150;
+	Color btnColor = Color.BEIGE;
 
 	BaseUnit unit;
 	
@@ -79,7 +80,7 @@ public class HelpMilitaryPopUp extends VBox {
 	}
 	
 	private void addOptions() {
-		HBox box = new HBox(35);
+		HBox box = new HBox(5);
 		box.setAlignment(Pos.CENTER);
 		
 		box.getChildren().add(heal());
@@ -90,7 +91,7 @@ public class HelpMilitaryPopUp extends VBox {
 	}
 
 	private VBox heal() {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Heal");
 		label.setFont(FontUtil.getFont("extraSmall"));
@@ -114,7 +115,7 @@ public class HelpMilitaryPopUp extends VBox {
 	}
 	
 	private VBox upgradeSwordMan() {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Terrain terrain = GameLogic.getOurUnitTerrain(unit);
 		Label label = new Label("Upgrade to " + terrain + " Swordman");

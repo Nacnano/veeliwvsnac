@@ -33,6 +33,7 @@ public class BuildMilitaryPopUp extends VBox {
 	 * Represent the width of the pane.
 	 */
 	private final int widthBox = 50;
+	Color btnColor = Color.BEIGE;
 	
 	Position pos;
 	
@@ -75,7 +76,7 @@ public class BuildMilitaryPopUp extends VBox {
 	}
 	
 	private void addOptions() {
-		HBox box = new HBox(35);
+		HBox box = new HBox(5);
 		box.setAlignment(Pos.CENTER);
 				
 		if (GameLogic.getUnemployed() < GameConfig.MILITARY_SIZE) {
@@ -91,8 +92,10 @@ public class BuildMilitaryPopUp extends VBox {
 	}
 	
 	private VBox buildSwordMan() {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
+//		vbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+//				new BorderWidths(GameConfig.getScale()))));
 		Label label = new Label("SwordMan");
 		label.setFont(FontUtil.getFont("extraSmall"));
 		
@@ -107,11 +110,12 @@ public class BuildMilitaryPopUp extends VBox {
 		});
 
 		vbox.getChildren().addAll(label);
+		
 		return vbox;
 	}
 	
 	private VBox buildArcher() {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Archer");
 		label.setFont(FontUtil.getFont("extraSmall"));

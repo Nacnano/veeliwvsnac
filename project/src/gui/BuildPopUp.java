@@ -42,6 +42,7 @@ public class BuildPopUp extends VBox {
 	 * Represent the width of the pane.
 	 */
 	private final int widthBox = 300;
+	Color btnColor = Color.WHITE;
 	
 	Position pos;
 	
@@ -84,7 +85,7 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private void addOptions() {
-		HBox box = new HBox(35);
+		HBox box = new HBox(5);
 		box.setAlignment(Pos.CENTER);
 		
 		House house = new House();
@@ -115,7 +116,7 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private VBox buildField(Field field) {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Barn");
 		label.setFont(FontUtil.getFont("small"));
@@ -147,7 +148,7 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private VBox buildMine(Mine mine) {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Mine");
 		label.setFont(FontUtil.getFont("small"));
@@ -179,7 +180,7 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private VBox buildSawmill(Sawmill sawmill) {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Sawmill");
 		label.setFont(FontUtil.getFont("small"));
@@ -211,7 +212,7 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private VBox buildSmelter(Smelter smelter) {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Smelter");
 		label.setFont(FontUtil.getFont("small"));
@@ -243,7 +244,7 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private VBox buildHouse(House house) {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("House");
 		label.setFont(FontUtil.getFont("small"));
@@ -275,7 +276,7 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private VBox buildMilitaryCamp(MilitaryCamp militaryCamp) {
-		VBox vbox = new VBox();
+		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Military Camp");
 		label.setFont(FontUtil.getFont("small"));

@@ -42,7 +42,7 @@ public class TestGameScene {
 
 		System.out.println("Opening Test Game Scene...");
 		
-		GameLogic.SetCurrentPopulation(200);
+		GameLogic.SetCurrentPopulation(300);
 		Position pos1 = new Position(0, 0);
 		Field field1 = new Field();
 		Position pos2 = new Position(1, 0);
@@ -84,6 +84,12 @@ public class TestGameScene {
 		
 		VBox helpMilitaryPopUp = new gui.HelpMilitaryPopUp(unit1);
 		root.add(helpMilitaryPopUp, 3, 2);
+		
+		HBox currentDay = new gui.CurrentDay();
+		root.add(currentDay, 0, 2);
+		
+		HBox nextDay = new gui.NextDay();
+		root.add(nextDay, 1, 2);
 		
 		cachedScene = SceneController.makeNewScene(root);
 		return cachedScene;
