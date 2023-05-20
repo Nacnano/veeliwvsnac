@@ -9,6 +9,8 @@ import game.GameLogic;
 import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
 import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import scene.GameScene;
 import game.Position;
 import game.MapRenderer;
 
@@ -46,8 +48,9 @@ public class AnimationUtil {
 	 */
 	public static Thread playAnimation(int step) {
 		Camera camera = GameController.getCamera();
-		int cameraStepX = camera.getPosition().getColumn();
-		int cameraStepY = camera.getPosition().getRow();
+		final int cameraStepX = camera.getDirection().getColumn();
+		final int cameraStepY = camera.getDirection().getRow();
+
 		Map<BaseUnit, Position> ourUnits = GameLogic.getOurUnits();
 		Map<BaseUnit, Position> enemyUnits = GameLogic.getEnemyUnits();
 		
@@ -109,6 +112,7 @@ public class AnimationUtil {
 					unit.getKey().setAttacked(false);
 				}
 				camera.setMoving(false);
+				camera.setDirection(new Position(0, 0));
 
 				if (step == 0 || !GameConfig.isSkipMoveAnimation() || finalIsAttacked) {
 					MapRenderer.render();
@@ -169,6 +173,36 @@ public class AnimationUtil {
 			}
 
 		});
+//		Thread cameraMoveAnimation = new Thread(() -> {
+//	        Camera camera = GameController.getCamera();
+//	        int newSpriteSize = GameConfig.SPRITE_SIZE * GameConfig.getScale();
+//	        int centerY = camera.getPosition().getRow() * newSpriteSize + newSpriteSize / 2;
+//	        int centerX = camera.getPosition().getColumn() * newSpriteSize + newSpriteSize / 2;
+//
+//	        while (true) {
+//	            try {
+//	                double targetX = player.getTranslateX() + player.getWidth() / 2 - SCENE_WIDTH / 2;
+//	                double targetY = player.getTranslateY() + player.getHeight() / 2 - SCENE_HEIGHT / 2;
+//
+//	                // Smoothly move the camera towards the player's position
+//	                double cameraSpeed = 0.2; // Adjust this value to control the camera movement speed
+//	                cameraX += (targetX - cameraX) * cameraSpeed;
+//	                cameraY += (targetY - cameraY) * cameraSpeed;
+//
+//	                // Update the translation of the game map
+//	                Pane gameMap = GameScene.getGamePane();
+//	                Platform.runLater(() -> {
+//	                    gameMap.setTranslateX(-cameraX);
+//	                    gameMap.setTranslateY(-cameraY);
+//	                });
+//
+//	                Thread.sleep(FRAME_DURATION_MS);
+//	            } catch (InterruptedException e) {
+//	                System.out.println("Camera follow player interrupted");
+//	            }
+//	        }
+//	    });
+		
 		cameraMoveAnimation.start();
 		return cameraMoveAnimation;
 	}
