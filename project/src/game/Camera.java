@@ -1,13 +1,14 @@
 package game;
 
 import entity.unit.Movable;
+import utils.GameConfig;
 
 /**
  * The Player class is used to represent the player. It stores status, equipped
  * armor, equipped weapon, and items that the player has.
  *
  */
-public class Camera implements Movable {
+public class Camera {
 
 	/**
 	 * Position of the camera.
@@ -25,10 +26,13 @@ public class Camera implements Movable {
 	/**
 	 * move the camera to the destination
 	 */
-	public void move(Position destination) {
+	public boolean move(Position destination) {
+		if(destination.getColumn() < 0 || destination.getColumn() > GameConfig.getMapSize() || destination.getRow() < 0 || destination.getRow() >= GameConfig.getMapSize())
+			return false;
 		setDirection(destination.directionFrom(getPosition()));
 		setMoving(true);
 		setPosition(destination);
+		return true;
 	}
 
 
