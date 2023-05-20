@@ -11,6 +11,7 @@ import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import entity.unit.BaseUnit;
+import entity.unit.SwordMan;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -113,7 +114,7 @@ public class GameController {
 		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
-		GameLogic.SetCurrentPopulation(50);
+		GameLogic.SetCurrentPopulation(500);
 		
 		initBuildings();
 		initMaterials();
@@ -129,30 +130,40 @@ public class GameController {
 //		gameMap.get(9, 8).setBuilding(house);
 //		GameLogic.getBuildings().put(new Position(9, 8), house);
 		
-		
+		GameLogic.initBuilding(new Field(), new Position(9, 12));
 //		Field field = new Field();
 //		Position field_pos = new Position(10, 11);
 //		gameMap.get(10, 11).setBuilding(field);
 //		GameLogic.getBuildings().put(field_pos, field);
 //		GameLogic.setNumberOfWorkers(field_pos, 10);
 //		
+		GameLogic.initBuilding(new Mine(), new Position(9, 6));
 //		Mine mine = new Mine();
 //		Position mine_pos = new Position(9, 6);
 //		gameMap.get(9, 6).setBuilding(mine);
 //		GameLogic.getBuildings().put(mine_pos, mine);
 //		GameLogic.setNumberOfWorkers(mine_pos, 10);
 //		
+		GameLogic.initBuilding(new Sawmill(), new Position(10, 4));
 //		Sawmill sawmill = new Sawmill();
 //		Position sawmill_pos = new Position(10, 4);
 //		gameMap.get(10, 4).setBuilding(sawmill);
 //		GameLogic.getBuildings().put(sawmill_pos, sawmill);
 //		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
 //		
+		GameLogic.initBuilding(new Smelter(), new Position(11, 13));
 //		Smelter smelter = new Smelter();
 //		Position smelter_pos = new Position(11, 13);
 //		gameMap.get(11, 13).setBuilding(smelter);
 //		GameLogic.getBuildings().put(smelter_pos, smelter);
 //		GameLogic.setNumberOfWorkers(smelter_pos, 10);
+		
+		Position militaryCamp_pos = new Position(7, 10);
+		GameLogic.initBuilding(new MilitaryCamp(), militaryCamp_pos);
+		
+		SwordMan swordMan = new SwordMan();
+		gameMap.get(7, 10).setUnit(swordMan);
+		GameLogic.getOurUnits().put(swordMan, militaryCamp_pos);
 		
 	}
 	

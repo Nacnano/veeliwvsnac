@@ -284,6 +284,7 @@ public class DrawUtil {
 		canvas.setOnMouseClicked((event) -> {
 			if (!InterruptController.isInterruptPlayerMovingInput()) {
 //				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
+				GameScene.addHelpMilitaryPopUp(unit);
 				System.out.println("Clicked! " + unit.getClass().getSimpleName());
 			}
 		});
@@ -291,13 +292,13 @@ public class DrawUtil {
 		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
 		
-		VBox holder = new VBox();
-		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-		holder.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
-		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
-		AnchorPane.setLeftAnchor(holder, (double) x);
-		GameScene.getButtonPane().getChildren().add(holder);
+//		VBox holder = new VBox();
+//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+//		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
+//		AnchorPane.setLeftAnchor(holder, (double) x);
+//		GameScene.getButtonPane().getChildren().add(holder);
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
 		
@@ -330,15 +331,56 @@ public class DrawUtil {
 		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
 		
-		VBox holder = new VBox();
-		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
-		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
-		AnchorPane.setLeftAnchor(holder, (double) x);
-		GameScene.getButtonPane().getChildren().add(holder);
+//		VBox holder = new VBox();
+//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+//		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
+//		AnchorPane.setLeftAnchor(holder, (double) x);
+//		GameScene.getButtonPane().getChildren().add(holder);
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
+	}
+	
+	/**
+	 * Adds an invisible button on the terrain at the specified position so the
+	 * player can click to build a building on the terrain.
+	 * 
+	 * @param y      Position in the Y-axis
+	 * @param x      Position in the X-axis
+	 * @param entity The entity to adds the button on
+	 */
+	public static void addTerrainButton(int y, int x, Cell cell) {
+		// TODO: add logic for checking ours or enemy
+		if (cell.getTerrain() == null) {
+			return;
+		}
+		
+
+		Canvas canvas = new Canvas(GameConfig.SPRITE_SIZE * GameConfig.getScale(),
+				GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		canvas.setOnMouseClicked((event) -> {
+			if (!InterruptController.isInterruptPlayerMovingInput()) {
+//				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
+				GameScene.addBuildPopUp(cell.getPosition());
+				System.out.println("Clicked! " + cell.getTerrain());
+			}
+		});
+		addCursorHover(canvas, true);
+		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));
+		AnchorPane.setLeftAnchor(canvas, (double) x);
+		
+//		VBox holder = new VBox();
+//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
+//		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
+//		AnchorPane.setLeftAnchor(holder, (double) x);
+//		GameScene.getButtonPane().getChildren().add(holder);
+		
+		GameScene.getButtonPane().getChildren().add(canvas);
+		
+//		System.out.println("Build unit button");
 	}
 
 	/**

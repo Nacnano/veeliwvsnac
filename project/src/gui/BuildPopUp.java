@@ -29,6 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
@@ -43,16 +44,18 @@ public class BuildPopUp extends VBox {
 	 * Represent the width of the pane.
 	 */
 	private final int widthBox = 300;
-	Color btnColor = Color.WHITE;
+	Color btnColor = Color.rgb(245, 246, 231);
+	
+	HBox optionsBox;
 	
 	Position pos;
+	Text buildButton;
 	
 	/**
 	 * The constructor of the class. Initialize the inside component, event handler
 	 * and style.
 	 */
-	public BuildPopUp(Position pos) {
-		this.pos = pos;
+	public BuildPopUp() {
 		styleSetup();
 		addTitle();
 		addOptions();
@@ -71,7 +74,7 @@ public class BuildPopUp extends VBox {
 	 * Initialize style for pane.
 	 */
 	private void styleSetup() {
-		setBackground(new Background(new BackgroundFill(Color.FLORALWHITE, null, null)));
+		setBackground(new Background(new BackgroundFill(Color.rgb(245, 246, 231), null, null)));
 		setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		setPadding(new Insets(20));
@@ -86,34 +89,9 @@ public class BuildPopUp extends VBox {
 	}
 	
 	private void addOptions() {
-		HBox box = new HBox(5);
-		box.setAlignment(Pos.CENTER);
-		
-		House house = new House();
-		if (GameLogic.canBuildBuilding(house, pos))
-			box.getChildren().add(buildHouse(house));
-		
-		Field field = new Field();
-		if (GameLogic.canBuildBuilding(field, pos))
-			box.getChildren().add(buildField(field));
-		
-		Mine mine = new Mine();
-		if (GameLogic.canBuildBuilding(mine, pos))
-			box.getChildren().add(buildMine(mine));
-		
-		Sawmill sawmill = new Sawmill();
-		if (GameLogic.canBuildBuilding(sawmill, pos))
-			box.getChildren().add(buildSawmill(sawmill));
-		
-		Smelter smelter = new Smelter();
-		if (GameLogic.canBuildBuilding(smelter, pos))
-			box.getChildren().add(buildSmelter(smelter));
-		
-		MilitaryCamp militaryCamp = new MilitaryCamp();
-		if (GameLogic.canBuildBuilding(militaryCamp, pos))
-			box.getChildren().add(buildMilitaryCamp(militaryCamp));
-
-		this.getChildren().add(box);
+		optionsBox = new HBox(5);
+		optionsBox.setAlignment(Pos.CENTER);
+		this.getChildren().add(optionsBox);
 	}
 	
 	private VBox buildField(Field field) {
@@ -134,7 +112,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(field, pos);
 				remove();
@@ -165,7 +143,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(mine, pos);
 				remove();
@@ -196,7 +174,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(sawmill, pos);
 				remove();
@@ -227,7 +205,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(smelter, pos);
 				remove();
@@ -258,7 +236,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(house, pos);
 				remove();
@@ -289,9 +267,10 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(militaryCamp, pos);
+				System.out.println("   chose mil camp");
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -337,12 +316,42 @@ public class BuildPopUp extends VBox {
 		this.getChildren().add(closeBox);
 	}
 	
+	public void update(Position pos) {
+		setPos(pos);
+		optionsBox.getChildren().clear();
+		
+		House house = new House();
+		if (GameLogic.canBuildBuilding(house, pos))
+			optionsBox.getChildren().add(buildHouse(house));
+		
+		Field field = new Field();
+		if (GameLogic.canBuildBuilding(field, pos))
+			optionsBox.getChildren().add(buildField(field));
+		
+		Mine mine = new Mine();
+		if (GameLogic.canBuildBuilding(mine, pos))
+			optionsBox.getChildren().add(buildMine(mine));
+		
+		Sawmill sawmill = new Sawmill();
+		if (GameLogic.canBuildBuilding(sawmill, pos))
+			optionsBox.getChildren().add(buildSawmill(sawmill));
+		
+		Smelter smelter = new Smelter();
+		if (GameLogic.canBuildBuilding(smelter, pos))
+			optionsBox.getChildren().add(buildSmelter(smelter));
+		
+		MilitaryCamp militaryCamp = new MilitaryCamp();
+		if (GameLogic.canBuildBuilding(militaryCamp, pos))
+			optionsBox.getChildren().add(buildMilitaryCamp(militaryCamp));		
+	}
+	
 	/**
 	 * Handle when component is removed from the scene.
 	 */
 	public void remove() {
 		try {
 			((StackPane) getParent()).getChildren().remove(this);
+			GameScene.getMaterialStatus().update();
 			InterruptController.setIsBuildOpen(false);
 		} catch (ClassCastException e) {
 			System.out.println(this.getClass().getName() + " has already closed");
@@ -350,4 +359,13 @@ public class BuildPopUp extends VBox {
 			System.out.println(this.getClass().getName() + " has not opened yet.");
 		}
 	}
+
+	public Position getPos() {
+		return pos;
+	}
+
+	public void setPos(Position pos) {
+		this.pos = pos;
+	}
+	
 }

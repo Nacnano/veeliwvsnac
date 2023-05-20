@@ -1,7 +1,10 @@
 package scene;
 
+import gui.BuildMilitaryPopUp;
+import gui.BuildPopUp;
 import gui.ChangeJobPopUp;
 import gui.CurrentDay;
+import gui.HelpMilitaryPopUp;
 import gui.MaterialStatus;
 import gui.MessagePane;
 import gui.NextDay;
@@ -13,6 +16,7 @@ import controller.GameController;
 import controller.InterruptController;
 import entity.building.BaseBuilding;
 import entity.building.Resource;
+import entity.unit.BaseUnit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -31,6 +35,7 @@ import javafx.scene.paint.Color;
 import game.ControlAction;
 import game.GameLogic;
 import game.MapRenderer;
+import game.Position;
 //import game.MapRenderer;
 import utils.DrawUtil;
 import utils.AudioUtil;
@@ -85,6 +90,21 @@ public class GameScene {
 	private static WorkerStatus workerStatus;
 	
 	/**
+	 * The {@link BuildMilitaryPopUp} that will display pop up for building military.
+	 */
+	private static BuildMilitaryPopUp buildMilitaryPopUp;
+	
+	/**
+	 * The {@link HelpMilitaryPopUp} that will display pop up for building military.
+	 */
+	private static HelpMilitaryPopUp helpMilitaryPopUp;	
+	
+	/**
+	 * The {@link BuildPopUp} that will display pop up for building a building.
+	 */
+	private static BuildPopUp buildPopUp;
+	
+	/**
 	 * The {@link CurrentDay} that will display current day.
 	 */
 	private static CurrentDay currentDay;
@@ -136,6 +156,9 @@ public class GameScene {
 		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
 		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
 		StackPane.setAlignment(new Group(changeJobPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(buildMilitaryPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(helpMilitaryPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(buildPopUp), Pos.CENTER);
 
 		MapRenderer.render();
 	}
@@ -184,6 +207,9 @@ public class GameScene {
 		pausePane = new PausePane();
 		shopPopUp = new ShopPopUp();
 		changeJobPopUp = new ChangeJobPopUp();
+		buildMilitaryPopUp = new BuildMilitaryPopUp();
+		helpMilitaryPopUp = new HelpMilitaryPopUp();
+		buildPopUp = new BuildPopUp();
 		
 		currentDay = new CurrentDay();
 		AnchorPane.setTopAnchor(currentDay, 5.0 * GameConfig.getScale());
@@ -220,19 +246,34 @@ public class GameScene {
 		});
 		
 		resourceStatus.setOnMouseClicked((event) -> {
-			if (resourceStatus.getCurrentPeople().equals("People: -")) return;
+//			if (resourceStatus.getCurrentPeople().equals("People: -")) return;
+			if (resourceStatus.getBuilding() == null) return;
+			if (resourceStatus.getName().equals("Building: House")) return;
+			
 			if (InterruptController.isPauseOpen() || InterruptController.isShopOpen() || InterruptController.isTransition()) {
 				return;
 			}
-			if (InterruptController.isChangeJobOpen()) {
-				changeJobPopUp.remove();
-				return;
-			}
 			
-			changeJobPopUp.update(resourceStatus.getBuilding());
-			gamePane.getChildren().add(changeJobPopUp);
-			changeJobPopUp.requestFocus();
-			InterruptController.setIsChangeJobOpen(true);
+			if (resourceStatus.getName().equals("Building: MilitaryCamp")) {
+				if (InterruptController.isBuildMilitaryOpen()) {
+					buildMilitaryPopUp.remove();
+					return;
+				}
+				buildMilitaryPopUp.update(resourceStatus.getBuilding());
+				gamePane.getChildren().add(buildMilitaryPopUp);
+				buildMilitaryPopUp.requestFocus();
+				InterruptController.setIsBuildMilitaryOpen(true);
+			}
+			else {
+				if (InterruptController.isChangeJobOpen()) {
+					changeJobPopUp.remove();
+					return;
+				}
+				changeJobPopUp.update(resourceStatus.getBuilding());
+				gamePane.getChildren().add(changeJobPopUp);
+				changeJobPopUp.requestFocus();
+				InterruptController.setIsChangeJobOpen(true);
+			}
 		});
 		
 
@@ -267,6 +308,20 @@ public class GameScene {
 			pausePane.requestFocus();
 			InterruptController.setPauseOpen(true);
 		});
+	}
+	
+	public static void addHelpMilitaryPopUp(BaseUnit unit) {
+		helpMilitaryPopUp.update(unit);
+		gamePane.getChildren().add(helpMilitaryPopUp);
+		helpMilitaryPopUp.requestFocus();
+		InterruptController.setIsHelpMilitaryOpen(true);
+	}
+	
+	public static void addBuildPopUp(Position pos) {
+		buildPopUp.update(pos);
+		gamePane.getChildren().add(buildPopUp);
+		buildPopUp.requestFocus();
+		InterruptController.setIsHelpMilitaryOpen(true);
 	}
 
 	/**
