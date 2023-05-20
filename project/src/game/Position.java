@@ -45,4 +45,8 @@ public class Position {
 	public Position moveRight() {
 		return new Position(getRow(), getColumn()+1);
 	}
+	
+	public Position directionFrom(Position p) {
+		return new Position(getRow()-p.getColumn(),getColumn() - p.getColumn());
+	}
 }

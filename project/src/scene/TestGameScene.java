@@ -73,7 +73,7 @@ public class TestGameScene {
 		VBox shopPopUp = new gui.ShopPopUp();
 		root.add(shopPopUp, 0, 1);
 		
-		VBox changeJobPopUp = new gui.ChangeJobPopUp(pos1);
+		VBox changeJobPopUp = new gui.ChangeJobPopUp();
 		root.add(changeJobPopUp, 1, 1);
 		
 		VBox buildPopUp = new gui.BuildPopUp(pos2);

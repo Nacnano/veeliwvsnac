@@ -1,15 +1,6 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import controller.GameController;
 import entity.unit.Movable;
-import javafx.util.Pair;
-import game.Cell;
-import scene.GameScene;
-import utils.GameConfig;
-import utils.MessageTextUtil;
 
 /**
  * The Player class is used to represent the player. It stores status, equipped
@@ -27,12 +18,16 @@ public class Camera implements Movable {
 	 * Moving status of the camera.
 	 */
 	private boolean isMoving;
+	
+	private Position direction;
 
 	
 	/**
 	 * move the camera to the destination
 	 */
 	public void move(Position destination) {
+		setDirection(destination.directionFrom(getPosition()));
+		setMoving(true);
 		setPosition(destination);
 	}
 
@@ -67,5 +62,17 @@ public class Camera implements Movable {
 
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
+	}
+
+
+
+	public Position getDirection() {
+		return direction;
+	}
+
+
+
+	public void setDirection(Position direction) {
+		this.direction = direction;
 	}
 }

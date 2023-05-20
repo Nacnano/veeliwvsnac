@@ -190,6 +190,29 @@ public class GameController {
 		}
 		return false;
 	}
+	
+	/**
+	 * Checking condition that {@link #player} is currently Game over or not by
+	 * checking {@link #player} health.
+	 * 
+	 * @return true if {@link #player} health is less than or equals 0 otherwise
+	 *         false
+	 */
+	public static boolean isGameClear() {
+		if (GameLogic.isGameClear()) {
+			bgm.stop();
+			FadeTransition fadeOut = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 1.0, 0.0);
+
+			InterruptController.setTransition(true);
+			fadeOut.setOnFinished((event) -> {
+				SceneController.setSceneToStage(CongratulationScene.getScene());
+			});
+
+			fadeOut.play();
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Getter for {@link #gameMap}.
@@ -269,30 +292,33 @@ public class GameController {
 	}
 	
 	public static void gameUpdate(ControlAction action) {
-		Position cameraPosition= camera.getPosition();
-		boolean isMoved = true;
+		Position cameraPosition = camera.getPosition();
+		boolean isMoved = false;
 		switch (action) {
 		case CAMERA_MOVE_UP:
 			camera.move(cameraPosition.moveUp());
+			isMoved = true;
 			break;
 		case CAMERA_MOVE_DOWN:
 			camera.move(cameraPosition.moveDown());
+			isMoved = true;
 			break;
 		case CAMERA_MOVE_LEFT:
 			camera.move(cameraPosition.moveLeft());
+			isMoved = true;
 			break;
 		case CAMERA_MOVE_RIGHT:
 			camera.move(cameraPosition.moveRight());
+			isMoved = true;
 			break;
-		case CAMERA_STAY_STILL:
-			isMoved = false;
 		default:
 			break;
 		}
+		if(isMoved) {
 			InterruptController.setStillAnimation(true);
 			new Thread(() -> {
 				try {
-					AnimationUtil.playAnimation(2).join();
+					AnimationUtil.playAnimation(1).join();
 				} catch (InterruptedException e) {
 					System.out.println("Move animation interrupted");
 				}
@@ -302,9 +328,11 @@ public class GameController {
 //					} else {
 //						postMoveUpdate(true);
 //					}
+					System.out.println(cameraPosition.getRow() + " " + cameraPosition.getColumn());
 					postGameUpdate();
 				});
 			}).start();
+		}
 	}
 	
 
@@ -400,9 +428,10 @@ public class GameController {
 //		GameLogic.
 
 		// Updates user interface
-		GameScene.initScene();
+		GameScene.updateScene();
 
 		// Play monster animations
+		System.out.println("HOI");
 		new Thread(() -> {
 			try {
 				AnimationUtil.playAnimation(0).join();
@@ -410,9 +439,10 @@ public class GameController {
 				System.out.println("Post game animation interrupted");
 			}
 			Platform.runLater(() -> {
-				if (GameController.isGameOver()) {
+				if (GameController.isGameOver() || GameController.isGameClear()) {
 					return;
 				}
+				
 				InterruptController.setStillAnimation(false);
 				doNextAction();
 			});
