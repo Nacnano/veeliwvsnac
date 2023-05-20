@@ -78,4 +78,14 @@ public class MessageTextUtil {
 		String displayText = "You cannot attack your own unit.";
 		writeMessage(displayText);
 	}
+
+	public static void textWhenMovetoUnit() {
+		String displayText = "That cell has a unit.";
+		writeMessage(displayText);
+	}
+
+	public static void textWhenMoveOutsideMoveTerritory() {
+		String displayText = "That cell is not oin your move territory.";
+		writeMessage(displayText);
+	}
 }

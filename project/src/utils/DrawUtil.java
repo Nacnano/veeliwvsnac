@@ -291,6 +291,48 @@ public class DrawUtil {
 
 		gc.drawImage(img, x, y - 20);
 	}
+	
+	/**
+	 * Adds an invisible button on the entity at the specified position so the
+	 * player can click to get building info.
+	 * 
+	 * @param y      Position in the Y-axis
+	 * @param x      Position in the X-axis
+	 * @param entity The entity to adds the button on
+	 */
+	public static void addBuildingButton(int y, int x, Cell cell) {
+		BaseBuilding building = cell.getBuilding();
+		if (building == null) {
+			return;
+		}
+
+		Canvas canvas = new Canvas(GameConfig.SPRITE_SIZE * GameConfig.getScale(),
+				GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		canvas.setOnMouseClicked((event) -> {
+			if (!InterruptController.isInterruptPlayerMovingInput()) {
+				if(GameController.getSelectedUnit() == null) {
+					GameScene.getResourceStatus().update(building);
+				}
+				else {
+					GameController.gameUpdate(GameController.getSelectedUnit(), cell);
+				}
+				System.out.println("Clicked! " + building.getClass().getSimpleName());
+			}
+		});
+		addCursorHover(canvas, true);
+		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
+		AnchorPane.setLeftAnchor(canvas, (double) x);
+		
+//		VBox holder = new VBox();
+//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+//		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
+//		AnchorPane.setLeftAnchor(holder, (double) x);
+//		GameScene.getButtonPane().getChildren().add(holder);
+		
+		GameScene.getButtonPane().getChildren().add(canvas);
+	}
 
 	/**
 	 * Renders {@link Entity entity} at the specified position on the game scene.
@@ -364,43 +406,6 @@ public class DrawUtil {
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
 	}
-	
-	/**
-	 * Adds an invisible button on the entity at the specified position so the
-	 * player can click to get building info.
-	 * 
-	 * @param y      Position in the Y-axis
-	 * @param x      Position in the X-axis
-	 * @param entity The entity to adds the button on
-	 */
-	public static void addBuildingButton(int y, int x, BaseBuilding building) {
-		if (building == null) {
-			return;
-		}
-
-		Canvas canvas = new Canvas(GameConfig.SPRITE_SIZE * GameConfig.getScale(),
-				GameConfig.SPRITE_SIZE * GameConfig.getScale());
-		canvas.setOnMouseClicked((event) -> {
-			if (!InterruptController.isInterruptPlayerMovingInput()) {
-//				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
-				GameScene.getResourceStatus().update(building);
-				System.out.println("Clicked! " + building.getClass().getSimpleName());
-			}
-		});
-		addCursorHover(canvas, true);
-		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
-		AnchorPane.setLeftAnchor(canvas, (double) x);
-		
-//		VBox holder = new VBox();
-//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
-//		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
-//		AnchorPane.setLeftAnchor(holder, (double) x);
-//		GameScene.getButtonPane().getChildren().add(holder);
-		
-		GameScene.getButtonPane().getChildren().add(canvas);
-	}
 
 	/**
 	 * Adds mouse hover event to change cursor image to the specified node.
@@ -450,6 +455,7 @@ public class DrawUtil {
 	 * @param filePath The file path to image
 	 * @return Writable image from the file path.
 	 */
+	
 	public static WritableImage getWritableImage(String filePath) {
 		Image img = getImage(filePath);
 		PixelReader pixelReader = getImagePixelReader(filePath);

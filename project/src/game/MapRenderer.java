@@ -231,7 +231,7 @@ public class MapRenderer {
 				pq.add(new Node(posY, posX, 2, () -> {
 //					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
 //					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
-					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
+					DrawUtil.addBuildingButton(posY, posX, thisCell);
 				}));
 			}
 			

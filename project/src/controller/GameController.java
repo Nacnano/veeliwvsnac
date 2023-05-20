@@ -458,8 +458,12 @@ public class GameController {
 		}
 		
 		InterruptController.setStillAnimation(true);
+		
 		from.setMoved(true);
 		to.setAttacked(true);
+		setSelectedUnit(null);
+		GameLogic.updateAttackTerritory(to, false);
+		GameLogic.updateMoveTerritory(to, false);
 		GameLogic.attackUnit(to, from);
 
 		new Thread() {
@@ -484,45 +488,35 @@ public class GameController {
 	 * @param action  The {@link DispatchAction action} to be dispatch
 	 * @param monster The target entity
 	 */
-	public static void gameUpdate(BaseUnit from, Cell toCell) {
+	public static void gameUpdate(BaseUnit unit, Cell toCell) {
 		if (InterruptController.isStillAnimation()) {
 			return;
 		}
 
-		if(from == to) {
-			GameLogic.updateAttackTerritory(to, false);
-			setSelectedUnit(null);
-			new Thread() {
-				@Override
-				public void run() {
-					Platform.runLater(() -> {
-						postGameUpdate();
-					});
-				}
-			}.start();
+		if(!getGameMap().get(toCell.getPosition()).isMoveTerritory()) {
+			MessageTextUtil.textWhenMoveOutsideMoveTerritory();
 			return;
 		}
 		
-		if(!GameLogic.isOurUnit(to)) {
-			MessageTextUtil.textWhenAttackOurUnit();
+		if(toCell.getUnit() != null) {
+			MessageTextUtil.textWhenMovetoUnit();
 			return;
 		}
 		
-		if(getGameMap().get(to.getPosition()).isAttackTerritory()) {
-			MessageTextUtil.textWhenEnemyNotInAttackTerritory();
-			return;
-		}
 		
-		if(from.isMoved()) {
+		
+		if(unit.isMoved()) {
 			MessageTextUtil.textWhenUnitAlreadyMoved();
 			return;
 		}
 		
+		unit.setMoved(true);
+		GameLogic.updateMoveTerritory(unit, false);
+		GameLogic.updateAttackTerritory(unit, false);
+		GameLogic.moveUnit(unit, toCell.getPosition());
+		setSelectedUnit(null);
+		
 		InterruptController.setStillAnimation(true);
-		from.setMoved(true);
-		to.setAttacked(true);
-		GameLogic.attackUnit(to, from);
-
 		new Thread() {
 			@Override
 			public void run() {
