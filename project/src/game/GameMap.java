@@ -20,16 +20,10 @@ public class GameMap {
 	private Cell gameMap[][];
 
 	/**
-	 * The List of {@link Monster} on this level.
-	 */
-	private List<BaseUnit> enemyList;
-
-	/**
 	 * Creates an empty map.
 	 */
 	public GameMap() {
 		gameMap = new Cell[GameConfig.getMapSize() + 10][GameConfig.getMapSize()+ 10];
-		enemyList = new CopyOnWriteArrayList<BaseUnit>();
 	}
 
 	/**
@@ -76,15 +70,6 @@ public class GameMap {
 			return new Cell();
 		}
 		return gameMap[i][j];
-	}
-
-	/**
-	 * Getter for monsterList.
-	 * 
-	 * @return This level's monsterListss
-	 */
-	public List<BaseUnit> getEnemyList() {
-		return enemyList;
 	}
 
 }

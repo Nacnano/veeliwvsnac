@@ -29,4 +29,20 @@ public class Position {
 	public int getDistanceFrom(Position p) {
 		return Math.abs(this.row-p.row) + Math.abs(this.column - p.column);
 	}
+	
+	public Position moveUp() {
+		return new Position(getRow()-1, getColumn());
+	}
+	
+	public Position moveDown() {
+		return new Position(getRow()+1, getColumn());
+	}
+	
+	public Position moveLeft() {
+		return new Position(getRow(), getColumn()-1);
+	}
+	
+	public Position moveRight() {
+		return new Position(getRow(), getColumn()+1);
+	}
 }

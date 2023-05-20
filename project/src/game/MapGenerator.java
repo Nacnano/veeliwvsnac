@@ -90,7 +90,6 @@ public class MapGenerator {
 		int day = GameController.getDay();
 
 		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day);
-		gameMap.getEnemyList().addAll(enemyList);
 
 		for (BaseUnit enemy : enemyList) {
 			boolean isAdd = false;
@@ -102,8 +101,11 @@ public class MapGenerator {
 
 				// TODO: Add logic to check not to add enemy in our territory
 				if (currentCell.getTerrain() == Terrain.WATER && currentCell.getUnit() == null) {
-					enemy.setPosition(new Position(randomY, randomX));
+					Position position = new Position(randomY, randomX);
+					
+					enemy.setPosition(position);
 					gameMap.get(randomY, randomX).setUnit(enemy);
+					GameLogic.addEnemyUnit(enemy, position);
 					isAdd = true;
 				}
 			} while (!isAdd);

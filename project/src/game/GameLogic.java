@@ -3,7 +3,10 @@ package game;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle.Control;
 
+import controller.GameController;
+import controller.InterruptController;
 import entity.building.BaseBuilding;
 import entity.building.Buildable;
 import entity.building.Field;
@@ -40,6 +43,7 @@ public class GameLogic {
 	// private Map<BaseBuilding, Position> buildings;	
 	private static Map<Position, BaseBuilding> buildings = new HashMap<>();
 	
+	
 	// Functions for buildings
 	
 //  Maybe this one is not necessary since there is BuildBuilding below
@@ -48,6 +52,7 @@ public class GameLogic {
 //			buildings.put(p, b);
 //		}
 //	}
+	
 	
 	public void removeBuilding(Position p) {
 		BaseBuilding b = buildings.get(p);
@@ -287,8 +292,8 @@ public class GameLogic {
 		if(ourUnits.containsKey(unit)) {
 			ourUnits.put(unit, destination);
 		}
-		else if(enemyUnits.containsKey(unit)) {
-			enemyUnits.put(unit, destination);
+		else if(getEnemyUnits().containsKey(unit)) {
+			getEnemyUnits().put(unit, destination);
 		}
 	}
 	
@@ -350,6 +355,10 @@ public class GameLogic {
 	
 	public static void addOurUnit(BaseUnit unit, Position pos) {
 		ourUnits.put(unit, pos);
+	}
+	
+	public static void addEnemyUnit(BaseUnit unit, Position pos) {
+		enemyUnits.put(unit, pos);
 	}
 	
 	public static boolean isGameOver() {
@@ -433,6 +442,14 @@ public class GameLogic {
 	//For testing
 	public static void SetCurrentPopulation(int amount) {
 		currentPopulation = amount;
+	}
+
+	public static Map<BaseUnit, Position> getEnemyUnits() {
+		return enemyUnits;
+	}
+
+	public static void setEnemyUnits(Map<BaseUnit, Position> enemyUnits) {
+		GameLogic.enemyUnits = enemyUnits;
 	}
 	
 }

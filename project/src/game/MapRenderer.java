@@ -177,14 +177,15 @@ public class MapRenderer {
 			int posY = newSpriteSize * i - startY;
 			int posX = newSpriteSize * j - startX;
 			Cell thisCell = gameMap.get(i, j);
-			BaseUnit unit = thisCell.getUnit();
 			int shiftX = 0;
 			int shiftY = 0;
 
-			if ((unit != null)) {
-				shiftX = -Direction.getMoveX(entity.getDirection(), frame * GameConfig.getScale());
-				shiftY = -Direction.getMoveY(entity.getDirection(), frame * GameConfig.getScale());
-			}
+//			for animation
+//			BaseUnit unit = thisCell.getUnit();
+//			if ((unit != null)) {
+//				shiftX = -Direction.getMoveX(entity.getDirection(), frame * GameConfig.getScale());
+//				shiftY = -Direction.getMoveY(entity.getDirection(), frame * GameConfig.getScale());
+//			}
 
 			int finalShiftY = shiftY;
 			int finalShiftX = shiftX;
@@ -196,28 +197,28 @@ public class MapRenderer {
 
 
 
-			// Draw item which on cell
-			if (thisCell.getItem() != null) {
+			// Draw building which on cell
+			if (thisCell.getBuilding() != null) {
 				pq.add(new Node(posY, posX, 1, () -> {
-					DrawUtil.drawItemOnCell(posY, posX, thisCell.getItem());
+					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
 				}));
 			}
 
-			// Draw entity
-			if (thisCell.getEntity() != null) {
+			// Draw unit
+			if (thisCell.getUnit() != null) {
 				pq.add(new Node(posY, posX, 2, () -> {
-					DrawUtil.drawEntity(posY + finalShiftY, posX + finalShiftX, thisCell.getEntity(), frame);
+					DrawUtil.drawUnit(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit(), frame);
 				}));
 			}
-			// Draw Monster HP Bar
-			if (thisCell.getEntity() instanceof Monster) {
+			// Draw unit HP Bar
+			if (thisCell.getUnit() instanceof BaseUnit) {
 				pq.add(new Node(posY, posX, 100, () -> {
-					DrawUtil.drawHPBar(posY + finalShiftY, posX + finalShiftX, thisCell.getEntity());
+					DrawUtil.drawUnitPeopleBar(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit());
 				}));
 			}
-			if ((thisCell.getEntity() instanceof Monster) && (frame == 0)) {
+			if ((thisCell.getUnit() instanceof BaseUnit) && (frame == 0)) {
 				pq.add(new Node(posY, posX, 2, () -> {
-					DrawUtil.addEntityButton(posY + finalShiftY, posX + finalShiftX, thisCell.getEntity());
+					DrawUtil.addUnitButton(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit());
 				}));
 			}
 		}

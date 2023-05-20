@@ -54,4 +54,11 @@ public class MessageTextUtil {
 		text = "- " + text;
 		GameScene.getMessagePane().addMessage(text);
 	}
+
+
+
+	public static void textWhenCannotAttack() {
+		String displayText = "This unit can't attack.";
+		writeMessage(displayText);
+	}
 }
