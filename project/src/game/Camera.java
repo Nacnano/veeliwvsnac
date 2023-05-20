@@ -18,12 +18,15 @@ public class Camera implements Movable {
 	 * Moving status of the camera.
 	 */
 	private boolean isMoving;
+	
+	private Position direction;
 
 	
 	/**
 	 * move the camera to the destination
 	 */
 	public void move(Position destination) {
+		setDirection(destination.directionFrom(getPosition()));
 		setMoving(true);
 		setPosition(destination);
 	}
@@ -59,5 +62,17 @@ public class Camera implements Movable {
 
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
+	}
+
+
+
+	public Position getDirection() {
+		return direction;
+	}
+
+
+
+	public void setDirection(Position direction) {
+		this.direction = direction;
 	}
 }
