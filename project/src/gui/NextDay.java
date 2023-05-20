@@ -1,9 +1,6 @@
 package gui;
 
 import controller.GameController;
-import controller.InterruptController;
-import game.GameLogic;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -13,7 +10,6 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import utils.FontUtil;
@@ -39,7 +35,8 @@ public class NextDay extends HBox {
 		
 		setOnMouseClicked((event) -> {
 			try {
-				((Pane) this.getParent()).getChildren().remove(this);
+//				((Pane) this.getParent()).getChildren().remove(this);
+				GameController.nextDay();
 //				InterruptController.setSettingOpen(false);
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();

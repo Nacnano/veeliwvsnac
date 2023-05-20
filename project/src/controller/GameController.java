@@ -1,10 +1,4 @@
 package controller;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle.Control;
-
-import entity.building.Field;
 import entity.building.House;
 import entity.building.MilitaryCamp;
 import entity.building.Mine;
@@ -14,9 +8,7 @@ import entity.unit.BaseUnit;
 import entity.unit.SwordMan;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Pair;
 import game.Camera;
 import game.Cell;
 import game.ControlAction;
@@ -34,7 +26,6 @@ import utils.AnimationUtil;
 import utils.AudioUtil;
 import utils.GameConfig;
 import utils.MessageTextUtil;
-import utils.RandomUtil;
 import utils.TransitionUtil;
 
 /**
@@ -366,7 +357,6 @@ public class GameController {
 	 * @param isMove Tell whether the move is a success or not
 	 */
 	public static void postMoveUpdate(boolean isMove) {
-		GameMap gameMap = GameController.getGameMap();
 		Camera camera = GameController.getCamera();
 		
 		// TODO: Add logic for post move action
@@ -391,18 +381,21 @@ public class GameController {
 			return;
 		}
 
-		InterruptController.setStillAnimation(true);
-		// Dispatches action
-		if (GameLogic.isOurUnit(unit) && !unit.isMoved()) {
-			selectedUnit = unit;
-			GameLogic.updateAttackTerritory(unit, true);
-			GameLogic.updateMoveTerritory(unit, true);
-			
-		} else {
-			MessageTextUtil.textWhenSelectEnemyUnit();
-			InterruptController.setStillAnimation(false);
+		if(unit.isMoved()) {
+			MessageTextUtil.textWhenUnitAlreadyMoved();
 			return;
 		}
+		
+		if(!GameLogic.isOurUnit(unit)) {
+			MessageTextUtil.textWhenSelectEnemyUnit();
+			return;
+		}
+		
+		selectedUnit = unit;
+		GameLogic.updateAttackTerritory(unit, true);
+		GameLogic.updateMoveTerritory(unit, true);
+
+		InterruptController.setStillAnimation(true);
 
 		// Plays attack animation
 		new Thread() {
@@ -428,8 +421,8 @@ public class GameController {
 		}
 
 		if(from == to) {
-			GameLogic.updateAttackTerritory(to, false);
-			GameLogic.updateMoveTerritory(to, false);
+			GameLogic.updateAttackTerritory(from, false);
+			GameLogic.updateMoveTerritory(from, false);
 			setSelectedUnit(null);
 			new Thread() {
 				@Override
@@ -442,12 +435,12 @@ public class GameController {
 			return;
 		}
 		
-		if(!GameLogic.isOurUnit(to)) {
+		if(GameLogic.isOurUnit(to)) {
 			MessageTextUtil.textWhenAttackOurUnit();
 			return;
 		}
 		
-		if(getGameMap().get(to.getPosition()).isAttackTerritory()) {
+		if(!getGameMap().get(to.getPosition()).isAttackTerritory()) {
 			MessageTextUtil.textWhenEnemyNotInAttackTerritory();
 			return;
 		}
@@ -462,9 +455,9 @@ public class GameController {
 		from.setMoved(true);
 		to.setAttacked(true);
 		setSelectedUnit(null);
-		GameLogic.updateAttackTerritory(to, false);
-		GameLogic.updateMoveTerritory(to, false);
-		GameLogic.attackUnit(to, from);
+		GameLogic.updateAttackTerritory(from, false);
+		GameLogic.updateMoveTerritory(from, false);
+		GameLogic.attackUnit(from, to);
 
 		new Thread() {
 			@Override
@@ -555,7 +548,6 @@ public class GameController {
 				if (GameController.isGameOver() || GameController.isGameClear()) {
 					return;
 				}
-				
 				InterruptController.setStillAnimation(false);
 				doNextAction();
 			});
@@ -588,5 +580,12 @@ public class GameController {
 
 	public static void setSelectedUnit(BaseUnit selectedUnit) {
 		GameController.selectedUnit = selectedUnit;
+	}
+
+	public static void nextDay() {
+		setDay(getDay() + 1);
+		GameLogic.updateDay();
+		initialTransition();
+		
 	}
 }

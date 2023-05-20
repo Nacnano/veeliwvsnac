@@ -10,7 +10,6 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import utils.FontUtil;
 import utils.GameConfig;
 
 public class StyledVBoxButton extends VBox {

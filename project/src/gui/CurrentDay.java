@@ -1,8 +1,6 @@
 package gui;
 
 import controller.GameController;
-import game.GameLogic;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;

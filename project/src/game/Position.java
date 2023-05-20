@@ -1,5 +1,9 @@
 package game;
 
+import entity.building.BaseBuilding;
+import entity.unit.BaseUnit;
+import utils.GameConfig;
+
 public class Position {
 	private int row;
 	private int column;
@@ -27,7 +31,31 @@ public class Position {
 	
 	// Manhattan distance?
 	public int getDistanceFrom(Position p) {
+		if(p == null) {
+			return 2*GameConfig.getMapSize();
+		}
 		return Math.abs(this.row-p.row) + Math.abs(this.column - p.column);
+	}
+	
+	public int getDistanceFrom(BaseBuilding b) {
+		if(b == null) {
+			return getDistanceFrom((Position) null);
+		}
+		return getDistanceFrom(b.getPosition());
+	}
+	
+	public int getDistanceFrom(BaseUnit u) {
+		if(u == null) {
+			return getDistanceFrom((Position) null);
+		}
+		return getDistanceFrom(u.getPosition());
+	}
+	
+	public int getMaxPerpendicularDistance(Position p) {
+		if(p == null) {
+			return 2*GameConfig.getMapSize();
+		}
+		return Math.max(Math.abs(this.row-p.row), Math.abs(this.column - p.column));
 	}
 	
 	public Position moveUp() {

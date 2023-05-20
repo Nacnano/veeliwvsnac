@@ -5,7 +5,6 @@ import java.nio.IntBuffer;
 import controller.GameController;
 import controller.InterruptController;
 import entity.building.BaseBuilding;
-import entity.building.Field;
 import entity.building.House;
 import entity.building.MilitaryCamp;
 import entity.building.Mine;
@@ -23,15 +22,9 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import game.Cell;
 import game.GameLogic;
-import game.Position;
-import game.Terrain;
 import scene.GameScene;
 
 /**
@@ -352,14 +345,24 @@ public class DrawUtil {
 
 		WritableImage img = new WritableImage(SwordManSprites, 32, 32);
 		img = scaleUp(img, GameConfig.getScale());
+		
+		// TODO: Choose nice colors
+		if(GameLogic.isOurUnit(unit)) {
+			if(!unit.isMoved()) {
+				img = changeColorbyHue(img, ColortoHue.GREEN, 0.6);
+			}
+		}
+		if(!GameLogic.isOurUnit(unit)) {
+			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
+			if(cell.isAttackTerritory()) {
+				img = changeColorbyHue(img, ColortoHue.RED, 0.7);
+			}
+		}
+
 		if (unit.isAttacked()) {
 			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
 		}
-		else if(cell.isAttackTerritory() && !GameLogic.isOurUnit(unit)) {
-			// TODO: Choose nice color for 
-			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
-		}
-
+		
 		gc.drawImage(img, x, y);
 	}
 

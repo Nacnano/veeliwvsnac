@@ -1,7 +1,5 @@
 package gui;
 
-import entity.building.BaseBuilding;
-import entity.unit.BaseUnit;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
