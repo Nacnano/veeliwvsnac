@@ -328,6 +328,7 @@ public class GameController {
 //					} else {
 //						postMoveUpdate(true);
 //					}
+					System.out.println(cameraPosition.getRow() + " " + cameraPosition.getColumn());
 					postGameUpdate();
 				});
 			}).start();
@@ -430,6 +431,7 @@ public class GameController {
 		GameScene.updateScene();
 
 		// Play monster animations
+		System.out.println("HOI");
 		new Thread(() -> {
 			try {
 				AnimationUtil.playAnimation(0).join();
