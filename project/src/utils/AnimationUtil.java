@@ -58,7 +58,7 @@ public class AnimationUtil {
 		Thread animation = new Thread(() -> {
 			// Checks if any entity move or attacked
 			boolean isAttacked = false;
-			boolean isMove = camera.isMoving();
+			boolean isMoved = camera.isMoving();
 			
 			for (Map.Entry<BaseUnit, Position> unit : ourUnits.entrySet()) {
 				isAttacked |= unit.getKey().isAttacked();
@@ -78,7 +78,7 @@ public class AnimationUtil {
 			// Plays move and attack animation
 			Thread attackAnimation = null;
 			Thread moveAnimation = null;
-			if (isMove) {
+			if (isMoved) {
 				moveAnimation = cameraMoveAnimation(cameraStepY, cameraStepX);
 			}
 			
@@ -87,7 +87,7 @@ public class AnimationUtil {
 					moveAnimation = cameraMoveAnimation(cameraStepY, cameraStepX);
 					attackAnimation = playAttackAnimation();
 				}
-				if (isMove) {
+				if (isMoved) {
 				}
 				if (moveAnimation != null) {
 					moveAnimation.join();

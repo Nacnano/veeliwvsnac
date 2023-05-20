@@ -211,7 +211,7 @@ public class GameScene {
 		AnchorPane.setRightAnchor(pauseBtn, 5.0 * GameConfig.getScale());
 
 		pauseBtn.getGraphicsContext2D().drawImage(DrawUtil.scaleUp(pauseSprite, GameConfig.getScale()), 0, 0);
-
+		
 		pauseBtn.setOnMouseClicked((event) -> {
 			if (InterruptController.isShopOpen() || InterruptController.isTransition()) {
 				return;
@@ -231,27 +231,25 @@ public class GameScene {
 	 */
 	private static void addEventListener() {
 		scene.setOnKeyPressed((event) -> {
-			if (InterruptController.isInterruptPlayerMovingInput() && !InterruptController.isStillAnimation()) {
-				return;
-			}
+//			if (InterruptController.isInterruptPlayerMovingInput() && !InterruptController.isStillAnimation()) {
+//				return;
+//			}
 			KeyCode keycode = event.getCode();
-			System.out.println("Camera is staying still." + keycode);
 			switch (keycode) {
-			case A:
-				GameController.gameUpdate(ControlAction.CAMERA_MOVE_LEFT);
-				break;
-			case D:
-				GameController.gameUpdate(ControlAction.CAMERA_MOVE_RIGHT);
-				break;
 			case W:
 				GameController.gameUpdate(ControlAction.CAMERA_MOVE_UP);
 				break;
 			case S:
 				GameController.gameUpdate(ControlAction.CAMERA_MOVE_DOWN);
 				break;
+			case A:
+				GameController.gameUpdate(ControlAction.CAMERA_MOVE_LEFT);
+				break;
+			case D:
+				GameController.gameUpdate(ControlAction.CAMERA_MOVE_RIGHT);
+				break;
 			default:
 				GameController.gameUpdate(ControlAction.CAMERA_STAY_STILL);
-				
 				break;
 			}
 		});
