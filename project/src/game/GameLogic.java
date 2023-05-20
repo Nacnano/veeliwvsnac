@@ -97,9 +97,9 @@ public class GameLogic {
 //		}
 //	}
 	
-	public static void setNumberOfWorkers(Position p, int newNumber) {
-		int currentPeople = ((Resource) buildings.get(p)).getCurrentPeople();
-		int maxPeople = ((Resource) buildings.get(p)).getMaxPeople();
+	public static void setNumberOfWorkers(BaseBuilding building, int newNumber) {
+		int currentPeople = ((Resource) building).getCurrentPeople();
+		int maxPeople = ((Resource) building).getMaxPeople();
 		if (newNumber < 0 || newNumber > maxPeople) return;
 		
 		if (newNumber > currentPeople) {
@@ -107,7 +107,10 @@ public class GameLogic {
 			if (newNumber - currentPeople > getUnemployed()) return;
 		}
 		
-		((Resource) buildings.get(p)).setCurrentPeople(newNumber);
+		for (BaseBuilding b : buildings.values()) {
+			if (b.equals(building))
+				((Resource) b).setCurrentPeople(newNumber);
+		}
 	} 
 	
 	public int getMaxPopulation() {

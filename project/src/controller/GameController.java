@@ -6,6 +6,7 @@ import java.util.ResourceBundle.Control;
 
 import entity.building.Field;
 import entity.building.House;
+import entity.building.MilitaryCamp;
 import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
@@ -108,25 +109,30 @@ public class GameController {
 		Position field_pos = new Position(10, 11);
 		gameMap.get(10, 11).setBuilding(field);
 		GameLogic.getBuildings().put(field_pos, field);
-		GameLogic.setNumberOfWorkers(field_pos, 10);
+		GameLogic.setNumberOfWorkers(field, 10);
 		
 		Mine mine = new Mine();
 		Position mine_pos = new Position(9, 6);
 		gameMap.get(9, 6).setBuilding(mine);
 		GameLogic.getBuildings().put(mine_pos, mine);
-		GameLogic.setNumberOfWorkers(mine_pos, 10);
+		GameLogic.setNumberOfWorkers(mine, 10);
 		
 		Sawmill sawmill = new Sawmill();
 		Position sawmill_pos = new Position(10, 4);
 		gameMap.get(10, 4).setBuilding(sawmill);
 		GameLogic.getBuildings().put(sawmill_pos, sawmill);
-		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
+		GameLogic.setNumberOfWorkers(sawmill, 10);
 		
 		Smelter smelter = new Smelter();
 		Position smelter_pos = new Position(11, 13);
 		gameMap.get(11, 13).setBuilding(smelter);
 		GameLogic.getBuildings().put(smelter_pos, smelter);
-		GameLogic.setNumberOfWorkers(smelter_pos, 10);
+		GameLogic.setNumberOfWorkers(smelter, 10);
+		
+		MilitaryCamp militaryCamp = new MilitaryCamp();
+		Position militaryCamp_pos = new Position(7, 10);
+		gameMap.get(7, 10).setBuilding(militaryCamp);
+		GameLogic.getBuildings().put(militaryCamp_pos, militaryCamp);
 		
 		GameLogic.setFood(100);
 		GameLogic.setWood(100);
@@ -277,6 +283,7 @@ public class GameController {
 		SceneController.setSceneToStage(GameScene.getScene());
 		GameScene.getWorkerStatus().update();
 		GameScene.getMaterialStatus().update();
+		GameScene.getResourceStatus().update(null);
 	}
 	
 	/**

@@ -226,7 +226,7 @@ public class MapRenderer {
 			
 			if (thisCell.getBuilding() != null  && (frame == 0)) {
 				pq.add(new Node(posY, posX, 2, () -> {
-					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
+//					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
 //					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
 					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
 				}));

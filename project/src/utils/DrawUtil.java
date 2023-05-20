@@ -315,6 +315,7 @@ public class DrawUtil {
 		canvas.setOnMouseClicked((event) -> {
 			if (!InterruptController.isInterruptPlayerMovingInput()) {
 //				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
+				GameScene.getResourceStatus().update(building);
 				System.out.println("Clicked! " + building.getClass().getSimpleName());
 			}
 		});
@@ -331,8 +332,6 @@ public class DrawUtil {
 		GameScene.getButtonPane().getChildren().add(holder);
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
-		
-		System.out.println("Build unit button");
 	}
 
 	/**
