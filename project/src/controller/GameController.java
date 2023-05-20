@@ -299,6 +299,7 @@ public class GameController {
 	 */
 	private static void sceneSetup() {
 		InterruptController.resetInterruptState();
+		GameScene.getMessagePane().resetMessage();
 		SceneController.setSceneToStage(GameScene.getScene());
 		GameScene.getWorkerStatus().update();
 		GameScene.getMaterialStatus().update();
@@ -345,11 +346,7 @@ public class GameController {
 					System.out.println("Move animation interrupted");
 				}
 				Platform.runLater(() -> {
-//					if (isMoved) {
-//						postMoveUpdate(false);
-//					} else {
-//						postMoveUpdate(true);
-//					}
+					postMoveUpdate(true);
 					postGameUpdate();
 				});
 			}).start();
@@ -365,35 +362,19 @@ public class GameController {
 	 * @param isMove Tell whether the move is a success or not
 	 */
 	public static void postMoveUpdate(boolean isMove) {
-		GameMap thisGameMap = GameController.getGameMap();
+		GameMap gameMap = GameController.getGameMap();
 		Camera camera = GameController.getCamera();
 		
 		// TODO: Add logic for post move action
-//		Cell currentCell = thisGameMap.get(player.getPosY(), player.getPosX());
-//		Item cellItem = currentCell.getItem();
-//
-//		// Checks item on the cell
-//		if ((cellItem != null)) {
-//			if (player.getItemList().size() == GameConfig.MAX_ITEM) {
-//				MessageTextUtil.textWhenCannotPickedItem(cellItem);
-//				return;
-//			}
-//			player.getItemList().add(cellItem);
-//			currentCell.setItem(null);
-//			MessageTextUtil.textWhenPickUpItem(cellItem);
-//
-//			// Checks the cell type
-//		} else if ((currentCell.getType() == Cell.LADDER_UP) && isMove) {
-//			boolean isAscending = GameController.ascending();
-//			int level = GameController.getLevel();
-//			if (!isAscending) {
-//				level = 0;
-//			}
-//			MessageTextUtil.textWhenAscending(level);
-//		} else if ((currentCell.getType() == Cell.LADDER_DOWN) && isMove) {
-//			GameController.descending();
-//			MessageTextUtil.textWhenDescending(GameController.getLevel());
-//		}
+		Position cameraPosition = camera.getPosition();
+		
+		if(cameraPosition.getRow() == 0 || cameraPosition.getRow() == GameConfig.getMapSize()-1){
+			System.out.println("HOI");
+			MessageTextUtil.textWhenCameraOutofMap();
+		}
+		else if (cameraPosition.getColumn() == 0 || cameraPosition.getColumn() == GameConfig.getMapSize()-1) {
+			MessageTextUtil.textWhenCameraOutofMap();
+		}
 	}
 	
 

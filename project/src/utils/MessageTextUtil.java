@@ -41,7 +41,6 @@ public class MessageTextUtil {
 		if (sz != text.length()) {
 			newText += "...";
 		}
-
 		return newText;
 	}
 
@@ -51,14 +50,17 @@ public class MessageTextUtil {
 	 * @param text the text that will append to {@link MessagePane}
 	 */
 	private static void writeMessage(String text) {
-		text = "- " + text;
+//		text = "- " + text;
 		GameScene.getMessagePane().addMessage(text);
 	}
 
-
-
 	public static void textWhenCannotAttack() {
-		String displayText = "This unit can't attack.";
+		String displayText = "This unit cannot attack.";
+		writeMessage(displayText);
+	}
+	
+	public static void textWhenCameraOutofMap() {
+		String displayText = "The camera cannot go outside the map.";
 		writeMessage(displayText);
 	}
 }

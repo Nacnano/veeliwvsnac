@@ -199,6 +199,7 @@ public class GameScene {
 
 		addPauseButton(ui);
 
+		messagePane = new MessagePane();
 		pausePane = new PausePane();
 		shopPopUp = new ShopPopUp();
 		changeJobPopUp = new ChangeJobPopUp();
@@ -272,7 +273,7 @@ public class GameScene {
 		});
 		
 
-		ui.getChildren().addAll(currentDay, nextDay, workerStatus, resourceStatus, materialStatus);
+		ui.getChildren().addAll(currentDay, nextDay, workerStatus, resourceStatus, materialStatus, messagePane);
 	}
 
 

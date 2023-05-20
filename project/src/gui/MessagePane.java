@@ -2,6 +2,7 @@ package gui;
 
 import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -10,6 +11,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import utils.FontUtil;
 import utils.GameConfig;
 import utils.MessageTextUtil;
@@ -33,11 +35,11 @@ public class MessagePane extends VBox {
 	 */
 	public MessagePane() {
 		AnchorPane.setBottomAnchor(this, 0.0);
-		AnchorPane.setLeftAnchor(this, 0.0);
+		AnchorPane.setRightAnchor(this, 0.0);
 		this.setPrefHeight(50.0 * GameConfig.getScale());
 		this.setPrefWidth(140.0 * GameConfig.getScale());
 		this.setBackground(
-				new Background(new BackgroundFill(Color.rgb(0, 0, 0, 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+				new Background(new BackgroundFill(Color.rgb(0, 0, 0, 0), CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setPadding(new Insets(7, 7, 7, 14));
 	}
 
@@ -48,17 +50,22 @@ public class MessagePane extends VBox {
 	 */
 	public void addMessage(String text) {
 
-		// If the amount of message is more than MAX_MESSAGE, remove the oldest one.
 		if (this.getChildren().size() >= MAX_MESSAGE) {
 			this.getChildren().remove(0);
 		}
 
-		// Add new message
 		Text message = new Text(text);
 		message.setWrappingWidth(200.0 * GameConfig.getScale());
 		message.setFont(FontUtil.getFont("small"));
 		message.setFill(Color.WHITE);
 		this.getChildren().add(message);
+		
+		this.setBackground(
+				new Background(new BackgroundFill(Color.rgb(50, 50, 50, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
+        FadeTransition backgroundFadeTransition = new FadeTransition(Duration.seconds(4), this);
+        backgroundFadeTransition.setFromValue(1.0);
+        backgroundFadeTransition.setToValue(0.0);
+        backgroundFadeTransition.play();
 	}
 
 	/**
