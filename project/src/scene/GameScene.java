@@ -27,6 +27,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import game.ControlAction;
 import game.GameLogic;
+import game.MapRenderer;
 //import game.MapRenderer;
 import utils.DrawUtil;
 import utils.AudioUtil;
@@ -124,11 +125,10 @@ public class GameScene {
 		setupGamePane();
 		setupGameUI();
 
-//		StackPane.setAlignment(new Group(inventoryPane), Pos.CENTER);
 		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
 		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
 
-//		MapRenderer.render();
+		MapRenderer.render();
 	}
 
 	/**
@@ -157,8 +157,6 @@ public class GameScene {
 
 		addPauseButton(ui);
 
-//		statusPane = new StatusPane();
-//		messagePane = new MessagePane();
 		pausePane = new PausePane();
 		shopPopUp = new ShopPopUp();
 		
@@ -195,7 +193,6 @@ public class GameScene {
 		});
 		
 
-//		ui.getChildren().addAll(statusPane, messagePane, effectPane);
 		ui.getChildren().addAll(currentDay, nextDay, workerStatus, resourceStatus, materialStatus);
 	}
 
@@ -238,7 +235,7 @@ public class GameScene {
 				return;
 			}
 			KeyCode keycode = event.getCode();
-
+			System.out.println("Camera is staying still." + keycode);
 			switch (keycode) {
 			case A:
 				GameController.gameUpdate(ControlAction.CAMERA_MOVE_LEFT);
@@ -254,6 +251,7 @@ public class GameScene {
 				break;
 			default:
 				GameController.gameUpdate(ControlAction.CAMERA_STAY_STILL);
+				
 				break;
 			}
 		});
