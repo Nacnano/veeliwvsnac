@@ -124,8 +124,8 @@ public class GameController {
 	private static void initBuildings() {
 		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
 		// handle the water case
-		while(getGameMap().get(mapCenter.getRow(), mapCenter.getColumn()).getTerrain() == Terrain.WATER) {
-			mapCenter.moveDown();
+		while(getGameMap().get(mapCenter).getTerrain() == Terrain.WATER) {
+			mapCenter = mapCenter.moveDown();
 		}
 		GameLogic.initBuilding(new House(), mapCenter);
 		
