@@ -11,6 +11,7 @@ import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import entity.unit.BaseUnit;
+import entity.unit.SwordMan;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -117,6 +118,11 @@ public class GameController {
 		
 		initBuildings();
 		initMaterials();
+		
+		// Test unit
+		GameLogic.addOurUnit(new SwordMan(), new Position(10, 11));
+		
+		MapGenerator.generateEnemyOnMap(gameMap);
 		
 		return gameMap;
 	}

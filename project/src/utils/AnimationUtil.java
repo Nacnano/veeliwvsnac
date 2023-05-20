@@ -30,7 +30,7 @@ public class AnimationUtil {
 	/**
 	 * A constant holding max frame number.
 	 */
-	private static final int MAX_FRAME_NUMBER = 3;
+	private static final int MAX_FRAME_NUMBER = 4;
 
 	/**
 	 * A constant holding amount of frame change per loop.
@@ -65,6 +65,10 @@ public class AnimationUtil {
 			}
 			for (Map.Entry<BaseUnit, Position> unit : enemyUnits.entrySet()) {
 				isAttacked |= unit.getKey().isAttacked();
+			}
+			
+			for (Map.Entry<Position, BaseBuilding> building : buildings.entrySet()) {
+				isAttacked |= building.getValue().isAttacked();
 			}
 			
 //			isMove &= !GameConfig.isSkipMoveAnimation();
@@ -104,6 +108,9 @@ public class AnimationUtil {
 				}
 				for (Map.Entry<BaseUnit, Position> unit : ourUnits.entrySet()) {
 					unit.getKey().setAttacked(false);
+				}
+				for (Map.Entry<Position, BaseBuilding> building : buildings.entrySet()) {
+					building.getValue().setAttacked(false);
 				}
 				camera.setMoving(false);
 				camera.setDirection(new Position(0, 0));
