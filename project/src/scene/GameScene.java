@@ -1,5 +1,6 @@
 package scene;
 
+import gui.BuildMilitaryPopUp;
 import gui.ChangeJobPopUp;
 import gui.CurrentDay;
 import gui.MaterialStatus;
@@ -85,6 +86,11 @@ public class GameScene {
 	private static WorkerStatus workerStatus;
 	
 	/**
+	 * The {@link BuildMilitaryPopUp} that will display pop up for building military.
+	 */
+	private static BuildMilitaryPopUp buildMilitaryPopUp;
+	
+	/**
 	 * The {@link CurrentDay} that will display current day.
 	 */
 	private static CurrentDay currentDay;
@@ -136,6 +142,7 @@ public class GameScene {
 		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
 		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
 		StackPane.setAlignment(new Group(changeJobPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(buildMilitaryPopUp), Pos.CENTER);
 
 		MapRenderer.render();
 	}
@@ -184,6 +191,7 @@ public class GameScene {
 		pausePane = new PausePane();
 		shopPopUp = new ShopPopUp();
 		changeJobPopUp = new ChangeJobPopUp();
+		buildMilitaryPopUp = new BuildMilitaryPopUp();
 		
 		currentDay = new CurrentDay();
 		AnchorPane.setTopAnchor(currentDay, 5.0 * GameConfig.getScale());
@@ -220,19 +228,33 @@ public class GameScene {
 		});
 		
 		resourceStatus.setOnMouseClicked((event) -> {
-			if (resourceStatus.getCurrentPeople().equals("People: -")) return;
+//			if (resourceStatus.getCurrentPeople().equals("People: -")) return;
+			if (resourceStatus.getName().equals("Building: House")) return;
+			
 			if (InterruptController.isPauseOpen() || InterruptController.isShopOpen() || InterruptController.isTransition()) {
 				return;
 			}
-			if (InterruptController.isChangeJobOpen()) {
-				changeJobPopUp.remove();
-				return;
-			}
 			
-			changeJobPopUp.update(resourceStatus.getBuilding());
-			gamePane.getChildren().add(changeJobPopUp);
-			changeJobPopUp.requestFocus();
-			InterruptController.setIsChangeJobOpen(true);
+			if (resourceStatus.getName().equals("Building: MilitaryCamp")) {
+				if (InterruptController.isBuildMilitaryOpen()) {
+					buildMilitaryPopUp.remove();
+					return;
+				}
+				buildMilitaryPopUp.update(resourceStatus.getBuilding());
+				gamePane.getChildren().add(buildMilitaryPopUp);
+				buildMilitaryPopUp.requestFocus();
+				InterruptController.setIsBuildMilitaryOpen(true);
+			}
+			else {
+				if (InterruptController.isChangeJobOpen()) {
+					changeJobPopUp.remove();
+					return;
+				}
+				changeJobPopUp.update(resourceStatus.getBuilding());
+				gamePane.getChildren().add(changeJobPopUp);
+				changeJobPopUp.requestFocus();
+				InterruptController.setIsChangeJobOpen(true);
+			}
 		});
 		
 
