@@ -113,7 +113,7 @@ public class GameController {
 		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
-		GameLogic.SetCurrentPopulation(50);
+		GameLogic.SetCurrentPopulation(500);
 		
 		initBuildings();
 		initMaterials();

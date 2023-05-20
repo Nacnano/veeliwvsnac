@@ -1,6 +1,7 @@
 package gui;
 
 import controller.InterruptController;
+import entity.building.BaseBuilding;
 import game.GameLogic;
 import game.Position;
 import javafx.geometry.Insets;
@@ -34,16 +35,19 @@ public class BuildMilitaryPopUp extends VBox {
 	 * Represent the width of the pane.
 	 */
 	private final int widthBox = 50;
-	Color btnColor = Color.BEIGE;
+	Color btnColor = Color.rgb(245, 246, 231);
 	
-	Position pos;
+//	Position pos;
+	BaseBuilding building;
+	
+	HBox optionsBox;
+	VBox buildSwordManBox, buildArcherBox;
 	
 	/**
 	 * The constructor of the class. Initialize the inside component, event handler
 	 * and style.
 	 */
-	public BuildMilitaryPopUp(Position pos) {
-		this.pos = pos;
+	public BuildMilitaryPopUp() {
 		styleSetup();
 		addTitle();
 		addOptions();
@@ -62,7 +66,7 @@ public class BuildMilitaryPopUp extends VBox {
 	 * Initialize style for pane.
 	 */
 	private void styleSetup() {
-		setBackground(new Background(new BackgroundFill(Color.DARKSEAGREEN, null, null)));
+		setBackground(new Background(new BackgroundFill(Color.rgb(245, 246, 231), null, null)));
 		setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		setPadding(new Insets(20));
@@ -77,19 +81,21 @@ public class BuildMilitaryPopUp extends VBox {
 	}
 	
 	private void addOptions() {
-		HBox box = new HBox(5);
-		box.setAlignment(Pos.CENTER);
+		optionsBox = new HBox(5);
+		optionsBox.setAlignment(Pos.CENTER);
 				
 		if (GameLogic.getUnemployed() < GameConfig.MILITARY_SIZE) {
 			Text text = new Text("Unemployed: " + GameLogic.getUnemployed() + " (expected >= " + GameConfig.MILITARY_SIZE + ")");
 			text.setFont(FontUtil.getFont("extraSmall"));
-			box.getChildren().add(text);
+			optionsBox.getChildren().add(text);
 		}
 		else {
-			box.getChildren().addAll(buildSwordMan(), buildArcher());
+			buildSwordManBox = buildSwordMan();
+			buildArcherBox = buildArcher();
+			optionsBox.getChildren().addAll(buildSwordManBox, buildArcherBox);
 		}
 
-		this.getChildren().add(box);
+		this.getChildren().add(optionsBox);
 	}
 	
 	private VBox buildSwordMan() {
@@ -99,15 +105,6 @@ public class BuildMilitaryPopUp extends VBox {
 //				new BorderWidths(GameConfig.getScale()))));
 		Label label = new Label("SwordMan");
 		label.setFont(FontUtil.getFont("extraSmall"));
-		
-		vbox.setOnMouseClicked((event) -> {
-			try {
-				GameLogic.buildMilitary(pos, "SwordMan");
-				remove();
-			} catch (UnsupportedOperationException e) {
-				e.printStackTrace();
-			}
-		});
 
 		vbox.getChildren().addAll(label);
 		
@@ -119,15 +116,6 @@ public class BuildMilitaryPopUp extends VBox {
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Archer");
 		label.setFont(FontUtil.getFont("extraSmall"));
-		
-		vbox.setOnMouseClicked((event) -> {
-			try {
-				GameLogic.buildMilitary(pos, "Archer");
-				remove();
-			} catch (UnsupportedOperationException e) {
-				e.printStackTrace();
-			}
-		});
 
 		vbox.getChildren().addAll(label);
 		return vbox;
@@ -168,6 +156,35 @@ public class BuildMilitaryPopUp extends VBox {
 		this.getChildren().add(closeBox);
 	}
 	
+	public void update(BaseBuilding building) {
+		setBuilding(building);
+		
+		if (GameLogic.getUnemployed() < GameConfig.MILITARY_SIZE) {
+			Text text = new Text("Unemployed: " + GameLogic.getUnemployed() + " (expected >= " + GameConfig.MILITARY_SIZE + ")");
+			text.setFont(FontUtil.getFont("extraSmall"));
+			optionsBox.getChildren().clear();
+			optionsBox.getChildren().add(text);
+		}
+		
+		buildSwordManBox.setOnMouseClicked((event) -> {
+			try {
+				GameLogic.buildMilitary(building, "SwordMan");
+				remove();
+			} catch (UnsupportedOperationException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		buildArcherBox.setOnMouseClicked((event) -> {
+			try {
+				GameLogic.buildMilitary(building, "Archer");
+				remove();
+			} catch (UnsupportedOperationException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+	
 	/**
 	 * Handle when component is removed from the scene.
 	 */
@@ -181,4 +198,14 @@ public class BuildMilitaryPopUp extends VBox {
 			System.out.println(this.getClass().getName() + " has not opened yet.");
 		}
 	}
+
+	public BaseBuilding getBuilding() {
+		return building;
+	}
+
+	public void setBuilding(BaseBuilding building) {
+		this.building = building;
+	}
+	
+	
 }

@@ -361,15 +361,20 @@ public class GameLogic {
 			GameLogic.changeMilitary(unit, new FieldSwordMan());
 	}
 	
-	public static void buildMilitary(Position pos, String militaryType) {
-		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
+	public static void buildMilitary(BaseBuilding building, String militaryType) {
+		if (!(building instanceof MilitaryCamp)) return;
 		if (getUnemployed() < GameConfig.MILITARY_SIZE) return;
 		BaseUnit unit;
 		if (militaryType == "SwordMan") 
 			unit = new SwordMan();
 		else
 			unit = new Archer();
-		ourUnits.put(unit, pos);		
+		
+		for (Position pos : buildings.keySet()) {
+			if (buildings.get(pos).equals(building))
+				ourUnits.put(unit, pos);
+		}
+		System.out.println("Successfully build " + unit.getClass().getSimpleName());
 	}
 	
 	public static void heal(BaseUnit unit) {
