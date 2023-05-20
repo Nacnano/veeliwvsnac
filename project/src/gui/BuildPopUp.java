@@ -29,6 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
@@ -111,7 +112,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(field, pos);
 				remove();
@@ -142,7 +143,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(mine, pos);
 				remove();
@@ -173,7 +174,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(sawmill, pos);
 				remove();
@@ -204,7 +205,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(smelter, pos);
 				remove();
@@ -235,7 +236,7 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(house, pos);
 				remove();
@@ -266,9 +267,10 @@ public class BuildPopUp extends VBox {
 		Text build = new Text("Build");
 		build.setFont(FontUtil.getFont("small"));
 		
-		build.setOnMouseClicked((event) -> {
+		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(militaryCamp, pos);
+				System.out.println("   chose mil camp");
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -349,6 +351,7 @@ public class BuildPopUp extends VBox {
 	public void remove() {
 		try {
 			((StackPane) getParent()).getChildren().remove(this);
+			GameScene.getMaterialStatus().update();
 			InterruptController.setIsBuildOpen(false);
 		} catch (ClassCastException e) {
 			System.out.println(this.getClass().getName() + " has already closed");
