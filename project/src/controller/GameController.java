@@ -90,68 +90,77 @@ public class GameController {
 	}
 
 	/**
+	 * Initialize new game.
+	 */
+	public static void start() {
+		day = 1;
+		
+		initGameMap();
+
+		makeNewCamera();
+
+		sceneSetup();
+		initialTransition();
+	}
+	
+	/**
 	 * Create new {@link GameMap} and add to {@link #levelMapList}.
 	 * 
 	 * @return {@link GameMap} new floor which added to {@link #levelMapList}
 	 */
 	private static GameMap initGameMap() {
-		GameMap gameMap = MapGenerator.generateMap("default");
+		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
 		GameLogic.SetCurrentPopulation(50);
 		
-		House house = new House();
-		gameMap.get(9, 8).setBuilding(house);
-		GameLogic.getBuildings().put(new Position(9, 8), house);
-		
-		Field field = new Field();
-		Position field_pos = new Position(10, 11);
-		gameMap.get(10, 11).setBuilding(field);
-		GameLogic.getBuildings().put(field_pos, field);
-		GameLogic.setNumberOfWorkers(field_pos, 10);
-		
-		Mine mine = new Mine();
-		Position mine_pos = new Position(9, 6);
-		gameMap.get(9, 6).setBuilding(mine);
-		GameLogic.getBuildings().put(mine_pos, mine);
-		GameLogic.setNumberOfWorkers(mine_pos, 10);
-		
-		Sawmill sawmill = new Sawmill();
-		Position sawmill_pos = new Position(10, 4);
-		gameMap.get(10, 4).setBuilding(sawmill);
-		GameLogic.getBuildings().put(sawmill_pos, sawmill);
-		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
-		
-		Smelter smelter = new Smelter();
-		Position smelter_pos = new Position(11, 13);
-		gameMap.get(11, 13).setBuilding(smelter);
-		GameLogic.getBuildings().put(smelter_pos, smelter);
-		GameLogic.setNumberOfWorkers(smelter_pos, 10);
-		
-		GameLogic.setFood(100);
-		GameLogic.setWood(100);
-		GameLogic.setStone(100);
-		GameLogic.setIron(100);
-		GameLogic.setMoney(1000);
-		
+		initBuildings();
+		initMaterials();
 		
 		return gameMap;
 	}
+	
+	private static void initBuildings() {
+		GameLogic.initBuilding(new House(), new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2));
+		
 
-
-	/**
-	 * Initialize new game.
-	 */
-	public static void start() {
-		day = 1;
-
-		GameMap gameMap = initGameMap();
-		setGameMap(gameMap);
-
-		camera = makeNewCamera();
-
-		sceneSetup();
-		initialTransition();
+//		House house = new House();
+//		gameMap.get(9, 8).setBuilding(house);
+//		GameLogic.getBuildings().put(new Position(9, 8), house);
+		
+		
+//		Field field = new Field();
+//		Position field_pos = new Position(10, 11);
+//		gameMap.get(10, 11).setBuilding(field);
+//		GameLogic.getBuildings().put(field_pos, field);
+//		GameLogic.setNumberOfWorkers(field_pos, 10);
+//		
+//		Mine mine = new Mine();
+//		Position mine_pos = new Position(9, 6);
+//		gameMap.get(9, 6).setBuilding(mine);
+//		GameLogic.getBuildings().put(mine_pos, mine);
+//		GameLogic.setNumberOfWorkers(mine_pos, 10);
+//		
+//		Sawmill sawmill = new Sawmill();
+//		Position sawmill_pos = new Position(10, 4);
+//		gameMap.get(10, 4).setBuilding(sawmill);
+//		GameLogic.getBuildings().put(sawmill_pos, sawmill);
+//		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
+//		
+//		Smelter smelter = new Smelter();
+//		Position smelter_pos = new Position(11, 13);
+//		gameMap.get(11, 13).setBuilding(smelter);
+//		GameLogic.getBuildings().put(smelter_pos, smelter);
+//		GameLogic.setNumberOfWorkers(smelter_pos, 10);
+		
+	}
+	
+	public static void initMaterials() {
+		GameLogic.setFood(1000);
+		GameLogic.setWood(1000);
+		GameLogic.setStone(1000);
+		GameLogic.setIron(1000);
+		GameLogic.setMoney(1000);
 	}
 
 	/**
@@ -284,11 +293,11 @@ public class GameController {
 	 * 
 	 * @return {@link Player} new player instance
 	 */
-	private static Camera makeNewCamera() {
+	private static void makeNewCamera() {
 		Camera newCamera = new Camera();
 		newCamera.setPosition(new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2));
 
-		return newCamera;
+		camera = newCamera;
 	}
 	
 	public static void gameUpdate(ControlAction action) {

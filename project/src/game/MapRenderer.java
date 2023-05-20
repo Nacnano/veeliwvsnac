@@ -194,7 +194,7 @@ public class MapRenderer {
 
 			// Draw Terrain
 			pq.add(new Node(posY, posX, 0, () -> {
-				DrawUtil.drawTerrain(posY, posX, thisCell.getTerrain());
+				DrawUtil.drawTerrain(posY, posX, thisCell);
 			}));
 
 

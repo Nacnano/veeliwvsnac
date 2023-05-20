@@ -9,11 +9,12 @@ import entity.building.BaseBuilding;
  *
  */
 public class Cell {
-
+	
 	/**
-	 * A constant holding the maximum type of path sprite.
+	 * The position of this cell.
 	 */
-	private static final int TILE_SPRITE_TYPE = 6;
+	private Position position;
+	
 
 	/**
 	 * The type of this cell.
@@ -28,6 +29,11 @@ public class Cell {
 	 * The building on this cell.
 	 */
 	private BaseBuilding building;
+	
+	/**
+	 * The territory state.
+	 */
+	private int territory;
 
 	/**
 	 * Creates a new cell with void type.
@@ -99,6 +105,26 @@ public class Cell {
 	 */
 	public void setBuilding(BaseBuilding building) {
 		this.building = building;
+	}
+
+	public int getTerritory() {
+		return territory;
+	}
+
+	public void setTerritory(int isTerritory) {
+		this.territory = isTerritory;
+	}
+	
+	public void increaseTerritoryBy(int add) {
+		setTerritory(getTerritory() + add);
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 }
