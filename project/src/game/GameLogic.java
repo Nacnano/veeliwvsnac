@@ -373,11 +373,10 @@ public class GameLogic {
 			unit = new SwordMan();
 		else
 			unit = new Archer();
-		addOurUnit(unit, pos);		
 		
 		for (Position pos : buildings.keySet()) {
 			if (buildings.get(pos).equals(building))
-				ourUnits.put(unit, pos);
+				addOurUnit(unit, pos);	
 		}
 		System.out.println("Successfully build " + unit.getClass().getSimpleName());
 	}

@@ -172,8 +172,7 @@ public class GameController {
 		GameLogic.initBuilding(new MilitaryCamp(), militaryCamp_pos);
 		
 		SwordMan swordMan = new SwordMan();
-		gameMap.get(7, 10).setUnit(swordMan);
-		GameLogic.getOurUnits().put(swordMan, militaryCamp_pos);
+		GameLogic.addOurUnit(swordMan, militaryCamp_pos);
 		
 	}
 	

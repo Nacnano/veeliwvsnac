@@ -212,7 +212,7 @@ public class MapRenderer {
 			// Draw unit
 			if (thisCell.getUnit() != null) {
 				pq.add(new Node(posY, posX, 3, () -> {
-					DrawUtil.drawUnit(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit(), frame);
+					DrawUtil.drawUnit(posY + finalShiftY, posX + finalShiftX, thisCell, frame);
 				}));
 			}
 			// Draw unit HP Bar
