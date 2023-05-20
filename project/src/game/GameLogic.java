@@ -257,14 +257,14 @@ public class GameLogic {
 	public static void buildBuilding(BaseBuilding b, Position p) {
 		if (!canBuildBuilding(b, p)) return;
 		
-		GameController.getGameMap().get(p.getRow(), p.getColumn()).setBuilding(b);
+		GameController.getGameMap().get(p).setBuilding(b);
 		updateTerritory(b, p, 1);
 		deductMaterial(b);
 		buildings.put(p, b);
 	}
 	
 	public static void initBuilding(BaseBuilding b, Position p) {
-		GameController.getGameMap().get(p.getRow(), p.getColumn()).setBuilding(b);
+		GameController.getGameMap().get(p).setBuilding(b);
 		updateTerritory(b, p, 1);
 		buildings.put(p, b);
 //		map.put(p, GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
@@ -389,24 +389,24 @@ public class GameLogic {
 	}
 	
 	public static void addOurUnit(BaseUnit unit, Position pos) {
-		GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(unit);
+		GameController.getGameMap().get(pos).setUnit(unit);
 		unit.setPosition(pos);
 		ourUnits.put(unit, pos);
 	}
 	
 	public static void addEnemyUnit(BaseUnit unit, Position pos) {
-		GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(unit);
+		GameController.getGameMap().get(pos).setUnit(unit);
 		unit.setPosition(pos);
 		enemyUnits.put(unit, pos);
 	}
 	
 	public static void removeOurUnit(BaseUnit unit) {
-		GameController.getGameMap().get(unit.getPosition().getRow(), unit.getPosition().getColumn()).setUnit(null);
+		GameController.getGameMap().get(unit.getPosition()).setUnit(null);
 		ourUnits.remove(unit);
 	}
 	
 	public static void removeEnemyUnit(BaseUnit unit) {
-		GameController.getGameMap().get(unit.getPosition().getRow(), unit.getPosition().getColumn()).setUnit(null);
+		GameController.getGameMap().get(unit.getPosition()).setUnit(null);
 		enemyUnits.remove(unit);
 	}
 	
