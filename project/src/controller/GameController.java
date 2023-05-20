@@ -143,7 +143,7 @@ public class GameController {
 	 * Initialize new game.
 	 */
 	public static void start() {
-		 day = 1;
+		day = 1;
 
 		GameMap gameMap = initGameMap();
 		setGameMap(gameMap);
@@ -296,20 +296,16 @@ public class GameController {
 		boolean isMoved = false;
 		switch (action) {
 		case CAMERA_MOVE_UP:
-			camera.move(cameraPosition.moveUp());
-			isMoved = true;
+			isMoved = camera.move(cameraPosition.moveUp());
 			break;
 		case CAMERA_MOVE_DOWN:
-			camera.move(cameraPosition.moveDown());
-			isMoved = true;
+			isMoved = camera.move(cameraPosition.moveDown());
 			break;
 		case CAMERA_MOVE_LEFT:
-			camera.move(cameraPosition.moveLeft());
-			isMoved = true;
+			isMoved = camera.move(cameraPosition.moveLeft());
 			break;
 		case CAMERA_MOVE_RIGHT:
-			camera.move(cameraPosition.moveRight());
-			isMoved = true;
+			isMoved = camera.move(cameraPosition.moveRight());
 			break;
 		default:
 			break;
@@ -328,7 +324,6 @@ public class GameController {
 //					} else {
 //						postMoveUpdate(true);
 //					}
-					System.out.println(cameraPosition.getRow() + " " + cameraPosition.getColumn());
 					postGameUpdate();
 				});
 			}).start();
@@ -431,7 +426,6 @@ public class GameController {
 		GameScene.updateScene();
 
 		// Play monster animations
-		System.out.println("HOI");
 		new Thread(() -> {
 			try {
 				AnimationUtil.playAnimation(0).join();

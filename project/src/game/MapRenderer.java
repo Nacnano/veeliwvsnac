@@ -132,16 +132,18 @@ public class MapRenderer {
 		int maxCellY = GameConfig.getScreenHeight() / (newSpriteSize);
 		int maxCellX = GameConfig.getScreenWidth() / (newSpriteSize);
 
-		int startIdxY = Math.max(0, GameController.getCamera().getPosition().getRow() - maxCellY / 2 - 1);
-		int endIdxY = Math.min(GameConfig.getMapSize(), GameController.getCamera().getPosition().getRow() + maxCellY / 2 + 1);
+		Position cameraPosition = GameController.getCamera().getPosition();
+		
+		int startIdxY = Math.max(0, cameraPosition.getRow() - maxCellY / 2 - 1);
+		int endIdxY = Math.min(GameConfig.getMapSize(), cameraPosition.getRow() + maxCellY / 2 + 1);
 
-		int startIdxX = Math.max(0, GameController.getCamera().getPosition().getColumn() - maxCellX / 2 - 1);
-		int endIdxX = Math.min(GameConfig.getMapSize(), GameController.getCamera().getPosition().getRow() + maxCellX / 2 + 1);
-
+		int startIdxX = Math.max(0, cameraPosition.getColumn() - maxCellX / 2 - 1);
+		int endIdxX = Math.min(GameConfig.getMapSize(), cameraPosition.getColumn() + maxCellX / 2 + 1);
+		
 		ArrayList<Pair<Integer, Integer>> posList = new ArrayList<>();
 
-		for (int i = startIdxY; i <= endIdxY; i++) {
-			for (int j = startIdxX; j <= endIdxX; j++) {
+		for (int i = startIdxY; i < endIdxY; i++) {
+			for (int j = startIdxX; j < endIdxX; j++) {
 				posList.add(new Pair<Integer, Integer>(i, j));
 			}
 		}
@@ -226,7 +228,7 @@ public class MapRenderer {
 			
 			if (thisCell.getBuilding() != null  && (frame == 0)) {
 				pq.add(new Node(posY, posX, 2, () -> {
-					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
+//					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
 //					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
 					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
 				}));
