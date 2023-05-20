@@ -2,7 +2,6 @@ package game;
 
 import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
-import entity.unit.BaseUnit;
 import utils.GameConfig;
 
 public class Position {

@@ -1,6 +1,5 @@
 package game;
 
-import entity.unit.Movable;
 import utils.GameConfig;
 
 /**

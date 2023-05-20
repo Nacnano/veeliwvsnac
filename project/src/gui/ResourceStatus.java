@@ -2,8 +2,6 @@ package gui;
 
 import entity.building.BaseBuilding;
 import entity.building.Resource;
-import game.GameLogic;
-import game.Position;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;

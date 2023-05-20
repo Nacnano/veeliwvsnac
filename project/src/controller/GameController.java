@@ -1,10 +1,4 @@
 package controller;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle.Control;
-
-import entity.building.Field;
 import entity.building.House;
 import entity.building.MilitaryCamp;
 import entity.building.Mine;
@@ -14,9 +8,7 @@ import entity.unit.BaseUnit;
 import entity.unit.SwordMan;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Pair;
 import game.Camera;
 import game.Cell;
 import game.ControlAction;
@@ -34,7 +26,6 @@ import utils.AnimationUtil;
 import utils.AudioUtil;
 import utils.GameConfig;
 import utils.MessageTextUtil;
-import utils.RandomUtil;
 import utils.TransitionUtil;
 
 /**
@@ -366,7 +357,6 @@ public class GameController {
 	 * @param isMove Tell whether the move is a success or not
 	 */
 	public static void postMoveUpdate(boolean isMove) {
-		GameMap gameMap = GameController.getGameMap();
 		Camera camera = GameController.getCamera();
 		
 		// TODO: Add logic for post move action

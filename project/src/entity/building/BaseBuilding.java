@@ -1,6 +1,5 @@
 package entity.building;
 
-import game.GameLogic;
 import game.Position;
 
 public abstract class BaseBuilding implements Buildable {

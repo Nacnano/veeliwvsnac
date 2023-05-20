@@ -5,7 +5,6 @@ import java.nio.IntBuffer;
 import controller.GameController;
 import controller.InterruptController;
 import entity.building.BaseBuilding;
-import entity.building.Field;
 import entity.building.House;
 import entity.building.MilitaryCamp;
 import entity.building.Mine;
@@ -23,15 +22,9 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import game.Cell;
 import game.GameLogic;
-import game.Position;
-import game.Terrain;
 import scene.GameScene;
 
 /**

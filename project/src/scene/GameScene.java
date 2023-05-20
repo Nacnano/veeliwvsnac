@@ -14,8 +14,6 @@ import gui.ShopPopUp;
 import gui.WorkerStatus;
 import controller.GameController;
 import controller.InterruptController;
-import entity.building.BaseBuilding;
-import entity.building.Resource;
 import entity.unit.BaseUnit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,15 +28,11 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import game.ControlAction;
-import game.GameLogic;
 import game.MapRenderer;
 import game.Position;
-//import game.MapRenderer;
 import utils.DrawUtil;
-import utils.AudioUtil;
 import utils.GameConfig;
 
 /**
@@ -400,6 +394,18 @@ public class GameScene {
 			initScene();
 		}
 		return shopPopUp;
+	}
+	
+	/**
+	 * Getter for Next Day pane.
+	 * 
+	 * @return Next Dat pane
+	 */
+	public static NextDay getNextDay() {
+		if (nextDay == null) {
+			initScene();
+		}
+		return nextDay;
 	}
 
 	/**
