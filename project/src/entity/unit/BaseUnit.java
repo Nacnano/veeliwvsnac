@@ -48,6 +48,9 @@ public class BaseUnit implements Attackable, Movable{
 	
 	
 	public void setPeople(int people) {
+		if(people <= 0) {
+			GameLogic.removeUnit(this);
+		}
 		this.people = Math.max(0, people);
 	}
 	

@@ -1,5 +1,7 @@
 package game;
 
+import utils.GameConfig;
+
 public class Position {
 	private int row;
 	private int column;
@@ -27,7 +29,17 @@ public class Position {
 	
 	// Manhattan distance?
 	public int getDistanceFrom(Position p) {
+		if(p == null) {
+			return 2*GameConfig.getMapSize();
+		}
 		return Math.abs(this.row-p.row) + Math.abs(this.column - p.column);
+	}
+	
+	public int getMaxPerpendicularDistance(Position p) {
+		if(p == null) {
+			return 2*GameConfig.getMapSize();
+		}
+		return Math.max(Math.abs(this.row-p.row), Math.abs(this.column - p.column));
 	}
 	
 	public Position moveUp() {

@@ -58,6 +58,7 @@ public class GameLogic {
 		BaseBuilding b = buildings.get(p);
 		updateTerritory(b, p, -1);
 		buildings.remove(p);
+		GameController.getGameMap().get(p).setBuilding(null);
 
 		if (b instanceof Field) {
 			currentPopulation -= ((Field) b).getCurrentPeople() * ((Field) b).getFatalityRate();
@@ -139,7 +140,12 @@ public class GameLogic {
 	
 	public static void updateResources() {
 		for (BaseBuilding b : buildings.values()) {
-			int currentPeople = ((Resource) b).getCurrentPeople();
+			int currentPeople = 0;
+			try {
+				currentPeople = ((Resource) b).getCurrentPeople();
+			}catch (ClassCastException e){
+				continue;
+			}
 			
 			if (b instanceof Field) {
 				food += GameConfig.FIELD_WORK_RATE * currentPeople;
@@ -257,6 +263,7 @@ public class GameLogic {
 	public static void buildBuilding(BaseBuilding b, Position p) {
 		if (!canBuildBuilding(b, p)) return;
 		
+		b.setPosition(p);
 		GameController.getGameMap().get(p).setBuilding(b);
 		updateTerritory(b, p, 1);
 		deductMaterial(b);
@@ -264,6 +271,7 @@ public class GameLogic {
 	}
 	
 	public static void initBuilding(BaseBuilding b, Position p) {
+		b.setPosition(p);
 		GameController.getGameMap().get(p).setBuilding(b);
 		updateTerritory(b, p, 1);
 		buildings.put(p, b);
@@ -391,6 +399,15 @@ public class GameLogic {
 		unit.setPeople(Math.min(getUnemployed(), GameConfig.MILITARY_SIZE));
 	}
 	
+	public static void addUnit(BaseUnit unit, Position pos) {
+		if(isOurUnit(unit)) {
+			addOurUnit(unit, pos);
+		}
+		else {
+			addEnemyUnit(unit, pos);
+		}
+	}
+	
 	public static void addOurUnit(BaseUnit unit, Position pos) {
 		GameController.getGameMap().get(pos).setUnit(unit);
 		unit.setPosition(pos);
@@ -401,6 +418,15 @@ public class GameLogic {
 		GameController.getGameMap().get(pos).setUnit(unit);
 		unit.setPosition(pos);
 		enemyUnits.put(unit, pos);
+	}
+	
+	public static void removeUnit(BaseUnit unit) {
+		if(isOurUnit(unit)) {
+			removeOurUnit(unit);
+		}
+		else {
+			removeEnemyUnit(unit);
+		}
 	}
 	
 	public static void removeOurUnit(BaseUnit unit) {
@@ -456,29 +482,81 @@ public class GameLogic {
 		}
 	}
 	
+	public static boolean isInAttackRange(BaseUnit from, Position pos) {
+		return from.getPosition().getMaxPerpendicularDistance(pos) <= GameConfig.getAttackRangebyUnit(from);
+	}
+	
 	public static void enemyMove() {
-		for (BaseUnit enemy : enemyUnits.keySet()) {
+		for (BaseUnit enemy : new ArrayList<BaseUnit>(getEnemyUnits().keySet()) ) {
 			BaseUnit targetUnit = closestOurUnitFrom(enemy);
-			BaseUnit targetBuilding = closestOurBuildingFrom(enemy);
+			BaseBuilding targetBuilding = closestOurBuildingFrom(enemy);
 			
 			int distanceFromUnit = enemy.getPosition().getDistanceFrom(targetUnit.getPosition());
 			int distanceFromBuilding= enemy.getPosition().getDistanceFrom(targetBuilding.getPosition());
 			
-			if( distanceFromUnit >= distanceFromBuilding) {
-				attackUnit(enemy, targetUnit);
+			
+			if( distanceFromUnit <= distanceFromBuilding) {
+				if(isInAttackRange(enemy, targetUnit.getPosition())) {
+					attackUnit(enemy, targetUnit);
+				}
+				else {
+					
+					moveUnitusingShortestPath(enemy, targetUnit.getPosition());
+				}
+				
 			}
 			else {
-				destroyBuiding(enemy, targetBuilding);
+				if(isInAttackRange(enemy, targetBuilding.getPosition())) {
+					destroyBuiding(enemy, targetBuilding);
+				}
+				else {
+					moveUnitusingShortestPath(enemy, targetBuilding.getPosition());
+				}
 			}
 		}
 	}
 	
+	public static void moveUnitusingShortestPath(BaseUnit unit, Position pos) {
+		int moveRange = GameConfig.getMoveRangebyUnit(unit);
+		int bestRow = getBestPointfromMove(unit.getPosition().getRow(), pos.getRow(), moveRange);
+		int bestColumn = getBestPointfromMove(unit.getPosition().getColumn(), pos.getColumn(), moveRange);
+		moveUnit(unit, new Position(bestRow, bestColumn));
+	}
+	
+	// TODO: proof that this is true (not sure)
+	public static int getBestPointfromMove(int from, int to, int range) {
+		if(to > from) {
+			return to-Math.max(0, -from-range+to);
+		}
+		else {
+			return to+Math.max(0, from+range-to);
+		}
+	}
+	
 	public static BaseUnit closestOurUnitFrom(BaseUnit enemy) {
-		return;
+		BaseUnit targetUnit = null;
+		int min = 2*GameConfig.getMapSize();
+		for (BaseUnit ourUnit : getOurUnits().keySet()) {
+			int distance = ourUnit.getPosition().getDistanceFrom(enemy.getPosition());
+			if(distance < min) {
+				min = distance;
+				targetUnit = ourUnit;
+			}
+		}
+		return targetUnit;
 	}
 	
 	public static BaseBuilding closestOurBuildingFrom(BaseUnit enemy) {
-		return;
+		BaseBuilding targetBuilding = null;
+		int min = 2*GameConfig.getMapSize();
+		for (BaseBuilding building: getBuildings().values()) {
+			int distance = building.getPosition().getDistanceFrom(enemy.getPosition());
+			if(distance < min) {
+				min = distance;
+				targetBuilding = building;
+			}
+		}
+		return targetBuilding;
 	}
 	
 	public static boolean isGameOver() {

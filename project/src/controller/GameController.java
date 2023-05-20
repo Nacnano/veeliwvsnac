@@ -555,7 +555,6 @@ public class GameController {
 				if (GameController.isGameOver() || GameController.isGameClear()) {
 					return;
 				}
-				
 				InterruptController.setStillAnimation(false);
 				doNextAction();
 			});
