@@ -1,9 +1,11 @@
 package utils;
 
 import java.util.List;
+import java.util.Map;
 
 import controller.GameController;
 import game.Camera;
+import game.GameLogic;
 import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
 import javafx.application.Platform;
@@ -44,9 +46,13 @@ public class AnimationUtil {
 	 */
 	public static Thread playAnimation(int step) {
 		Camera camera = GameController.getCamera();
+		int cameraStepX = camera.getPosition().getColumn();
+		int cameraStepY = camera.getPosition().getRow();
+		Map<BaseUnit, Position> ourUnits = GameLogic.getOurUnits();
+		Map<BaseUnit, Position> enemyUnits = GameLogic.getEnemyUnits();
+		
 		// TODO: Maybe call from GameLogic and do the same to building as well
-		List<BaseUnit> unitList = GameController.getGameMap().getUnitList();
-		List<BaseBuilding> buildingList = GameController.getGameMap().getBuildingList();
+		Map<Position, BaseBuilding> buildings = GameLogic.getBuildings();
 			
 			
 		Thread animation = new Thread(() -> {
@@ -54,34 +60,34 @@ public class AnimationUtil {
 			boolean isAttacked = false;
 			boolean isMove = camera.isMoving();
 			
-			for (BaseUnit unit : unitList) {
-				isAttacked |= unit.isAttacked();
-						}
-						isMove &= !GameConfig.isSkipMoveAnimation();
-						if (!isMove && isAttacked) {
-							Platform.runLater(() -> {
-								MapRenderer.render();
-							});
-						}
+			for (Map.Entry<BaseUnit, Position> unit : ourUnits.entrySet()) {
+				isAttacked |= unit.getKey().isAttacked();
+			}
+			for (Map.Entry<BaseUnit, Position> unit : enemyUnits.entrySet()) {
+				isAttacked |= unit.getKey().isAttacked();
+			}
+			
+//			isMove &= !GameConfig.isSkipMoveAnimation();
+			if (isAttacked) {
+				Platform.runLater(() -> {
+					MapRenderer.render();
+				});
+			}
 
 						
 			// Plays move and attack animation
 			Thread attackAnimation = null;
 			Thread moveAnimation = null;
 			if (isMove) {
-				int stepX = -Direction.getMoveX(player.getDirection(), step);
-				int stepY = -Direction.getMoveY(player.getDirection(), step);
-				moveAnimation = playMoveAnimation(stepY, stepX);
+				moveAnimation = cameraMoveAnimation(cameraStepY, cameraStepX);
 			}
 			
 			try {
 				if (isAttacked) {
+					moveAnimation = cameraMoveAnimation(cameraStepY, cameraStepX);
 					attackAnimation = playAttackAnimation();
 				}
 				if (isMove) {
-					int stepX = -Direction.getMoveX(player.getDirection(), step);
-					int stepY = -Direction.getMoveY(player.getDirection(), step);
-					moveAnimation = playMoveAnimation(stepY, stepX);
 				}
 				if (moveAnimation != null) {
 					moveAnimation.join();
@@ -96,8 +102,11 @@ public class AnimationUtil {
 
 			boolean finalIsAttacked = isAttacked;
 			Platform.runLater(() -> {
-				for (BaseUnit unit: unitList) {
-					unit.setAttacked(false);
+				for (Map.Entry<BaseUnit, Position> unit : ourUnits.entrySet()) {
+					unit.getKey().setAttacked(false);
+				}
+				for (Map.Entry<BaseUnit, Position> unit : ourUnits.entrySet()) {
+					unit.getKey().setAttacked(false);
 				}
 				camera.setMoving(false);
 
@@ -139,7 +148,7 @@ public class AnimationUtil {
 	 * @return Move animation thread
 	 */
 	public static Thread cameraMoveAnimation(int stepY, int stepX) {
-		Thread moveAnimation = new Thread(() -> {
+		Thread cameraMoveAnimation = new Thread(() -> {
 			Camera camera = GameController.getCamera();
 			int newSpriteSize = GameConfig.SPRITE_SIZE * GameConfig.getScale();
 			int centerY = camera.getPosition().getRow() * newSpriteSize + newSpriteSize / 2;
@@ -160,8 +169,8 @@ public class AnimationUtil {
 			}
 
 		});
-		moveAnimation.start();
-		return moveAnimation;
+		cameraMoveAnimation.start();
+		return cameraMoveAnimation;
 	}
 
 }

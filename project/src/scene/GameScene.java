@@ -241,19 +241,19 @@ public class GameScene {
 
 			switch (keycode) {
 			case A:
-				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_LEFT);
+				GameController.gameUpdate(ControlAction.CAMERA_MOVE_LEFT);
 				break;
 			case D:
-				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_RIGHT);
+				GameController.gameUpdate(ControlAction.CAMERA_MOVE_RIGHT);
 				break;
 			case W:
-				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_UP);
+				GameController.gameUpdate(ControlAction.CAMERA_MOVE_UP);
 				break;
 			case S:
-				GameController.cameraUpdate(ControlAction.CAMERA_MOVE_DOWN);
+				GameController.gameUpdate(ControlAction.CAMERA_MOVE_DOWN);
 				break;
 			default:
-				GameController.cameraUpdate(ControlAction.CAMERA_STAY_STILL);
+				GameController.gameUpdate(ControlAction.CAMERA_STAY_STILL);
 				break;
 			}
 		});

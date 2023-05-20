@@ -17,7 +17,7 @@ public class BaseUnit implements Attackable, Movable{
 		setAttackRange(attackRange);
 		setMoveRange(moveRange);
 		setAttackMultiplier(attackMultiplier);
-		setIsMoved(false);
+		setMoved(false);
 		setIsAttacked(false);
 	}
 	
@@ -48,10 +48,6 @@ public class BaseUnit implements Attackable, Movable{
 	public void setAttackMultiplier(float attackMultiplier) {
 		this.attackMultiplier = attackMultiplier;
 	}
-	
-	public void setIsMoved(boolean isMoved) {
-		this.isMoved = isMoved;
-	}
 
 	public void setIsAttacked(boolean isAttacked) {
 		this.setAttacked(isAttacked);
@@ -72,10 +68,6 @@ public class BaseUnit implements Attackable, Movable{
 	public float getAttackMultiplier() {
 		return this.attackMultiplier;
 	}
-	
-	public boolean getIsMoved() {
-		return this.isMoved;
-	}
 
 	public Position getPosition() {
 		return position;
@@ -91,6 +83,14 @@ public class BaseUnit implements Attackable, Movable{
 
 	public void setAttacked(boolean isAttacked) {
 		this.isAttacked = isAttacked;
+	}
+
+	public boolean isMoved() {
+		return isMoved;
+	}
+
+	public void setMoved(boolean isMoved) {
+		this.isMoved = isMoved;
 	}
 
 }
