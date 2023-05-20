@@ -229,7 +229,7 @@ public class GameScene {
 				return;
 			}
 			
-//			changeJobPopUp.update(position needed);
+			changeJobPopUp.update(resourceStatus.getBuilding());
 			gamePane.getChildren().add(changeJobPopUp);
 			changeJobPopUp.requestFocus();
 			InterruptController.setIsChangeJobOpen(true);
