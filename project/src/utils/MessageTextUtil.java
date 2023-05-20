@@ -85,7 +85,7 @@ public class MessageTextUtil {
 	}
 
 	public static void textWhenMoveOutsideMoveTerritory() {
-		String displayText = "That cell is not oin your move territory.";
+		String displayText = "That cell is not in your move territory.";
 		writeMessage(displayText);
 	}
 }

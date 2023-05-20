@@ -352,14 +352,24 @@ public class DrawUtil {
 
 		WritableImage img = new WritableImage(SwordManSprites, 32, 32);
 		img = scaleUp(img, GameConfig.getScale());
+		
+		// TODO: Choose nice colors
+		if(GameLogic.isOurUnit(unit)) {
+			if(!unit.isMoved()) {
+				img = changeColorbyHue(img, ColortoHue.GREEN, 0.6);
+			}
+		}
+		if(!GameLogic.isOurUnit(unit)) {
+			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
+			if(cell.isAttackTerritory()) {
+				img = changeColorbyHue(img, ColortoHue.RED, 0.7);
+			}
+		}
+
 		if (unit.isAttacked()) {
 			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
 		}
-		else if(cell.isAttackTerritory() && !GameLogic.isOurUnit(unit)) {
-			// TODO: Choose nice color for 
-			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
-		}
-
+		
 		gc.drawImage(img, x, y);
 	}
 
