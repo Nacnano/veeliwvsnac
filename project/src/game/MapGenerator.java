@@ -88,7 +88,11 @@ public class MapGenerator {
 	 */
 	public static void generateEnemyOnMap(GameMap gameMap) {
 		int day = GameController.getDay();
-
+		
+		if(day%GameConfig.getDayPerWave() != 0) {
+			return;
+		}
+		
 		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day);
 
 		for (BaseUnit enemy : enemyList) {

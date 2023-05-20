@@ -2,6 +2,11 @@ package entity.unit;
 
 public class MountainSwordMan extends SwordMan implements Attackable, Movable{
 
+	public MountainSwordMan(int people, int attackRange, int moveRange, float attackMultiplier) {
+		super(people, attackRange, moveRange, attackMultiplier);
+	}
+	
+	
 	public void attack() {
 		// some logic to check terrain
 		// if(GameLogic.)
