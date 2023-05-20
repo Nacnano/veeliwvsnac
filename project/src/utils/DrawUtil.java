@@ -29,6 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import game.Cell;
+import game.GameLogic;
 import game.Position;
 import game.Terrain;
 import scene.GameScene;
@@ -156,7 +157,10 @@ public class DrawUtil {
 					drawSprites = debugSprites;
 			}
 			WritableImage img = new WritableImage(drawSprites, 32, 32);
-			if (cell.getTerritory() > 0) {
+			if(cell.isAttackTerritory()) {
+				img = changeColorbyHue(img, ColortoHue.ORANGE, 0.5);
+			}
+			else if (cell.getTerritory() > 0) {
 				img = changeColorbyOpacity(img, 0.6);
 			}
 
@@ -231,7 +235,6 @@ public class DrawUtil {
 		else if (building instanceof MilitaryCamp)
 			img = new WritableImage(militaryCampSprites, 32, 32);
 		
-		
 		img = scaleUp(img, GameConfig.getScale());
 		if (building.isAttacked()) {
 			img = changeColorbyHue(img, ColortoHue.YELLOW, 0.5);
@@ -248,7 +251,8 @@ public class DrawUtil {
 	 * @param entity The entity to be rendered
 	 * @param frame  The current animation frame
 	 */
-	public static void drawUnit(int y, int x, BaseUnit unit, int frame) {
+	public static void drawUnit(int y, int x, Cell cell, int frame) {
+		BaseUnit unit = cell.getUnit();
 		if (unit == null) {
 			return;
 		}
@@ -258,6 +262,10 @@ public class DrawUtil {
 		WritableImage img = new WritableImage(SwordManSprites, 32, 32);
 		img = scaleUp(img, GameConfig.getScale());
 		if (unit.isAttacked()) {
+			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
+		}
+		else if(cell.isAttackTerritory()) {
+			// TODO: Choose nice color for 
 			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
 		}
 
@@ -283,7 +291,12 @@ public class DrawUtil {
 				GameConfig.SPRITE_SIZE * GameConfig.getScale());
 		canvas.setOnMouseClicked((event) -> {
 			if (!InterruptController.isInterruptPlayerMovingInput()) {
-//				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
+				if(GameController.getSelectedUnit() == null) {
+					GameController.gameUpdate(unit);
+				}
+				else {
+					GameController.gameUpdate(GameController.getSelectedUnit(), unit);
+				}
 				System.out.println("Clicked! " + unit.getClass().getSimpleName());
 			}
 		});
@@ -300,8 +313,6 @@ public class DrawUtil {
 		GameScene.getButtonPane().getChildren().add(holder);
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
-		
-//		System.out.println("Build unit button");
 	}
 	
 	/**

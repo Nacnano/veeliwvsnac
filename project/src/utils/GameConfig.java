@@ -1,5 +1,12 @@
 package utils;
 
+import entity.unit.Archer;
+import entity.unit.BaseUnit;
+import entity.unit.FieldSwordMan;
+import entity.unit.ForestSwordMan;
+import entity.unit.MountainSwordMan;
+import entity.unit.SwordMan;
+
 public class GameConfig {
 	
 	// TODO: Add getter and setter for all of theses?
@@ -168,7 +175,24 @@ public class GameConfig {
 	
 	public static final int MILLITARY_UPGRADE_PRICE = 1000;
 
-	
+	public static int getAttackRangebyUnit(BaseUnit unit) {
+		if(unit instanceof Archer) {
+			return ARCHER_ATTACK_RANGE;
+		}
+		if(unit instanceof ForestSwordMan) {
+			return FORESTSWORDMAN_ATTACK_RANGE;
+		}
+		if(unit instanceof MountainSwordMan) {
+			return MOUNTAINSWORDMAN_ATTACK_RANGE;
+		}
+		if(unit instanceof FieldSwordMan) {
+			return FIELDSWORDMAN_ATTACK_RANGE;
+		}
+		if(unit instanceof SwordMan) {
+			return SWORDMAN_ATTACK_RANGE;
+		}
+		return 0;
+	}
 	
 	
 	public static int getScreenWidth() {
