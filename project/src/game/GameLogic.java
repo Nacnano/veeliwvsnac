@@ -355,6 +355,10 @@ public class GameLogic {
 		ourUnits.put(unit, pos);
 	}
 	
+	public static void addEnemyUnit(BaseUnit unit, Position pos) {
+		enemyUnits.put(unit, pos);
+	}
+	
 	public static boolean isGameOver() {
 		return buildings.isEmpty();
 	}

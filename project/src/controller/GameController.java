@@ -18,12 +18,10 @@ import javafx.util.Pair;
 import game.Camera;
 import game.Cell;
 import game.ControlAction;
-import game.DispatchAction;
 import game.GameLogic;
 import game.GameMap;
 import game.MapGenerator;
 import game.MapRenderer;
-import game.Player;
 import game.Position;
 import game.Terrain;
 import scene.CongratulationScene;
@@ -280,11 +278,11 @@ public class GameController {
 					System.out.println("Move animation interrupted");
 				}
 				Platform.runLater(() -> {
-					if (isMoved) {
-						postMoveUpdate(false);
-					} else {
-						postMoveUpdate(true);
-					}
+//					if (isMoved) {
+//						postMoveUpdate(false);
+//					} else {
+//						postMoveUpdate(true);
+//					}
 					postGameUpdate();
 				});
 			}).start();
@@ -379,12 +377,11 @@ public class GameController {
 	 */
 	public static void postGameUpdate() {
 		// Updates monsters and potions
-		GameLogic.unitsUpdate();
-		GameLogic.buildingsUpdate();
+//		TODO: update entity details
+//		GameLogic.
 
 		// Updates user interface
-		GameScene.getResourceStatus().update();
-		GameScene.getInventoryPane().update();
+		GameScene.initScene();
 
 		// Play monster animations
 		new Thread(() -> {
