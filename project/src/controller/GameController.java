@@ -123,14 +123,13 @@ public class GameController {
 	}
 	
 	private static void initBuildings() {
-		GameLogic.initBuilding(new House(), new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2));
+		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
+		// handle the water case
+		while(getGameMap().get(mapCenter.getRow(), mapCenter.getColumn()).getTerrain() == Terrain.WATER) {
+			mapCenter.moveDown();
+		}
+		GameLogic.initBuilding(new House(), mapCenter);
 		
-
-//		House house = new House();
-//		gameMap.get(9, 8).setBuilding(house);
-//		GameLogic.getBuildings().put(new Position(9, 8), house);
-		
-		GameLogic.initBuilding(new Field(), new Position(9, 12));
 //		Field field = new Field();
 //		Position field_pos = new Position(10, 11);
 //		gameMap.get(10, 11).setBuilding(field);

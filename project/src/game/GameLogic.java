@@ -266,7 +266,6 @@ public class GameLogic {
 	public static void initBuilding(BaseBuilding b, Position p) {
 		GameController.getGameMap().get(p.getRow(), p.getColumn()).setBuilding(b);
 		updateTerritory(b, p, 1);
-		deductMaterial(b);
 		buildings.put(p, b);
 //		map.put(p, GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
 //		System.out.println(b.getClass().getSimpleName() + "  terrain: " + GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
