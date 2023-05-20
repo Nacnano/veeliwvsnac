@@ -1,6 +1,7 @@
 package gui;
 
 import controller.InterruptController;
+import entity.building.BaseBuilding;
 import entity.building.Resource;
 import game.GameLogic;
 import game.Position;
@@ -45,7 +46,8 @@ public class ChangeJobPopUp extends VBox {
 	
 	HBox closeBox;
 	
-	Position pos;
+//	Position pos;
+	BaseBuilding building;
 	
 	/**
 	 * The constructor of the class. Initialize the inside component, event handler
@@ -70,7 +72,7 @@ public class ChangeJobPopUp extends VBox {
 	 * Update value inside setting to current value.
 	 */
 	public void quitJob() {
-		GameLogic.setNumberOfWorkers(pos, Integer.parseInt(amount.getText()));
+		GameLogic.setNumberOfWorkers(building, Integer.parseInt(amount.getText()));
 	}
 
 	/**
@@ -144,9 +146,11 @@ public class ChangeJobPopUp extends VBox {
 	}
 	
 	
-	public void update(Position Pos) {
-		setPos(pos);
-		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
+	public void update(BaseBuilding building) {
+//		setPos(pos);
+		setBuilding(building);
+//		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
+		Resource resource = (Resource) building;
 		optionTitle.setText("Set workers in " + resource.getClass().getSimpleName());
 		amount.setText(Integer.toString(resource.getCurrentPeople()));
 		unemployed.setText("Unemployed: " + Integer.toString(GameLogic.getUnemployed()));
@@ -176,12 +180,20 @@ public class ChangeJobPopUp extends VBox {
 		}
 	}
 
-	public Position getPos() {
-		return pos;
+//	public Position getPos() {
+//		return pos;
+//	}
+//
+//	public void setPos(Position pos) {
+//		this.pos = pos;
+//	}
+	
+	public BaseBuilding getBuilding() {
+		return building;
 	}
-
-	public void setPos(Position pos) {
-		this.pos = pos;
+	
+	public void setBuilding(BaseBuilding building) {
+		this.building = building;
 	}
 	
 }

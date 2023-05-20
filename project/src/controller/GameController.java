@@ -6,6 +6,7 @@ import java.util.ResourceBundle.Control;
 
 import entity.building.Field;
 import entity.building.House;
+import entity.building.MilitaryCamp;
 import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
@@ -286,6 +287,7 @@ public class GameController {
 		SceneController.setSceneToStage(GameScene.getScene());
 		GameScene.getWorkerStatus().update();
 		GameScene.getMaterialStatus().update();
+		GameScene.getResourceStatus().update(null);
 	}
 	
 	/**
