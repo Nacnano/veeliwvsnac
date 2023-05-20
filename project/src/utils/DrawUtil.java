@@ -122,7 +122,7 @@ public class DrawUtil {
 		
 		SwordManSprites = getImagePixelReader("unit/SwordMan.png");
 		
-		debugSprites = getImagePixelReader("unit/SwordMan.png");
+		debugSprites = getImagePixelReader("debug.png");
 	}
 
 	/**
@@ -271,6 +271,7 @@ public class DrawUtil {
 		if (unit == null) {
 			return;
 		}
+		
 
 		Canvas canvas = new Canvas(GameConfig.SPRITE_SIZE * GameConfig.getScale(),
 				GameConfig.SPRITE_SIZE * GameConfig.getScale());

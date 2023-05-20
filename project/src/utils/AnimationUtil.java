@@ -33,7 +33,7 @@ public class AnimationUtil {
 	/**
 	 * A constant holding max frame number.
 	 */
-	private static final int MAX_FRAME_NUMBER = 31;
+	private static final int MAX_FRAME_NUMBER = 3;
 
 	/**
 	 * A constant holding amount of frame change per loop.
@@ -160,6 +160,7 @@ public class AnimationUtil {
 					final int nowI = centerY + frame * stepY;
 					final int nowJ = centerX + frame * stepX;
 					final int nowCnt = frame;
+					System.out.println(nowI + " " + nowJ + " " + nowCnt);
 					Platform.runLater(() -> {
 						MapRenderer.render(nowI, nowJ, nowCnt);
 					});

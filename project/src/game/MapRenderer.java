@@ -123,8 +123,9 @@ public class MapRenderer {
 		buttonPane.getChildren().clear();
 		gc.setFill(Color.rgb(0, 0, 0));
 		gc.fillRect(0, 0, GameConfig.getScreenWidth(), GameConfig.getScreenHeight());
-
+//
 		int newSpriteSize = GameConfig.SPRITE_SIZE * GameConfig.getScale();
+//		int newSpriteSize = GameConfig.SPRITE_SIZE;
 
 		int startY = centerY - GameConfig.getScreenHeight() / 2;
 		int startX = centerX - GameConfig.getScreenWidth() / 2;
