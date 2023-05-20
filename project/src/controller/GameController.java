@@ -269,26 +269,29 @@ public class GameController {
 	}
 	
 	public static void gameUpdate(ControlAction action) {
-		Position cameraPosition= camera.getPosition();
-		boolean isMoved = true;
+		Position cameraPosition = camera.getPosition();
+		boolean isMoved = false;
 		switch (action) {
 		case CAMERA_MOVE_UP:
 			camera.move(cameraPosition.moveUp());
+			isMoved = true;
 			break;
 		case CAMERA_MOVE_DOWN:
 			camera.move(cameraPosition.moveDown());
+			isMoved = true;
 			break;
 		case CAMERA_MOVE_LEFT:
 			camera.move(cameraPosition.moveLeft());
+			isMoved = true;
 			break;
 		case CAMERA_MOVE_RIGHT:
 			camera.move(cameraPosition.moveRight());
+			isMoved = true;
 			break;
-		case CAMERA_STAY_STILL:
-			isMoved = false;
 		default:
 			break;
 		}
+		if(isMoved) {
 			InterruptController.setStillAnimation(true);
 			new Thread(() -> {
 				try {
@@ -302,9 +305,11 @@ public class GameController {
 //					} else {
 //						postMoveUpdate(true);
 //					}
+					System.out.println(cameraPosition.getRow() + " " + cameraPosition.getColumn());
 					postGameUpdate();
 				});
 			}).start();
+		}
 	}
 	
 
