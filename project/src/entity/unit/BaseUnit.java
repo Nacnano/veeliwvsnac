@@ -22,13 +22,19 @@ public class BaseUnit implements Attackable, Movable{
 	}
 	
 	public void attack(BaseUnit enemy) {
-		// if(getAttackRange() <= getPosition.getDistanceFrom(enemy.getPosition))
 		enemy.setPeople(enemy.people - (int)(getPeople()*getAttackMultiplier()) );
 	}
 	
 	public void move (Position destination) {
 		// if(getMoveRange() <= getPosition.getDistanceFrom(destination))
-		GameLogic.moveUnit(this, destination);
+		if(GameLogic.getOurUnits().containsKey(this)) {
+			GameLogic.removeOurUnit(this);
+			GameLogic.addOurUnit(this, destination);
+		}
+		else if(GameLogic.getEnemyUnits().containsKey(this)) {
+			GameLogic.removeEnemyUnit(this);
+			GameLogic.addEnemyUnit(this, destination);
+		}
 	}
 	
 	

@@ -20,7 +20,7 @@ public class Camera {
 	 */
 	private boolean isMoving;
 	
-	private Position direction;
+	private Position direction = new Position(0, 0);
 
 	
 	/**

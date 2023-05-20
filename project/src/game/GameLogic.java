@@ -257,17 +257,18 @@ public class GameLogic {
 	public static void buildBuilding(BaseBuilding b, Position p) {
 		if (!canBuildBuilding(b, p)) return;
 		
-		GameController.getGameMap().get(p.getRow(), p.getColumn()).setBuilding(b);
+		GameController.getGameMap().get(p).setBuilding(b);
 		updateTerritory(b, p, 1);
 		deductMaterial(b);
 		buildings.put(p, b);
 	}
 	
 	public static void initBuilding(BaseBuilding b, Position p) {
-		GameController.getGameMap().get(p.getRow(), p.getColumn()).setBuilding(b);
+		GameController.getGameMap().get(p).setBuilding(b);
 		updateTerritory(b, p, 1);
-		deductMaterial(b);
 		buildings.put(p, b);
+//		map.put(p, GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
+//		System.out.println(b.getClass().getSimpleName() + "  terrain: " + GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
 	}
 	
 	private static void updateTerritory(BaseBuilding b, Position p,int add) {
@@ -309,22 +310,17 @@ public class GameLogic {
 		}
 	}
 	
-	public void attackUnit(BaseUnit attacker, BaseUnit attacked) {
-		attacker.attack(attacked);
+	public static void attackUnit(BaseUnit to, BaseUnit from) {
+		to.attack(from);
 	}
 	
 	public static void moveUnit(BaseUnit unit, Position destination) {
-		if(ourUnits.containsKey(unit)) {
-			ourUnits.put(unit, destination);
-		}
-		else if(getEnemyUnits().containsKey(unit)) {
-			getEnemyUnits().put(unit, destination);
-		}
+		unit.move(destination);
 	}
 	
 	public static boolean militaryIsInCamp(MilitaryCamp camp, BaseUnit unit) {
-		if (!ourUnits.containsKey(unit)) return false;
-		Position unitPos = ourUnits.get(unit);
+		if (!isOurUnit(unit)) return false;
+		Position unitPos = unit.getPosition();
 		return buildings.get(unitPos) == camp;		
 	} 
 	
@@ -335,15 +331,15 @@ public class GameLogic {
 	}
 	
 	public static void changeMilitary(BaseUnit unit_old, BaseUnit unit_new) {
-		if (!ourUnits.containsKey(unit_old)) return;
-		Position pos = ourUnits.get(unit_old);
+		if (!isOurUnit(unit_old)) return;
+		Position pos = unit_old.getPosition();
 		unit_new.setPeople(unit_old.getPeople());
-		ourUnits.remove(unit_old);
-		ourUnits.put(unit_new, pos);
+		removeOurUnit(unit_old);
+		addOurUnit(unit_new, pos);
 	}
 	
 	public static Terrain getOurUnitTerrain(BaseUnit unit) {
-		Position pos = ourUnits.get(unit);
+		Position pos = unit.getPosition();
 		return map.get(pos);
 	}
 	
@@ -353,23 +349,36 @@ public class GameLogic {
 		if (!payToUpgrateMilitary()) return;
 		
 		Terrain terrain = map.get(pos);
-		if (terrain == Terrain.FOREST) 
-			GameLogic.changeMilitary(unit, new ForestSwordMan());
-		else if (terrain == Terrain.MOUNTAIN)
-			GameLogic.changeMilitary(unit, new MountainSwordMan());
-		else if (terrain == Terrain.PLAIN)
-			GameLogic.changeMilitary(unit, new FieldSwordMan());
+		if (terrain == Terrain.FOREST) {
+			BaseUnit new_unit = new ForestSwordMan();
+			GameLogic.changeMilitary(unit, new_unit);
+			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
+		}
+		else if (terrain == Terrain.MOUNTAIN) {
+			BaseUnit new_unit = new MountainSwordMan();
+			GameLogic.changeMilitary(unit, new_unit);
+		}
+		else if (terrain == Terrain.PLAIN) {
+			BaseUnit new_unit = new FieldSwordMan();
+			GameLogic.changeMilitary(unit, new_unit);
+			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
+		}
 	}
 	
-	public static void buildMilitary(Position pos, String militaryType) {
-		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
+	public static void buildMilitary(BaseBuilding building, String militaryType) {
+		if (!(building instanceof MilitaryCamp)) return;
 		if (getUnemployed() < GameConfig.MILITARY_SIZE) return;
 		BaseUnit unit;
 		if (militaryType == "SwordMan") 
 			unit = new SwordMan();
 		else
 			unit = new Archer();
-		ourUnits.put(unit, pos);		
+		
+		for (Position pos : buildings.keySet()) {
+			if (buildings.get(pos).equals(building))
+				addOurUnit(unit, pos);	
+		}
+		System.out.println("Successfully build " + unit.getClass().getSimpleName());
 	}
 	
 	public static void heal(BaseUnit unit) {
@@ -379,11 +388,53 @@ public class GameLogic {
 	}
 	
 	public static void addOurUnit(BaseUnit unit, Position pos) {
+		GameController.getGameMap().get(pos).setUnit(unit);
+		unit.setPosition(pos);
 		ourUnits.put(unit, pos);
 	}
 	
 	public static void addEnemyUnit(BaseUnit unit, Position pos) {
+		GameController.getGameMap().get(pos).setUnit(unit);
+		unit.setPosition(pos);
 		enemyUnits.put(unit, pos);
+	}
+	
+	public static void removeOurUnit(BaseUnit unit) {
+		GameController.getGameMap().get(unit.getPosition()).setUnit(null);
+		ourUnits.remove(unit);
+	}
+	
+	public static void removeEnemyUnit(BaseUnit unit) {
+		GameController.getGameMap().get(unit.getPosition()).setUnit(null);
+		enemyUnits.remove(unit);
+	}
+	
+	public static boolean isOurUnit(BaseUnit unit) {
+		return getOurUnits().containsKey(unit);
+	}
+	
+	public static void updateAttackTerritory(BaseUnit unit, boolean isAttackTerritory) {
+		
+		Position p = unit.getPosition();
+		int radius = GameConfig.getAttackRangebyUnit(unit);
+		int size = GameConfig.getMapSize();
+		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
+			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
+				GameController.getGameMap().get(i, j).setAttackTerritory(isAttackTerritory);
+			}
+		}
+	}
+	
+	public static void updateMoveTerritory(BaseUnit unit, boolean isMoveTerritory) {
+		
+		Position p = unit.getPosition();
+		int radius = GameConfig.getMoveRangebyUnit(unit);
+		int size = GameConfig.getMapSize();
+		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
+			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
+				GameController.getGameMap().get(i, j).setMoveTerritory(isMoveTerritory);
+			}
+		}
 	}
 	
 	public static boolean isGameOver() {

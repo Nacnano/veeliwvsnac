@@ -25,7 +25,6 @@ public class MapGenerator {
 	public static GameMap generateMap(String mapName) {
 		GameMap gameMap = buildNewEmptyMap();
 		buildNewMap(gameMap, mapName);
-		generateEnemyOnMap(gameMap);
 
 		return gameMap;
 	}
@@ -44,7 +43,6 @@ public class MapGenerator {
 				gameMap.getGameMap()[i][j] = newCell;
 			}
 		}
-			
 		return gameMap;
 	}
 
@@ -92,13 +90,16 @@ public class MapGenerator {
 		int day = GameController.getDay();
 		
 		if(day%GameConfig.getDayPerWave() != 0) {
-			return;
+//			return;
+			// test with real enemy
+			day = 10;
 		}
 		
 		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day);
 
 		for (BaseUnit enemy : enemyList) {
 			boolean isAdd = false;
+			int randomCount = 0;
 			do {
 				int randomX = RandomUtil.random(0, GameConfig.getMapSize() - 1);
 				int randomY = RandomUtil.random(0, GameConfig.getMapSize() - 1);
@@ -106,15 +107,12 @@ public class MapGenerator {
 				Cell currentCell = gameMap.get(randomY, randomX);
 
 				// TODO: Add logic to check not to add enemy in our territory
-				if (currentCell.getTerrain() == Terrain.WATER && currentCell.getUnit() == null) {
-					Position position = new Position(randomY, randomX);
-					
-					enemy.setPosition(position);
-					gameMap.get(randomY, randomX).setUnit(enemy);
-					GameLogic.addEnemyUnit(enemy, position);
+				if (currentCell.getTerrain() == Terrain.WATER && currentCell.getUnit() == null && currentCell.getTerritory() == 0) {
+					GameLogic.addEnemyUnit(enemy, currentCell.getPosition());
 					isAdd = true;
 				}
-			} while (!isAdd);
+				randomCount += 1;
+			} while (!isAdd && randomCount <= 10);
 		}
 	}
 

@@ -72,5 +72,9 @@ public class GameMap {
 		}
 		return gameMap[i][j];
 	}
+	
+	public Cell get(Position position) {
+		return get(position.getRow(), position.getColumn());
+	}
 
 }

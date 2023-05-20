@@ -23,6 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
@@ -159,6 +160,7 @@ public class ChangeJobPopUp extends VBox {
 		closeBox.setOnMouseClicked((event) -> {
 			try {
 				quitJob();
+				GameScene.getResourceStatus().update(building);
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();

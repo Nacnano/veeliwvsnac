@@ -11,6 +11,7 @@ import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import entity.unit.BaseUnit;
+import entity.unit.SwordMan;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -46,6 +47,12 @@ public class GameController {
 	 * Represent the {@link GameMap} of current map.
 	 */
 	private static GameMap gameMap;
+	
+	/**
+	 * Represent the {@link BaseUnit} of selected unit.
+	 */
+	private static BaseUnit selectedUnit;
+
 
 	/**
 	 * The {@link MediaPlayer} represent the background music of GameScene.
@@ -113,22 +120,26 @@ public class GameController {
 		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
-		GameLogic.SetCurrentPopulation(50);
+		GameLogic.SetCurrentPopulation(500);
 		
 		initBuildings();
 		initMaterials();
+		
+		// Test unit
+		GameLogic.addOurUnit(new SwordMan(), new Position(10, 11));
+		
+		MapGenerator.generateEnemyOnMap(gameMap);
 		
 		return gameMap;
 	}
 	
 	private static void initBuildings() {
-		GameLogic.initBuilding(new House(), new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2));
-		
-
-//		House house = new House();
-//		gameMap.get(9, 8).setBuilding(house);
-//		GameLogic.getBuildings().put(new Position(9, 8), house);
-		
+		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
+		// handle the water case
+		while(getGameMap().get(mapCenter).getTerrain() == Terrain.WATER) {
+			mapCenter = mapCenter.moveDown();
+		}
+		GameLogic.initBuilding(new House(), mapCenter);
 		
 //		Field field = new Field();
 //		Position field_pos = new Position(10, 11);
@@ -136,23 +147,32 @@ public class GameController {
 //		GameLogic.getBuildings().put(field_pos, field);
 //		GameLogic.setNumberOfWorkers(field_pos, 10);
 //		
+		GameLogic.initBuilding(new Mine(), new Position(9, 6));
 //		Mine mine = new Mine();
 //		Position mine_pos = new Position(9, 6);
 //		gameMap.get(9, 6).setBuilding(mine);
 //		GameLogic.getBuildings().put(mine_pos, mine);
 //		GameLogic.setNumberOfWorkers(mine_pos, 10);
 //		
+		GameLogic.initBuilding(new Sawmill(), new Position(10, 4));
 //		Sawmill sawmill = new Sawmill();
 //		Position sawmill_pos = new Position(10, 4);
 //		gameMap.get(10, 4).setBuilding(sawmill);
 //		GameLogic.getBuildings().put(sawmill_pos, sawmill);
 //		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
 //		
+		GameLogic.initBuilding(new Smelter(), new Position(11, 13));
 //		Smelter smelter = new Smelter();
 //		Position smelter_pos = new Position(11, 13);
 //		gameMap.get(11, 13).setBuilding(smelter);
 //		GameLogic.getBuildings().put(smelter_pos, smelter);
 //		GameLogic.setNumberOfWorkers(smelter_pos, 10);
+		
+		Position militaryCamp_pos = new Position(7, 10);
+		GameLogic.initBuilding(new MilitaryCamp(), militaryCamp_pos);
+		
+		SwordMan swordMan = new SwordMan();
+		GameLogic.addOurUnit(swordMan, militaryCamp_pos);
 		
 	}
 	
@@ -284,6 +304,7 @@ public class GameController {
 	 */
 	private static void sceneSetup() {
 		InterruptController.resetInterruptState();
+		GameScene.getMessagePane().resetMessage();
 		SceneController.setSceneToStage(GameScene.getScene());
 		GameScene.getWorkerStatus().update();
 		GameScene.getMaterialStatus().update();
@@ -330,18 +351,13 @@ public class GameController {
 					System.out.println("Move animation interrupted");
 				}
 				Platform.runLater(() -> {
-//					if (isMoved) {
-//						postMoveUpdate(false);
-//					} else {
-//						postMoveUpdate(true);
-//					}
+					postMoveUpdate(true);
 					postGameUpdate();
 				});
 			}).start();
 		}
 	}
 	
-
 	/**
 	 * Updates item and checks cell type after the move or stay still action. If
 	 * there is an item on the same cell as the player, collect it. If the player is
@@ -350,35 +366,115 @@ public class GameController {
 	 * @param isMove Tell whether the move is a success or not
 	 */
 	public static void postMoveUpdate(boolean isMove) {
-		GameMap thisGameMap = GameController.getGameMap();
+		GameMap gameMap = GameController.getGameMap();
 		Camera camera = GameController.getCamera();
 		
 		// TODO: Add logic for post move action
-//		Cell currentCell = thisGameMap.get(player.getPosY(), player.getPosX());
-//		Item cellItem = currentCell.getItem();
-//
-//		// Checks item on the cell
-//		if ((cellItem != null)) {
-//			if (player.getItemList().size() == GameConfig.MAX_ITEM) {
-//				MessageTextUtil.textWhenCannotPickedItem(cellItem);
-//				return;
-//			}
-//			player.getItemList().add(cellItem);
-//			currentCell.setItem(null);
-//			MessageTextUtil.textWhenPickUpItem(cellItem);
-//
-//			// Checks the cell type
-//		} else if ((currentCell.getType() == Cell.LADDER_UP) && isMove) {
-//			boolean isAscending = GameController.ascending();
-//			int level = GameController.getLevel();
-//			if (!isAscending) {
-//				level = 0;
-//			}
-//			MessageTextUtil.textWhenAscending(level);
-//		} else if ((currentCell.getType() == Cell.LADDER_DOWN) && isMove) {
-//			GameController.descending();
-//			MessageTextUtil.textWhenDescending(GameController.getLevel());
-//		}
+		Position cameraPosition = camera.getPosition();
+		
+		if(cameraPosition.getRow() == 0 || cameraPosition.getRow() == GameConfig.getMapSize()-1){
+			MessageTextUtil.textWhenCameraOutofMap();
+		}
+		else if (cameraPosition.getColumn() == 0 || cameraPosition.getColumn() == GameConfig.getMapSize()-1) {
+			MessageTextUtil.textWhenCameraOutofMap();
+		}
+	}
+	
+	/**
+	 * Dispatch attack action.
+	 * 
+	 * @param action  The {@link DispatchAction action} to be dispatch
+	 * @param monster The target entity
+	 */
+	public static void gameUpdate(BaseUnit unit) {
+		if (InterruptController.isStillAnimation()) {
+			return;
+		}
+
+		InterruptController.setStillAnimation(true);
+		// Dispatches action
+		if (GameLogic.isOurUnit(unit) && !unit.isMoved()) {
+			selectedUnit = unit;
+			GameLogic.updateAttackTerritory(unit, true);
+			GameLogic.updateMoveTerritory(unit, true);
+			
+		} else {
+			MessageTextUtil.textWhenSelectEnemyUnit();
+			InterruptController.setStillAnimation(false);
+			return;
+		}
+
+		// Plays attack animation
+		new Thread() {
+			@Override
+			public void run() {
+				Platform.runLater(() -> {
+					postGameUpdate();
+				});
+			}
+		}.start();
+
+	}
+
+	/**
+	 * Dispatch attack action.
+	 * 
+	 * @param action  The {@link DispatchAction action} to be dispatch
+	 * @param monster The target entity
+	 */
+	public static void gameUpdate(BaseUnit from, BaseUnit to) {
+		if (InterruptController.isStillAnimation()) {
+			return;
+		}
+
+		if(from == to) {
+			GameLogic.updateAttackTerritory(to, false);
+			GameLogic.updateMoveTerritory(to, false);
+			setSelectedUnit(null);
+			new Thread() {
+				@Override
+				public void run() {
+					Platform.runLater(() -> {
+						postGameUpdate();
+					});
+				}
+			}.start();
+			return;
+		}
+		
+		if(!GameLogic.isOurUnit(to)) {
+			MessageTextUtil.textWhenAttackOurUnit();
+			return;
+		}
+		
+		if(getGameMap().get(to.getPosition()).isAttackTerritory()) {
+			MessageTextUtil.textWhenEnemyNotInAttackTerritory();
+			return;
+		}
+		
+		if(from.isMoved()) {
+			MessageTextUtil.textWhenUnitAlreadyMoved();
+			return;
+		}
+		
+		InterruptController.setStillAnimation(true);
+		from.setMoved(true);
+		to.setAttacked(true);
+		GameLogic.attackUnit(to, from);
+
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					AnimationUtil.playAnimation(2).join();
+				} catch (InterruptedException e) {
+					System.out.println("Attack animation interrupted");
+				}
+				Platform.runLater(() -> {
+					postGameUpdate();
+				});
+			}
+		}.start();
 	}
 	
 
@@ -388,26 +484,45 @@ public class GameController {
 	 * @param action  The {@link DispatchAction action} to be dispatch
 	 * @param monster The target entity
 	 */
-	public static void gameUpdate(ControlAction action, BaseUnit from, BaseUnit to) {
+	public static void gameUpdate(BaseUnit from, Cell toCell) {
 		if (InterruptController.isStillAnimation()) {
-			setNextAction(() -> {
-				gameUpdate(action);
-			});
 			return;
 		}
 
+		if(from == to) {
+			GameLogic.updateAttackTerritory(to, false);
+			setSelectedUnit(null);
+			new Thread() {
+				@Override
+				public void run() {
+					Platform.runLater(() -> {
+						postGameUpdate();
+					});
+				}
+			}.start();
+			return;
+		}
+		
+		if(!GameLogic.isOurUnit(to)) {
+			MessageTextUtil.textWhenAttackOurUnit();
+			return;
+		}
+		
+		if(getGameMap().get(to.getPosition()).isAttackTerritory()) {
+			MessageTextUtil.textWhenEnemyNotInAttackTerritory();
+			return;
+		}
+		
+		if(from.isMoved()) {
+			MessageTextUtil.textWhenUnitAlreadyMoved();
+			return;
+		}
+		
 		InterruptController.setStillAnimation(true);
-		// Dispatches action
-		if (!from.isMoved()) {
-			to.setMoved(true);
-			to.setAttacked(true);
-		} else {
-			MessageTextUtil.textWhenCannotAttack();
-			InterruptController.setStillAnimation(false);
-			return;
-		}
+		from.setMoved(true);
+		to.setAttacked(true);
+		GameLogic.attackUnit(to, from);
 
-		// Plays attack animation
 		new Thread() {
 			@Override
 			public void run() {
@@ -423,7 +538,6 @@ public class GameController {
 		}.start();
 
 	}
-	
 	
 	/**
 	 * Updates monsters, potion effects, and user interface after player's turn.
@@ -472,5 +586,13 @@ public class GameController {
 		fadeIn.setOnFinished((event) -> InterruptController.setTransition(false));
 
 		bgm.play();
+	}
+
+	public static BaseUnit getSelectedUnit() {
+		return selectedUnit;
+	}
+
+	public static void setSelectedUnit(BaseUnit selectedUnit) {
+		GameController.selectedUnit = selectedUnit;
 	}
 }
