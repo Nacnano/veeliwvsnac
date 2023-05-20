@@ -97,25 +97,42 @@ public class GameController {
 	private static GameMap initGameMap() {
 		GameMap gameMap = MapGenerator.generateMap("default");
 		
+		GameLogic.getBuildings().clear();
+		GameLogic.SetCurrentPopulation(50);
+		
 		House house = new House();
-		gameMap.get(0, 0).setBuilding(house);
-		GameLogic.getBuildings().put(new Position(0,0), house);
+		gameMap.get(9, 8).setBuilding(house);
+		GameLogic.getBuildings().put(new Position(9, 8), house);
 		
 		Field field = new Field();
-		gameMap.get(1, 0).setBuilding(field);
-		GameLogic.getBuildings().put(new Position(1,0), field);
+		Position field_pos = new Position(10, 12);
+		gameMap.get(10, 12).setBuilding(field);
+		GameLogic.getBuildings().put(field_pos, field);
+		GameLogic.setNumberOfWorkers(field_pos, 10);
 		
 		Mine mine = new Mine();
-		gameMap.get(2, 0).setBuilding(mine);
-		GameLogic.getBuildings().put(new Position(2,0), mine);
+		Position mine_pos = new Position(9, 6);
+		gameMap.get(9, 6).setBuilding(mine);
+		GameLogic.getBuildings().put(mine_pos, mine);
+		GameLogic.setNumberOfWorkers(mine_pos, 10);
 		
 		Sawmill sawmill = new Sawmill();
-		gameMap.get(3, 0).setBuilding(sawmill);
-		GameLogic.getBuildings().put(new Position(3,0), sawmill);
+		Position sawmill_pos = new Position(10, 4);
+		gameMap.get(10, 4).setBuilding(sawmill);
+		GameLogic.getBuildings().put(sawmill_pos, sawmill);
+		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
 		
 		Smelter smelter = new Smelter();
-		gameMap.get(4, 0).setBuilding(smelter);
-		GameLogic.getBuildings().put(new Position(4,0), smelter);
+		Position smelter_pos = new Position(11, 16);
+		gameMap.get(11, 16).setBuilding(smelter);
+		GameLogic.getBuildings().put(smelter_pos, smelter);
+		GameLogic.setNumberOfWorkers(smelter_pos, 10);
+		
+		GameLogic.setFood(100);
+		GameLogic.setWood(100);
+		GameLogic.setStone(100);
+		GameLogic.setIron(100);
+		GameLogic.setMoney(1000);
 		
 		
 		return gameMap;
@@ -235,6 +252,8 @@ public class GameController {
 	private static void sceneSetup() {
 		InterruptController.resetInterruptState();
 		SceneController.setSceneToStage(GameScene.getScene());
+		GameScene.getWorkerStatus().update();
+		GameScene.getMaterialStatus().update();
 	}
 	
 	/**

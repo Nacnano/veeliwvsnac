@@ -148,7 +148,9 @@ public class GameLogic {
 				wood += GameConfig.SAWMILL_WORK_RATE * currentPeople;
 			}
 			else if (b instanceof Smelter) {
-				iron += GameConfig.SMELTER_WORK_RATE * currentPeople;
+				int tmp = Math.min(ironOre, (int) GameConfig.SMELTER_WORK_RATE * currentPeople);
+				iron += tmp;
+				ironOre -= tmp;
 			}
 		}
 	}
@@ -419,7 +421,7 @@ public class GameLogic {
 		int cnt = 0;
 		for (BaseBuilding b : buildings.values()) {
 			if (!(b instanceof Resource)) continue;
-			if (b.getClass().getSimpleName() == resourceName)
+			if (b.getClass().getSimpleName().equals(resourceName))
 				cnt += ((Resource) b).getCurrentPeople();
 		}
 		return cnt;

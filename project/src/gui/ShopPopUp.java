@@ -26,6 +26,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import scene.GameScene;
 import utils.AudioUtil;
 import utils.FontUtil;
 import utils.GameConfig;
@@ -45,6 +46,7 @@ public class ShopPopUp extends VBox {
 	private final int textFieldWidth = 50;
 
 	TextField food_amount, wood_amount, stone_amount, iron_amount;
+	Text food_max, wood_max, stone_max, iron_max;
 	
 	/**
 	 * The constructor of the class. Initialize the inside component, event handler
@@ -97,10 +99,10 @@ public class ShopPopUp extends VBox {
 	 * Initialize new {@link #optionContainer} and add component to container.
 	 */
 	public void addOptionContainer() {
-		Text food_max = new Text(" / " + Integer.toString(GameLogic.getFood()));
-		Text wood_max = new Text(" / " + Integer.toString(GameLogic.getWood()));
-		Text stone_max = new Text(" / " + Integer.toString(GameLogic.getStone()));
-		Text iron_max = new Text(" / " + Integer.toString(GameLogic.getIron()));
+		food_max = new Text(" / " + Integer.toString(GameLogic.getFood()));
+		wood_max = new Text(" / " + Integer.toString(GameLogic.getWood()));
+		stone_max = new Text(" / " + Integer.toString(GameLogic.getStone()));
+		iron_max = new Text(" / " + Integer.toString(GameLogic.getIron()));
 		
 		food_max.setFont(FontUtil.getFont("extraSmall"));
 		Label food_label = new Label("Food ($" + GameConfig.FOOD_PRICE + ") ");
@@ -161,6 +163,7 @@ public class ShopPopUp extends VBox {
 		closeText.setOnMouseClicked((event) -> {
 			try {
 				sellMaterial();
+				GameScene.getMaterialStatus().update();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -184,6 +187,17 @@ public class ShopPopUp extends VBox {
 		this.getChildren().add(optionTitle);
 	}
 	
+	public void update() {
+		food_amount.setText("0");
+		food_max.setText(" / " + Integer.toString(GameLogic.getFood()));
+		wood_amount.setText("0");
+		wood_max.setText(" / " + Integer.toString(GameLogic.getWood()));
+		stone_amount.setText("0");
+		stone_max.setText(" / " + Integer.toString(GameLogic.getStone()));
+		iron_amount.setText("0");
+		iron_max.setText(" / " + Integer.toString(GameLogic.getIron()));
+	}
+	
 	/**
 	 * Handle when component is removed from the scene.
 	 */
@@ -191,6 +205,7 @@ public class ShopPopUp extends VBox {
 		try {
 			((StackPane) getParent()).getChildren().remove(this);
 			InterruptController.setIsShopOpen(false);
+			update();
 		} catch (ClassCastException e) {
 			System.out.println(this.getClass().getName() + " has already closed");
 		} catch (NullPointerException e) {
