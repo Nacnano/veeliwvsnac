@@ -213,7 +213,6 @@ public class GameConfig {
 		return 0;
 	}
 	
-	
 	public static int getScreenWidth() {
 		return screenWidth;
 	}
