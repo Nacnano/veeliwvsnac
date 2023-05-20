@@ -2,6 +2,9 @@ package gui;
 
 import controller.InterruptController;
 import entity.unit.BaseUnit;
+import entity.unit.FieldSwordMan;
+import entity.unit.ForestSwordMan;
+import entity.unit.MountainSwordMan;
 import entity.unit.SwordMan;
 import game.GameLogic;
 import game.Terrain;
@@ -186,6 +189,7 @@ public class HelpMilitaryPopUp extends VBox {
 			optionsBox.getChildren().remove(optionsBox.getChildren().size() - 1);
 		}
 		if (unit instanceof SwordMan) {
+			if (unit instanceof FieldSwordMan || unit instanceof ForestSwordMan || unit instanceof MountainSwordMan) return;
 			optionsBox.getChildren().add(upgradeSwordMan());
 		}
 			

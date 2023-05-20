@@ -268,6 +268,8 @@ public class GameLogic {
 		updateTerritory(b, p, 1);
 		deductMaterial(b);
 		buildings.put(p, b);
+//		map.put(p, GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
+//		System.out.println(b.getClass().getSimpleName() + "  terrain: " + GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
 	}
 	
 	private static void updateTerritory(BaseBuilding b, Position p,int add) {
@@ -353,12 +355,20 @@ public class GameLogic {
 		if (!payToUpgrateMilitary()) return;
 		
 		Terrain terrain = map.get(pos);
-		if (terrain == Terrain.FOREST) 
-			GameLogic.changeMilitary(unit, new ForestSwordMan());
-		else if (terrain == Terrain.MOUNTAIN)
-			GameLogic.changeMilitary(unit, new MountainSwordMan());
-		else if (terrain == Terrain.PLAIN)
-			GameLogic.changeMilitary(unit, new FieldSwordMan());
+		if (terrain == Terrain.FOREST) {
+			BaseUnit new_unit = new ForestSwordMan();
+			GameLogic.changeMilitary(unit, new_unit);
+			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
+		}
+		else if (terrain == Terrain.MOUNTAIN) {
+			BaseUnit new_unit = new MountainSwordMan();
+			GameLogic.changeMilitary(unit, new_unit);
+		}
+		else if (terrain == Terrain.PLAIN) {
+			BaseUnit new_unit = new FieldSwordMan();
+			GameLogic.changeMilitary(unit, new_unit);
+			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
+		}
 	}
 	
 	public static void buildMilitary(BaseBuilding building, String militaryType) {

@@ -195,13 +195,14 @@ public class MapRenderer {
 			// Draw Terrain
 			pq.add(new Node(posY, posX, 0, () -> {
 				DrawUtil.drawTerrain(posY, posX, thisCell);
+				GameLogic.getMap().put(thisCell.getPosition(), thisCell.getTerrain());
 			}));
 
 
 
 			// Draw building which on cell
 			if (thisCell.getBuilding() != null) {
-				pq.add(new Node(posY, posX, 1, () -> {
+				pq.add(new Node(posY, posX, 2, () -> {
 //					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
 					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
 //					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
@@ -210,7 +211,7 @@ public class MapRenderer {
 
 			// Draw unit
 			if (thisCell.getUnit() != null) {
-				pq.add(new Node(posY, posX, 2, () -> {
+				pq.add(new Node(posY, posX, 3, () -> {
 					DrawUtil.drawUnit(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit(), frame);
 				}));
 			}
@@ -221,19 +222,29 @@ public class MapRenderer {
 				}));
 			}
 			if ((thisCell.getUnit() instanceof BaseUnit) && (frame == 0)) {
-				pq.add(new Node(posY, posX, 2, () -> {
+				pq.add(new Node(posY, posX, 3, () -> {
 					DrawUtil.addUnitButton(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit());
 				}));
 			}
 			
 			if (thisCell.getBuilding() != null  && (frame == 0)) {
-				pq.add(new Node(posY, posX, 1, () -> {
+				pq.add(new Node(posY, posX, 2, () -> {
 //					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
 //					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
 					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
 				}));
 			}
 			
+			if (thisCell.getTerrain() != null && (frame == 0)) {
+				
+				// Temporary for preventing scene overflow
+				if (thisCell.getPosition().getColumn() >= 13) continue;
+				if (thisCell.getPosition().getRow() >= 13) continue;
+				
+				pq.add(new Node(posY, posX, 1, () -> {
+					DrawUtil.addTerrainButton(posY, posX, thisCell);
+				}));
+			}
 			
 		}
 

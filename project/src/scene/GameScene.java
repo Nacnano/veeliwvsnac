@@ -1,6 +1,7 @@
 package scene;
 
 import gui.BuildMilitaryPopUp;
+import gui.BuildPopUp;
 import gui.ChangeJobPopUp;
 import gui.CurrentDay;
 import gui.HelpMilitaryPopUp;
@@ -34,6 +35,7 @@ import javafx.scene.paint.Color;
 import game.ControlAction;
 import game.GameLogic;
 import game.MapRenderer;
+import game.Position;
 //import game.MapRenderer;
 import utils.DrawUtil;
 import utils.AudioUtil;
@@ -98,6 +100,11 @@ public class GameScene {
 	private static HelpMilitaryPopUp helpMilitaryPopUp;	
 	
 	/**
+	 * The {@link BuildPopUp} that will display pop up for building a building.
+	 */
+	private static BuildPopUp buildPopUp;
+	
+	/**
 	 * The {@link CurrentDay} that will display current day.
 	 */
 	private static CurrentDay currentDay;
@@ -151,6 +158,7 @@ public class GameScene {
 		StackPane.setAlignment(new Group(changeJobPopUp), Pos.CENTER);
 		StackPane.setAlignment(new Group(buildMilitaryPopUp), Pos.CENTER);
 		StackPane.setAlignment(new Group(helpMilitaryPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(buildPopUp), Pos.CENTER);
 
 		MapRenderer.render();
 	}
@@ -201,6 +209,7 @@ public class GameScene {
 		changeJobPopUp = new ChangeJobPopUp();
 		buildMilitaryPopUp = new BuildMilitaryPopUp();
 		helpMilitaryPopUp = new HelpMilitaryPopUp();
+		buildPopUp = new BuildPopUp();
 		
 		currentDay = new CurrentDay();
 		AnchorPane.setTopAnchor(currentDay, 5.0 * GameConfig.getScale());
@@ -305,6 +314,13 @@ public class GameScene {
 		helpMilitaryPopUp.update(unit);
 		gamePane.getChildren().add(helpMilitaryPopUp);
 		helpMilitaryPopUp.requestFocus();
+		InterruptController.setIsHelpMilitaryOpen(true);
+	}
+	
+	public static void addBuildPopUp(Position pos) {
+		buildPopUp.update(pos);
+		gamePane.getChildren().add(buildPopUp);
+		buildPopUp.requestFocus();
 		InterruptController.setIsHelpMilitaryOpen(true);
 	}
 
