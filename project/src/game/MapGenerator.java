@@ -108,9 +108,6 @@ public class MapGenerator {
 				// TODO: Add logic to check not to add enemy in our territory
 				if (currentCell.getTerrain() == Terrain.WATER && currentCell.getUnit() == null) {
 					Position position = new Position(randomY, randomX);
-					
-					enemy.setPosition(position);
-					gameMap.get(randomY, randomX).setUnit(enemy);
 					GameLogic.addEnemyUnit(enemy, position);
 					isAdd = true;
 				}

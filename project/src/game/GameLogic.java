@@ -308,22 +308,17 @@ public class GameLogic {
 		}
 	}
 	
-	public void attackUnit(BaseUnit attacker, BaseUnit attacked) {
-		attacker.attack(attacked);
+	public void attackUnit(BaseUnit to, BaseUnit from) {
+		to.attack(from);
 	}
 	
 	public static void moveUnit(BaseUnit unit, Position destination) {
-		if(ourUnits.containsKey(unit)) {
-			ourUnits.put(unit, destination);
-		}
-		else if(getEnemyUnits().containsKey(unit)) {
-			getEnemyUnits().put(unit, destination);
-		}
+		unit.move(destination);
 	}
 	
 	public static boolean militaryIsInCamp(MilitaryCamp camp, BaseUnit unit) {
 		if (!ourUnits.containsKey(unit)) return false;
-		Position unitPos = ourUnits.get(unit);
+		Position unitPos = unit.getPosition();
 		return buildings.get(unitPos) == camp;		
 	} 
 	
@@ -335,14 +330,14 @@ public class GameLogic {
 	
 	public static void changeMilitary(BaseUnit unit_old, BaseUnit unit_new) {
 		if (!ourUnits.containsKey(unit_old)) return;
-		Position pos = ourUnits.get(unit_old);
+		Position pos = unit_old.getPosition();
 		unit_new.setPeople(unit_old.getPeople());
-		ourUnits.remove(unit_old);
-		ourUnits.put(unit_new, pos);
+		removeOurUnit(unit_old);
+		addOurUnit(unit_new, pos);
 	}
 	
 	public static Terrain getOurUnitTerrain(BaseUnit unit) {
-		Position pos = ourUnits.get(unit);
+		Position pos = unit.getPosition();
 		return map.get(pos);
 	}
 	
@@ -368,7 +363,7 @@ public class GameLogic {
 			unit = new SwordMan();
 		else
 			unit = new Archer();
-		ourUnits.put(unit, pos);		
+		addOurUnit(unit, pos);		
 	}
 	
 	public static void heal(BaseUnit unit) {
@@ -378,12 +373,27 @@ public class GameLogic {
 	}
 	
 	public static void addOurUnit(BaseUnit unit, Position pos) {
+		GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(unit);
+		unit.setPosition(pos);
 		ourUnits.put(unit, pos);
 	}
 	
 	public static void addEnemyUnit(BaseUnit unit, Position pos) {
+		GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(unit);
+		unit.setPosition(pos);
 		enemyUnits.put(unit, pos);
 	}
+	
+	public static void removeOurUnit(BaseUnit unit) {
+		GameController.getGameMap().get(unit.getPosition().getRow(), unit.getPosition().getColumn()).setUnit(null);
+		ourUnits.remove(unit);
+	}
+	
+	public static void removeEnemyUnit(BaseUnit unit) {
+		GameController.getGameMap().get(unit.getPosition().getRow(), unit.getPosition().getColumn()).setUnit(null);
+		enemyUnits.remove(unit);
+	}
+	
 	
 	public static boolean isGameOver() {
 		return buildings.isEmpty() && (day >=GameConfig.getPreparationWaveNumber()*GameConfig.getDayPerWave());

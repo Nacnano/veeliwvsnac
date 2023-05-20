@@ -398,7 +398,7 @@ public class GameController {
 		InterruptController.setStillAnimation(true);
 		// Dispatches action
 		if (!from.isMoved()) {
-			to.setMoved(true);
+			from.setMoved(true);
 			to.setAttacked(true);
 		} else {
 			MessageTextUtil.textWhenCannotAttack();
