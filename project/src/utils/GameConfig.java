@@ -154,23 +154,23 @@ public class GameConfig {
 	public static final int MILITARY_SIZE = 100;
 	
 	public static final int SWORDMAN_ATTACK_RANGE = 2;
-	public static final int SWORDMAN_MOVE_RANGE = 4;
+	public static final int SWORDMAN_MOVE_RANGE = 1;
 	public static final float SWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
 	
 	public static final int FORESTSWORDMAN_ATTACK_RANGE = 2;
-	public static final int FORESTSWORDMAN_MOVE_RANGE = 4;
+	public static final int FORESTSWORDMAN_MOVE_RANGE = 1;
 	public static final float FORESTSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
 	
 	public static final int FIELDSWORDMAN_ATTACK_RANGE = 2;
-	public static final int FIELDSWORDMAN_MOVE_RANGE = 4;
+	public static final int FIELDSWORDMAN_MOVE_RANGE = 1;
 	public static final float FIELDSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
 	
 	public static final int MOUNTAINSWORDMAN_ATTACK_RANGE = 2;
-	public static final int MOUNTAINSWORDMAN_MOVE_RANGE = 4;
+	public static final int MOUNTAINSWORDMAN_MOVE_RANGE = 1;
 	public static final float MOUNTAINSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
 	
-	public static final int ARCHER_ATTACK_RANGE = 5;
-	public static final int ARCHER_MOVE_RANGE = 4;
+	public static final int ARCHER_ATTACK_RANGE = 4;
+	public static final int ARCHER_MOVE_RANGE = 1;
 	public static final float ARCHER_ATTACK_MULTIPLIER = (float) 0.2;
 	
 	public static final int MILLITARY_UPGRADE_PRICE = 1000;
@@ -190,6 +190,25 @@ public class GameConfig {
 		}
 		if(unit instanceof SwordMan) {
 			return SWORDMAN_ATTACK_RANGE;
+		}
+		return 0;
+	}
+	
+	public static int getMoveRangebyUnit(BaseUnit unit) {
+		if(unit instanceof Archer) {
+			return ARCHER_MOVE_RANGE;
+		}
+		if(unit instanceof ForestSwordMan) {
+			return FORESTSWORDMAN_MOVE_RANGE;
+		}
+		if(unit instanceof MountainSwordMan) {
+			return MOUNTAINSWORDMAN_MOVE_RANGE;
+		}
+		if(unit instanceof FieldSwordMan) {
+			return FIELDSWORDMAN_MOVE_RANGE;
+		}
+		if(unit instanceof SwordMan) {
+			return SWORDMAN_MOVE_RANGE;
 		}
 		return 0;
 	}

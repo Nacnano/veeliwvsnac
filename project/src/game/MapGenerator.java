@@ -90,7 +90,9 @@ public class MapGenerator {
 		int day = GameController.getDay();
 		
 		if(day%GameConfig.getDayPerWave() != 0) {
-			return;
+//			return;
+			// test with real enemy
+			day = 10;
 		}
 		
 		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day);

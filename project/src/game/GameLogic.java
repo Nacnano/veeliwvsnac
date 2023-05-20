@@ -425,6 +425,18 @@ public class GameLogic {
 		}
 	}
 	
+	public static void updateMoveTerritory(BaseUnit unit, boolean isMoveTerritory) {
+		
+		Position p = unit.getPosition();
+		int radius = GameConfig.getMoveRangebyUnit(unit);
+		int size = GameConfig.getMapSize();
+		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
+			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
+				GameController.getGameMap().get(i, j).setMoveTerritory(isMoveTerritory);
+			}
+		}
+	}
+	
 	public static boolean isGameOver() {
 		return buildings.isEmpty() && (day >=GameConfig.getPreparationWaveNumber()*GameConfig.getDayPerWave());
 	}

@@ -53,7 +53,6 @@ public class GameController {
 	 */
 	private static BaseUnit selectedUnit;
 
-
 	/**
 	 * The {@link MediaPlayer} represent the background music of GameScene.
 	 */
@@ -396,6 +395,7 @@ public class GameController {
 		if (GameLogic.isOurUnit(unit) && !unit.isMoved()) {
 			selectedUnit = unit;
 			GameLogic.updateAttackTerritory(unit, true);
+			GameLogic.updateMoveTerritory(unit, true);
 			
 		} else {
 			MessageTextUtil.textWhenSelectEnemyUnit();
@@ -422,6 +422,68 @@ public class GameController {
 	 * @param monster The target entity
 	 */
 	public static void gameUpdate(BaseUnit from, BaseUnit to) {
+		if (InterruptController.isStillAnimation()) {
+			return;
+		}
+
+		if(from == to) {
+			GameLogic.updateAttackTerritory(to, false);
+			GameLogic.updateMoveTerritory(to, false);
+			setSelectedUnit(null);
+			new Thread() {
+				@Override
+				public void run() {
+					Platform.runLater(() -> {
+						postGameUpdate();
+					});
+				}
+			}.start();
+			return;
+		}
+		
+		if(!GameLogic.isOurUnit(to)) {
+			MessageTextUtil.textWhenAttackOurUnit();
+			return;
+		}
+		
+		if(getGameMap().get(to.getPosition()).isAttackTerritory()) {
+			MessageTextUtil.textWhenEnemyNotInAttackTerritory();
+			return;
+		}
+		
+		if(from.isMoved()) {
+			MessageTextUtil.textWhenUnitAlreadyMoved();
+			return;
+		}
+		
+		InterruptController.setStillAnimation(true);
+		from.setMoved(true);
+		to.setAttacked(true);
+		GameLogic.attackUnit(to, from);
+
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					AnimationUtil.playAnimation(2).join();
+				} catch (InterruptedException e) {
+					System.out.println("Attack animation interrupted");
+				}
+				Platform.runLater(() -> {
+					postGameUpdate();
+				});
+			}
+		}.start();
+	}
+	
+
+	/**
+	 * Dispatch attack action.
+	 * 
+	 * @param action  The {@link DispatchAction action} to be dispatch
+	 * @param monster The target entity
+	 */
+	public static void gameUpdate(BaseUnit from, Cell toCell) {
 		if (InterruptController.isStillAnimation()) {
 			return;
 		}

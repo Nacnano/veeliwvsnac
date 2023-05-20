@@ -1,9 +1,12 @@
 package entity.building;
 
+import game.Position;
+
 public abstract class BaseBuilding implements Buildable {
 
 	private int durability;
 	private boolean isAttacked;
+	private Position position;
 	
 	public BaseBuilding(int durability) {
 		setDurability(durability);
@@ -23,6 +26,14 @@ public abstract class BaseBuilding implements Buildable {
 
 	public void setAttacked(boolean isAttacked) {
 		this.isAttacked = isAttacked;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 	
 

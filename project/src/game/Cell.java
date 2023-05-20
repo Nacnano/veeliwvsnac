@@ -39,6 +39,11 @@ public class Cell {
 	 * The attack territory state.
 	 */
 	private boolean attackTerritory;
+	
+	/**
+	 * The moving territory state.
+	 */
+	private boolean moveTerritory;
 
 	/**
 	 * Creates a new cell with void type.
@@ -138,6 +143,14 @@ public class Cell {
 
 	public void setAttackTerritory(boolean attackTerritory) {
 		this.attackTerritory = attackTerritory;
+	}
+
+	public boolean isMoveTerritory() {
+		return moveTerritory;
+	}
+
+	public void setMoveTerritory(boolean moveTerritory) {
+		this.moveTerritory = moveTerritory;
 	}
 
 }
