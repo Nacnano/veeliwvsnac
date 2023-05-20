@@ -72,10 +72,10 @@ public class DrawUtil {
 	 * Loads resources.
 	 */
 	static {
-		plainSprites = getImagePixelReader("unit/SwordMan.png");
-		forestSprites = getImagePixelReader("unit/SwordMan.png");
-		mountainSprites = getImagePixelReader("unit/SwordMan.png");
-		waterSprites = getImagePixelReader("unit/SwordMan.png");
+		plainSprites = getImagePixelReader("terrain/Plain.png");
+		forestSprites = getImagePixelReader("terrain/Forrest.png");
+		mountainSprites = getImagePixelReader("terrain/Mountain.png");
+		waterSprites = getImagePixelReader("terrain/Water1.png");
 		
 		barnSprites = getImagePixelReader("building/Barn.png");
 		
