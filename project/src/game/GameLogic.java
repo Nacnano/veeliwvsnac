@@ -365,6 +365,10 @@ public class GameLogic {
 		return buildings.isEmpty();
 	}
 	
+	public static boolean isGameClear() {
+		return day >= (GameConfig.getPreparationWaveNumber()+GameConfig.getEnemyWaveNumber())*GameConfig.getDayPerWave();
+	}
+	
 	// Getters and Setters for materials
 
 	public static int getWood() {

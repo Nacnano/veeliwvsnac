@@ -9,6 +9,8 @@ import game.GameLogic;
 import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
 import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import scene.GameScene;
 import game.Position;
 import game.MapRenderer;
 
@@ -46,8 +48,9 @@ public class AnimationUtil {
 	 */
 	public static Thread playAnimation(int step) {
 		Camera camera = GameController.getCamera();
-		int cameraStepX = camera.getPosition().getColumn();
-		int cameraStepY = camera.getPosition().getRow();
+		final int cameraStepX = camera.getDirection().getColumn();
+		final int cameraStepY = camera.getDirection().getRow();
+
 		Map<BaseUnit, Position> ourUnits = GameLogic.getOurUnits();
 		Map<BaseUnit, Position> enemyUnits = GameLogic.getEnemyUnits();
 		
@@ -58,7 +61,7 @@ public class AnimationUtil {
 		Thread animation = new Thread(() -> {
 			// Checks if any entity move or attacked
 			boolean isAttacked = false;
-			boolean isMove = camera.isMoving();
+			boolean isMoved = camera.isMoving();
 			
 			for (Map.Entry<BaseUnit, Position> unit : ourUnits.entrySet()) {
 				isAttacked |= unit.getKey().isAttacked();
@@ -78,16 +81,13 @@ public class AnimationUtil {
 			// Plays move and attack animation
 			Thread attackAnimation = null;
 			Thread moveAnimation = null;
-			if (isMove) {
+			if (isMoved) {
 				moveAnimation = cameraMoveAnimation(cameraStepY, cameraStepX);
 			}
 			
 			try {
 				if (isAttacked) {
-					moveAnimation = cameraMoveAnimation(cameraStepY, cameraStepX);
 					attackAnimation = playAttackAnimation();
-				}
-				if (isMove) {
 				}
 				if (moveAnimation != null) {
 					moveAnimation.join();
@@ -109,6 +109,7 @@ public class AnimationUtil {
 					unit.getKey().setAttacked(false);
 				}
 				camera.setMoving(false);
+				camera.setDirection(new Position(0, 0));
 
 				if (step == 0 || !GameConfig.isSkipMoveAnimation() || finalIsAttacked) {
 					MapRenderer.render();
@@ -169,6 +170,7 @@ public class AnimationUtil {
 			}
 
 		});
+		
 		cameraMoveAnimation.start();
 		return cameraMoveAnimation;
 	}
