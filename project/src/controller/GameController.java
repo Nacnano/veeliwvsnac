@@ -143,7 +143,7 @@ public class GameController {
 	 * Initialize new game.
 	 */
 	public static void start() {
-		 day = 1;
+		day = 1;
 
 		GameMap gameMap = initGameMap();
 		setGameMap(gameMap);

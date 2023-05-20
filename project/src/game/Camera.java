@@ -27,7 +27,7 @@ public class Camera {
 	 * move the camera to the destination
 	 */
 	public boolean move(Position destination) {
-		if(destination.getColumn() < 0 || destination.getColumn() > GameConfig.getMapSize() || destination.getRow() < 0 || destination.getRow() >= GameConfig.getMapSize())
+		if(destination.getColumn() < 0 || destination.getColumn() >= GameConfig.getMapSize() || destination.getRow() < 0 || destination.getRow() >= GameConfig.getMapSize())
 			return false;
 		setDirection(destination.directionFrom(getPosition()));
 		setMoving(true);

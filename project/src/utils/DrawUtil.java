@@ -295,7 +295,7 @@ public class DrawUtil {
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
 		
-		System.out.println("Build unit button");
+//		System.out.println("Build unit button");
 	}
 	
 	/**
@@ -333,7 +333,7 @@ public class DrawUtil {
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
 		
-		System.out.println("Build unit button");
+//		System.out.println("Build unit button");
 	}
 
 	/**
