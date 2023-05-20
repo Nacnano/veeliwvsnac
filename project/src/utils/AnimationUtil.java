@@ -25,7 +25,7 @@ public class AnimationUtil {
 	/**
 	 * A constant holding duration of move animation frame in millisecond.
 	 */
-	private static final int FRAME_DURATION_MS = 20;
+	private static final int FRAME_DURATION_MS = 50;
 
 	/**
 	 * A constant holding max frame number.

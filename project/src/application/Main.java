@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import scene.LandingScene;
-import scene.TestGameScene;
 import utils.GameConfig;
 
 /**

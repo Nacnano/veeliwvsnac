@@ -75,7 +75,7 @@ public class Position {
 	}
 	
 	public Position directionFrom(Position p) {
-		return new Position(getRow()-p.getColumn(),getColumn() - p.getColumn());
+		return new Position(getRow()-p.getRow(),getColumn() - p.getColumn());
 	}
 	
 	public String toString() {

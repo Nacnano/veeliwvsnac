@@ -73,8 +73,6 @@ public class Camera {
 		return direction;
 	}
 
-
-
 	public void setDirection(Position direction) {
 		this.direction = direction;
 	}
