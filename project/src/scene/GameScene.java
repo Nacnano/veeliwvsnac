@@ -167,11 +167,6 @@ public class GameScene {
 		workerStatus.update();
 		materialStatus.update();
 		resourceStatus.update(null);
-		
-		// 
-//		setupGamePane();
-//		setupGameUI();
-//		MapRenderer.render();
 	}
 
 	/**

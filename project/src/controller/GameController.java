@@ -119,6 +119,11 @@ public class GameController {
 		initBuildings();
 		initMaterials();
 		
+		// Test unit
+		GameLogic.addOurUnit(new SwordMan(), new Position(10, 11));
+		
+		MapGenerator.generateEnemyOnMap(gameMap);
+		
 		return gameMap;
 	}
 	

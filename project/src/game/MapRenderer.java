@@ -135,7 +135,7 @@ public class MapRenderer {
 		Position cameraPosition = GameController.getCamera().getPosition();
 		
 		int startIdxY = Math.max(0, cameraPosition.getRow() - maxCellY / 2 - 1);
-		int endIdxY = Math.min(GameConfig.getMapSize(), cameraPosition.getRow() + maxCellY / 2 + 1);
+		int endIdxY = Math.min(GameConfig.getMapSize(), cameraPosition.getRow() + maxCellY / 2 + 2);
 
 		int startIdxX = Math.max(0, cameraPosition.getColumn() - maxCellX / 2 - 1);
 		int endIdxX = Math.min(GameConfig.getMapSize(), cameraPosition.getColumn() + maxCellX / 2 + 1);
