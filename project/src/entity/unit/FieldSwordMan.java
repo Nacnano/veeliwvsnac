@@ -7,6 +7,10 @@ public class FieldSwordMan extends SwordMan implements Attackable, Movable{
 		super(people, attackRange, moveRange, attackMultiplier);
 	}
 	
+	public FieldSwordMan() {
+		super();
+	}
+
 	public void attack() {
 		// some logic to check terrain
 		// if(GameLogic.)

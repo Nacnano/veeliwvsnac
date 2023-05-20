@@ -2,6 +2,10 @@ package entity.unit;
 
 public class ForestSwordMan extends SwordMan implements Attackable, Movable{
 	
+	public ForestSwordMan() {
+		super();
+	}
+	
 	public ForestSwordMan(int people, int attackRange, int moveRange, float attackMultiplier) {
 		super(people, attackRange, moveRange, attackMultiplier);
 	}

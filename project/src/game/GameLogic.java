@@ -56,6 +56,7 @@ public class GameLogic {
 	
 	public void removeBuilding(Position p) {
 		BaseBuilding b = buildings.get(p);
+		updateTerritory(b, p, -1);
 		buildings.remove(p);
 
 		if (b instanceof Field) {
@@ -244,6 +245,7 @@ public class GameLogic {
 		if (!b.canBuildOn(map.get(p))) return false;
 		if (buildings.containsKey(p)) return false;
 		if (!hasEnoughMaterial(b)) return false;
+		if(!territory[p.getRow()][p.getColumn()]) return false;
 		
 		System.out.println("Accept " + b.getClass().getSimpleName() + " on " + map.get(p));
 		return true;
@@ -252,8 +254,20 @@ public class GameLogic {
 	public static void buildBuilding(BaseBuilding b, Position p) {
 		if (!canBuildBuilding(b, p)) return;
 		
+		updateTerritory(b, p, 1);
 		deductMaterial(b);
 		buildings.put(p, b);
+	}
+	
+	private static void updateTerritory(BaseBuilding b, Position p,int add) {
+		int radius = GameConfig.TERRITORY_RADIUS;
+		int size = GameConfig.getMapSize();
+		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
+			for(int j = Math.max(0, p.getColumn()-radius); i<=Math.min(p.getColumn()+radius, size);i++) {
+				territory[i][j] = true;
+				GameController.getGameMap().get(p.getRow(), p.getColumn()).increaseTerritoryBy(add);
+			}
+		}
 	}
 	
 	public static void sellMaterial(Material m, int amount) {

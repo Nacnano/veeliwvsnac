@@ -28,6 +28,11 @@ public class Cell {
 	 * The building on this cell.
 	 */
 	private BaseBuilding building;
+	
+	/**
+	 * The territory state.
+	 */
+	private int territory;
 
 	/**
 	 * Creates a new cell with void type.
@@ -99,6 +104,18 @@ public class Cell {
 	 */
 	public void setBuilding(BaseBuilding building) {
 		this.building = building;
+	}
+
+	public int getTerritory() {
+		return territory;
+	}
+
+	public void setTerritory(int isTerritory) {
+		this.territory = isTerritory;
+	}
+	
+	public void increaseTerritoryBy(int add) {
+		setTerritory(getTerritory() + add);
 	}
 
 }
