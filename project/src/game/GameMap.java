@@ -3,6 +3,7 @@ package game;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import controller.GameController;
 import entity.unit.BaseUnit;
 import javafx.util.Pair;
 import utils.GameConfig;

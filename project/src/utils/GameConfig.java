@@ -49,6 +49,7 @@ public class GameConfig {
 	
 	private static int preparationWaveNumber = 10;
 	
+	public static int TERRITORY_RADIUS=2;
 	
 	
 	// Audio

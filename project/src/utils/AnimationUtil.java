@@ -1,6 +1,5 @@
 package utils;
 
-import java.util.List;
 import java.util.Map;
 
 import controller.GameController;
@@ -9,8 +8,6 @@ import game.GameLogic;
 import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
 import javafx.application.Platform;
-import javafx.scene.layout.Pane;
-import scene.GameScene;
 import game.Position;
 import game.MapRenderer;
 
@@ -160,7 +157,6 @@ public class AnimationUtil {
 					final int nowI = centerY + frame * stepY;
 					final int nowJ = centerX + frame * stepX;
 					final int nowCnt = frame;
-					System.out.println(nowI + " " + nowJ + " " + nowCnt);
 					Platform.runLater(() -> {
 						MapRenderer.render(nowI, nowJ, nowCnt);
 					});

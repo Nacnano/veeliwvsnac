@@ -8,5 +8,9 @@ public class Archer extends BaseUnit implements Movable, Attackable{
 		super(GameConfig.MILITARY_SIZE, GameConfig.ARCHER_ATTACK_RANGE, GameConfig.ARCHER_MOVE_RANGE, GameConfig.ARCHER_ATTACK_MULTIPLIER);
 	}
 	
+	public Archer(int people, int attackRange, int moveRange, float attackMultiplier) {
+		super(people, attackRange, moveRange, attackMultiplier);
+	}
+	
 	// attack and move can be used by calling "super" for BaseUnit's method (The logics are the same.)
 }
