@@ -464,7 +464,7 @@ public class GameController {
 		setSelectedUnit(null);
 		GameLogic.updateAttackTerritory(to, false);
 		GameLogic.updateMoveTerritory(to, false);
-		GameLogic.attackUnit(to, from);
+		GameLogic.attackUnit(from, to);
 
 		new Thread() {
 			@Override
@@ -588,5 +588,12 @@ public class GameController {
 
 	public static void setSelectedUnit(BaseUnit selectedUnit) {
 		GameController.selectedUnit = selectedUnit;
+	}
+
+	public static void nextDay() {
+		setDay(getDay() + 1);
+		GameLogic.updateDay();
+		initialTransition();
+		
 	}
 }

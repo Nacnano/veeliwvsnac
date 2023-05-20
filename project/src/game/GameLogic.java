@@ -137,7 +137,7 @@ public class GameLogic {
 	
 	// Functions for game flow
 	
-	public void updateResources() {
+	public static void updateResources() {
 		for (BaseBuilding b : buildings.values()) {
 			int currentPeople = ((Resource) b).getCurrentPeople();
 			
@@ -310,8 +310,12 @@ public class GameLogic {
 		}
 	}
 	
-	public static void attackUnit(BaseUnit to, BaseUnit from) {
-		to.attack(from);
+	public static void attackUnit(BaseUnit from, BaseUnit to) {
+		from.attack(to);
+	}
+	
+	public static void destroyBuiding(BaseUnit from, BaseBuilding to) {
+		from.destroy(to);
 	}
 	
 	public static void moveUnit(BaseUnit unit, Position destination) {
@@ -435,6 +439,46 @@ public class GameLogic {
 				GameController.getGameMap().get(i, j).setMoveTerritory(isMoveTerritory);
 			}
 		}
+	}
+	
+	public static void updateDay() {
+		enemyMove();
+		resetUnitMove();
+		updateResources();
+	}
+	
+	public static void resetUnitMove() {
+		for (BaseUnit unit : ourUnits.keySet()) {
+			unit.setMoved(false);
+		}
+		for (BaseUnit unit : enemyUnits.keySet()) {
+			unit.setMoved(false);
+		}
+	}
+	
+	public static void enemyMove() {
+		for (BaseUnit enemy : enemyUnits.keySet()) {
+			BaseUnit targetUnit = closestOurUnitFrom(enemy);
+			BaseUnit targetBuilding = closestOurBuildingFrom(enemy);
+			
+			int distanceFromUnit = enemy.getPosition().getDistanceFrom(targetUnit.getPosition());
+			int distanceFromBuilding= enemy.getPosition().getDistanceFrom(targetBuilding.getPosition());
+			
+			if( distanceFromUnit >= distanceFromBuilding) {
+				attackUnit(enemy, targetUnit);
+			}
+			else {
+				destroyBuiding(enemy, targetBuilding);
+			}
+		}
+	}
+	
+	public static BaseUnit closestOurUnitFrom(BaseUnit enemy) {
+		return;
+	}
+	
+	public static BaseBuilding closestOurBuildingFrom(BaseUnit enemy) {
+		return;
 	}
 	
 	public static boolean isGameOver() {

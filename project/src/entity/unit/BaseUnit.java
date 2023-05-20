@@ -1,5 +1,6 @@
 package entity.unit;
 
+import entity.building.BaseBuilding;
 import game.GameLogic;
 import game.Position;
 
@@ -21,10 +22,18 @@ public class BaseUnit implements Attackable, Movable{
 		setIsAttacked(false);
 	}
 	
-	public void attack(BaseUnit enemy) {
-		enemy.setPeople(enemy.people - (int)(getPeople()*getAttackMultiplier()) );
+	@Override
+	public void attack(BaseUnit to) {
+		to.setPeople(to.people - (int)(getPeople()*getAttackMultiplier()));
 	}
 	
+	@Override
+	public void destroy(BaseBuilding building) {
+		building.setDurability(building.getDurability() - (int)(getPeople()*getAttackMultiplier()) );
+		
+	}
+	
+	@Override
 	public void move (Position destination) {
 		if(GameLogic.getOurUnits().containsKey(this)) {
 			GameLogic.removeOurUnit(this);
