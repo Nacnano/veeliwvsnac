@@ -135,7 +135,7 @@ public class GameScene {
 //		StackPane.setAlignment(new Group(inventoryPane), Pos.CENTER);
 		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
 		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
-		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(changeJobPopUp), Pos.CENTER);
 
 //		MapRenderer.render();
 	}

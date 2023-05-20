@@ -105,8 +105,8 @@ public class GameController {
 		GameLogic.getBuildings().put(new Position(9, 8), house);
 		
 		Field field = new Field();
-		Position field_pos = new Position(10, 12);
-		gameMap.get(10, 12).setBuilding(field);
+		Position field_pos = new Position(10, 11);
+		gameMap.get(10, 11).setBuilding(field);
 		GameLogic.getBuildings().put(field_pos, field);
 		GameLogic.setNumberOfWorkers(field_pos, 10);
 		

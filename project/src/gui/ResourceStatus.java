@@ -16,13 +16,15 @@ import utils.FontUtil;
 import utils.GameConfig;
 
 public class ResourceStatus extends VBox {
-	private Position pos;
+//	private Position pos;
+	private BaseBuilding building;
 	private Text name;
 	private Text currentPeople;
 	private Text durability;
 	
 	public ResourceStatus() {
-		setPos(null);
+//		setPos(null);
+		setBuilding(null);
 		this.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setPrefSize(50 * GameConfig.getScale(), 50 * GameConfig.getScale());
 		this.setSpacing(10);
@@ -37,32 +39,33 @@ public class ResourceStatus extends VBox {
 		this.getChildren().addAll(name, currentPeople, durability);
 	}
 	
-	public ResourceStatus(Position pos) {
-		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
-		this.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
-		this.setPrefSize(50 * GameConfig.getScale(), 50 * GameConfig.getScale());
-		this.setSpacing(10);
-		this.setAlignment(Pos.CENTER);
-		
-		name = new Text("Building: " + resource.getClass().getSimpleName());
-		name.setFont(FontUtil.getFont("extraSmall"));
-		currentPeople = new Text("People: " + resource.getCurrentPeople() + "/" + resource.getMaxPeople());
-		currentPeople.setFont(FontUtil.getFont("extraSmall"));
-		durability = new Text("Durability: " + resource.getDurability());
-		durability.setFont(FontUtil.getFont("extraSmall"));
-		
-		this.getChildren().addAll(name, currentPeople, durability);
-	}
+//	public ResourceStatus(Position pos) {
+//		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
+//		this.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
+//		this.setPrefSize(50 * GameConfig.getScale(), 50 * GameConfig.getScale());
+//		this.setSpacing(10);
+//		this.setAlignment(Pos.CENTER);
+//		
+//		name = new Text("Building: " + resource.getClass().getSimpleName());
+//		name.setFont(FontUtil.getFont("extraSmall"));
+//		currentPeople = new Text("People: " + resource.getCurrentPeople() + "/" + resource.getMaxPeople());
+//		currentPeople.setFont(FontUtil.getFont("extraSmall"));
+//		durability = new Text("Durability: " + resource.getDurability());
+//		durability.setFont(FontUtil.getFont("extraSmall"));
+//		
+//		this.getChildren().addAll(name, currentPeople, durability);
+//	}
 	
-	public void update(Position pos) {
-		setPos(pos);
-		if (GameLogic.getBuildings().get(pos) == null) {
+	public void update(BaseBuilding building) {
+//		setPos(pos);
+		setBuilding(building);
+		if (building == null) {
 			name.setText("Buidling: -");
 			currentPeople.setText("People: -");
 			durability.setText("Durability: -");
 		}
 		else {
-			BaseBuilding building = GameLogic.getBuildings().get(pos);
+//			BaseBuilding building = GameLogic.getBuildings().get(pos);
 			if (building instanceof Resource) {
 				Resource resource = (Resource) building;
 				name.setText("Building: " + resource.getClass().getSimpleName());
@@ -78,12 +81,20 @@ public class ResourceStatus extends VBox {
 	}
 	
 
-	public Position getPos() {
-		return pos;
+//	public Position getPos() {
+//		return pos;
+//	}
+//
+//	public void setPos(Position pos) {
+//		this.pos = pos;
+//	}
+	
+	public BaseBuilding getBuilding() {
+		return building;
 	}
-
-	public void setPos(Position pos) {
-		this.pos = pos;
+	
+	public void setBuilding(BaseBuilding building) {
+		this.building = building;
 	}
 
 	public String getName() {

@@ -4,6 +4,12 @@ import java.nio.IntBuffer;
 
 import controller.InterruptController;
 import entity.building.BaseBuilding;
+import entity.building.Field;
+import entity.building.House;
+import entity.building.MilitaryCamp;
+import entity.building.Mine;
+import entity.building.Sawmill;
+import entity.building.Smelter;
 import entity.unit.BaseUnit;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
@@ -16,8 +22,13 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import game.Cell;
+import game.Position;
 import game.Terrain;
 import scene.GameScene;
 
@@ -54,6 +65,31 @@ public class DrawUtil {
 	private static PixelReader barnSprites;
 	
 	/**
+	 * Mine sprites.
+	 */
+	private static PixelReader mineSprites;
+	
+	/**
+	 * Sawmill sprites.
+	 */
+	private static PixelReader sawmillSprites;
+	
+	/**
+	 * Smelter sprites.
+	 */
+	private static PixelReader smelterSprites;
+	
+	/**
+	 * House sprites.
+	 */
+	private static PixelReader houseSprites;
+	
+	/**
+	 * Military camp sprites.
+	 */
+	private static PixelReader militaryCampSprites; 
+	
+	/**
 	 * Swordman sprites.
 	 */
 	private static PixelReader SwordManSprites;
@@ -72,12 +108,17 @@ public class DrawUtil {
 	 * Loads resources.
 	 */
 	static {
-		plainSprites = getImagePixelReader("unit/SwordMan.png");
-		forestSprites = getImagePixelReader("unit/SwordMan.png");
-		mountainSprites = getImagePixelReader("unit/SwordMan.png");
-		waterSprites = getImagePixelReader("unit/SwordMan.png");
+		plainSprites = getImagePixelReader("terrain/Plain.png");
+		forestSprites = getImagePixelReader("terrain/Forrest.png");
+		mountainSprites = getImagePixelReader("terrain/Mountain.png");
+		waterSprites = getImagePixelReader("terrain/Water.png");
 		
 		barnSprites = getImagePixelReader("building/Barn.png");
+		mineSprites = getImagePixelReader("building/Mine.png");
+		sawmillSprites = getImagePixelReader("building/Sawmill.png");
+		smelterSprites = getImagePixelReader("building/Smelter.png");
+		houseSprites = getImagePixelReader("building/House.png");
+		militaryCampSprites = getImagePixelReader("building/MilitaryCamp.png");
 		
 		SwordManSprites = getImagePixelReader("unit/SwordMan.png");
 		
@@ -173,12 +214,24 @@ public class DrawUtil {
 		GraphicsContext gc = GameScene.getGraphicsContext();
 
 		WritableImage img = new WritableImage(barnSprites, 32, 32);
+		if (building instanceof Mine)
+			img = new WritableImage(mineSprites, 32, 32);
+		else if (building instanceof Sawmill)
+			img = new WritableImage(sawmillSprites, 32, 32);
+		else if (building instanceof Smelter)
+			img = new WritableImage(smelterSprites, 32, 32);
+		else if (building instanceof House)
+			img = new WritableImage(houseSprites, 32, 32);
+		else if (building instanceof MilitaryCamp)
+			img = new WritableImage(militaryCampSprites, 32, 32);
+		
+		
 		img = scaleUp(img, GameConfig.getScale());
 		if (building.isAttacked()) {
 			img = changeColor(img);
 		}
 
-		gc.drawImage(img, x, y);
+		gc.drawImage(img, x, y - 20);
 	}
 
 	/**
@@ -230,6 +283,42 @@ public class DrawUtil {
 		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
 		GameScene.getButtonPane().getChildren().add(canvas);
+	}
+	
+	/**
+	 * Adds an invisible button on the entity at the specified position so the
+	 * player can click to get building info.
+	 * 
+	 * @param y      Position in the Y-axis
+	 * @param x      Position in the X-axis
+	 * @param entity The entity to adds the button on
+	 */
+	public static void addBuildingButton(int y, int x, BaseBuilding building) {
+		if (building == null) {
+			return;
+		}
+
+		Canvas canvas = new Canvas(GameConfig.SPRITE_SIZE * GameConfig.getScale(),
+				GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		
+		VBox holder = new VBox();
+		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
+		AnchorPane.setLeftAnchor(holder, (double) (x + 37 * GameConfig.getScale()));
+		
+		canvas.setOnMouseClicked((event) -> {
+			if (!InterruptController.isInterruptPlayerMovingInput()) {
+				GameScene.getResourceStatus().update(building);
+				System.out.println("Clicked! " + building.getClass().getSimpleName());
+			}
+		});
+		addCursorHover(canvas, true);
+		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
+		AnchorPane.setLeftAnchor(canvas, (double) (x + 37 * GameConfig.getScale()));
+		GameScene.getButtonPane().getChildren().add(canvas);
+		GameScene.getButtonPane().getChildren().add(holder);
 	}
 
 	/**
