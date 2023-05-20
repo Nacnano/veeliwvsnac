@@ -156,9 +156,8 @@ public class DrawUtil {
 					drawSprites = debugSprites;
 			}
 			WritableImage img = new WritableImage(drawSprites, 32, 32);
-			System.out.println(cell.getTerritory());
 			if (cell.getTerritory() > 0) {
-				img = changeColor(img);
+				img = changeColorbyOpacity(img, 0.6);
 			}
 
 			
@@ -235,7 +234,7 @@ public class DrawUtil {
 		
 		img = scaleUp(img, GameConfig.getScale());
 		if (building.isAttacked()) {
-			img = changeColor(img);
+			img = changeColorbyHue(img, ColortoHue.YELLOW, 0.5);
 		}
 
 		gc.drawImage(img, x, y - 20);
@@ -259,7 +258,7 @@ public class DrawUtil {
 		WritableImage img = new WritableImage(SwordManSprites, 32, 32);
 		img = scaleUp(img, GameConfig.getScale());
 		if (unit.isAttacked()) {
-			img = changeColor(img);
+			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
 		}
 
 		gc.drawImage(img, x, y);
@@ -438,7 +437,7 @@ public class DrawUtil {
 	 * @param img The image to be changed
 	 * @return Changed color image
 	 */
-	private static WritableImage changeColor(WritableImage img) {
+	private static WritableImage changeColorbyHue(WritableImage img, ColortoHue toColor, double d) {
 
 		int width = (int) img.getWidth();
 		int height = (int) img.getHeight();
@@ -448,14 +447,59 @@ public class DrawUtil {
 				Color color = img.getPixelReader().getColor(x, y);
 				newImg.getPixelWriter().setColor(x, y, color);
 
-				double hue = 0;
-				double saturation = 0.7;
+				double hue = colorStringtoHueValue(toColor);
 				double brightness = color.getBrightness();
 				double opacity = color.getOpacity();
 
-				Color newColor = Color.hsb(hue, saturation, brightness, opacity);
-				newImg.getPixelWriter().setColor(x, y, newColor);
+				Color newColor = Color.hsb(hue, d, brightness, opacity);
+                newImg.getPixelWriter().setColor(x, y, newColor);
+			}
+		}
+		return newImg;
+	}
+	
+	
+	public enum ColortoHue {
+		RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, VIOLET;
+	}
+	private static double colorStringtoHueValue(ColortoHue color) {
+		switch(color) {
+		case RED:
+			return 0;
+		case ORANGE:
+			return 30;
+		case YELLOW:
+			return 60;
+		case GREEN:
+			return 120;
+		case CYAN:
+			return 180;
+		case BLUE:
+			return 240;
+		case VIOLET:
+			return  300;
+		default:
+			return 0;
+		}
+	}
+	
+	private static WritableImage changeColorbyOpacity(WritableImage img, double d) {
 
+		int width = (int) img.getWidth();
+		int height = (int) img.getHeight();
+		WritableImage newImg = new WritableImage(width, height);
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				Color color = img.getPixelReader().getColor(x, y);
+				newImg.getPixelWriter().setColor(x, y, color);
+
+				double red = color.getRed();
+                double green = color.getGreen();
+                double blue = color.getBlue();
+                double opacity = color.getOpacity();
+
+                Color newColor = new Color(red, green, blue, opacity*d);
+                newImg.getPixelWriter().setColor(x, y, newColor);
 			}
 		}
 		return newImg;

@@ -272,7 +272,6 @@ public class GameLogic {
 		int size = GameConfig.getMapSize();
 		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
 			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
-				System.out.println("UP" + i + " " + j);
 				territory[i][j] += add;
 				GameController.getGameMap().get(i, j).increaseTerritoryBy(add);
 			}
