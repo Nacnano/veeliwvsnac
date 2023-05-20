@@ -152,6 +152,10 @@ public class GameScene {
 		gamePane.getChildren().add(canvas);
 
 		buttonPane = new AnchorPane();
+		
+		buttonPane.setPrefWidth(GameConfig.getScreenWidth());
+		buttonPane.setPrefHeight(GameConfig.getScreenHeight());
+		
 		gamePane.getChildren().add(buttonPane);
 		addEventListener();
 	}

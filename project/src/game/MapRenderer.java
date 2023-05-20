@@ -200,9 +200,9 @@ public class MapRenderer {
 			// Draw building which on cell
 			if (thisCell.getBuilding() != null) {
 				pq.add(new Node(posY, posX, 1, () -> {
-					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
+//					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
 					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
-					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
+//					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
 				}));
 			}
 
@@ -223,6 +223,16 @@ public class MapRenderer {
 					DrawUtil.addUnitButton(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit());
 				}));
 			}
+			
+			if (thisCell.getBuilding() != null) {
+				pq.add(new Node(posY, posX, 1, () -> {
+					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
+//					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
+					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
+				}));
+			}
+			
+			
 		}
 
 		return pq;

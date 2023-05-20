@@ -277,12 +277,23 @@ public class DrawUtil {
 		canvas.setOnMouseClicked((event) -> {
 			if (!InterruptController.isInterruptPlayerMovingInput()) {
 //				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
+				System.out.println("Clicked! " + unit.getClass().getSimpleName());
 			}
 		});
 		addCursorHover(canvas, true);
 		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
 		GameScene.getButtonPane().getChildren().add(canvas);
+		
+//		VBox holder = new VBox();
+//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+//		holder.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+//		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
+//		AnchorPane.setLeftAnchor(holder, (double) x);
+//		GameScene.getButtonPane().getChildren().add(holder);
+		
+		System.out.println("Build unit button");
 	}
 	
 	/**
@@ -305,19 +316,19 @@ public class DrawUtil {
 		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
 		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
 		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
-		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
-		AnchorPane.setLeftAnchor(holder, (double) (x + 37 * GameConfig.getScale()));
+//		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
+//		AnchorPane.setLeftAnchor(holder, (double) (x + 37 * GameConfig.getScale()));
 		
-		canvas.setOnMouseClicked((event) -> {
+		holder.setOnMouseClicked((event) -> {
 			if (!InterruptController.isInterruptPlayerMovingInput()) {
 				GameScene.getResourceStatus().update(building);
 				System.out.println("Clicked! " + building.getClass().getSimpleName());
 			}
 		});
 		addCursorHover(canvas, true);
-		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
-		AnchorPane.setLeftAnchor(canvas, (double) (x + 37 * GameConfig.getScale()));
-		GameScene.getButtonPane().getChildren().add(canvas);
+//		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
+//		AnchorPane.setLeftAnchor(canvas, (double) (x + 37 * GameConfig.getScale()));
+//		GameScene.getButtonPane().getChildren().add(canvas);
 		GameScene.getButtonPane().getChildren().add(holder);
 	}
 
