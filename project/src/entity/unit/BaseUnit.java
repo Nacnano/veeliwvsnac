@@ -33,8 +33,8 @@ public class BaseUnit implements Attackable, Movable{
 			GameLogic.addOurUnit(this, destination);
 		}
 		else if(GameLogic.getEnemyUnits().containsKey(this)) {
-			GameLogic.removeOurUnit(this);
-			GameLogic.addOurUnit(this, destination);
+			GameLogic.removeEnemyUnit(this);
+			GameLogic.addEnemyUnit(this, destination);
 		}
 	}
 	
