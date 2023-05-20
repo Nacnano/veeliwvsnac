@@ -1,5 +1,6 @@
 package scene;
 
+import gui.ChangeJobPopUp;
 import gui.CurrentDay;
 import gui.MaterialStatus;
 import gui.MessagePane;
@@ -71,6 +72,11 @@ public class GameScene {
 	private static ResourceStatus resourceStatus;
 	
 	/**
+	 * The {@link ChangeJobPopUp} that will display a pop up for changing job.
+	 */
+	private static ChangeJobPopUp changeJobPopUp;
+	
+	/**
 	 * The {@link WorkerStatus} that will display number of workers.
 	 */
 	private static WorkerStatus workerStatus;
@@ -127,6 +133,7 @@ public class GameScene {
 //		StackPane.setAlignment(new Group(inventoryPane), Pos.CENTER);
 		StackPane.setAlignment(new Group(pausePane), Pos.CENTER);
 		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
 
 //		MapRenderer.render();
 	}
@@ -161,6 +168,7 @@ public class GameScene {
 //		messagePane = new MessagePane();
 		pausePane = new PausePane();
 		shopPopUp = new ShopPopUp();
+		changeJobPopUp = new ChangeJobPopUp();
 		
 		currentDay = new CurrentDay();
 		AnchorPane.setTopAnchor(currentDay, 5.0 * GameConfig.getScale());
@@ -194,6 +202,22 @@ public class GameScene {
 			gamePane.getChildren().add(shopPopUp);
 			shopPopUp.requestFocus();
 			InterruptController.setIsShopOpen(true);
+		});
+		
+		resourceStatus.setOnMouseClicked((event) -> {
+			if (resourceStatus.getCurrentPeople().equals("People: -")) return;
+			if (InterruptController.isPauseOpen() || InterruptController.isShopOpen() || InterruptController.isTransition()) {
+				return;
+			}
+			if (InterruptController.isChangeJobOpen()) {
+				changeJobPopUp.remove();
+				return;
+			}
+			
+//			changeJobPopUp.update(position needed);
+			gamePane.getChildren().add(changeJobPopUp);
+			changeJobPopUp.requestFocus();
+			InterruptController.setIsChangeJobOpen(true);
 		});
 		
 
@@ -361,6 +385,18 @@ public class GameScene {
 			initScene();
 		}
 		return workerStatus;
+	}
+	
+	/**
+	 * Getter for Change Job Pop Up.
+	 * 
+	 * @return Change Job Pop Up
+	 */
+	public static ChangeJobPopUp getChangeJobPopUp() {
+		if (changeJobPopUp == null) {
+			initScene();
+		}
+		return changeJobPopUp;
 	}
 	
 	/**

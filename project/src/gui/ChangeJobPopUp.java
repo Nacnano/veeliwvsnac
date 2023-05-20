@@ -35,11 +35,15 @@ public class ChangeJobPopUp extends VBox {
 	/**
 	 * Represent the width of the pane.
 	 */
-	private final int widthBox = 50;
+	private final int widthBox = 100;
 	
 	private final int textFieldWidth = 50;
 
 	TextField amount;
+	
+	Text unemployed, max, optionTitle;
+	
+	HBox closeBox;
 	
 	Position pos;
 	
@@ -47,8 +51,7 @@ public class ChangeJobPopUp extends VBox {
 	 * The constructor of the class. Initialize the inside component, event handler
 	 * and style.
 	 */
-	public ChangeJobPopUp(Position pos) {
-		this.pos = pos;
+	public ChangeJobPopUp() {
 		styleSetup();
 		addTitle();
 		addOptionContainer();
@@ -74,7 +77,7 @@ public class ChangeJobPopUp extends VBox {
 	 * Initialize style for pane.
 	 */
 	private void styleSetup() {
-		setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
+		setBackground(new Background(new BackgroundFill(Color.rgb(245, 246, 231), null, null)));
 		setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		setPadding(new Insets(20));
@@ -92,19 +95,18 @@ public class ChangeJobPopUp extends VBox {
 	 * Initialize new {@link #optionContainer} and add component to container.
 	 */
 	public void addOptionContainer() {
-		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
-		
-		Text unemployed = new Text("Unemployed: " + Integer.toString(GameLogic.getUnemployed()));
+		unemployed = new Text();
 		unemployed.setFont(FontUtil.getFont("extraSmall"));
 		
-		Text max = new Text(" / " + Integer.toString(resource.getMaxPeople()));
-		
+		max = new Text();
 		max.setFont(FontUtil.getFont("extraSmall"));
-		Label label = new Label("Workers: ");
+	
+		Label label = new Label();
 		label.setFont(FontUtil.getFont("extraSmall"));
+		
 		amount = new TextField();
-		amount.setText(Integer.toString(resource.getCurrentPeople()));
 		amount.setPrefWidth(textFieldWidth);
+		
 		HBox box = new HBox();
 		box.getChildren().addAll(label, amount, max);
 		box.setAlignment(Pos.CENTER);
@@ -116,7 +118,7 @@ public class ChangeJobPopUp extends VBox {
 	 * Initialize new close text which can be clicked to close pane.
 	 */
 	private void addCloseText() {
-		HBox closeBox = new HBox();
+		closeBox = new HBox();
 		closeBox.setPadding(new Insets(10, 0, 0, 0));
 		closeBox.setAlignment(Pos.CENTER);
 
@@ -124,15 +126,6 @@ public class ChangeJobPopUp extends VBox {
 		closeText.setFont(FontUtil.getFont("small"));
 		closeText.setFill(Color.BLACK);
 		closeText.setStroke(null);
-
-		closeText.setOnMouseClicked((event) -> {
-			try {
-				quitJob();
-				remove();
-			} catch (UnsupportedOperationException e) {
-				e.printStackTrace();
-			}
-		});
 
 		closeBox.getChildren().addAll(closeText);
 
@@ -143,13 +136,30 @@ public class ChangeJobPopUp extends VBox {
 	 * Initialize new title text.
 	 */
 	private void addTitle() {
-		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
-		Text optionTitle = new Text("Set workers in " + resource.getClass().getSimpleName());
-
+		optionTitle = new Text();
 		optionTitle.setFont(FontUtil.getFont("small"));
 		optionTitle.setFill(Color.BLACK);
 
 		this.getChildren().add(optionTitle);
+	}
+	
+	
+	public void update(Position Pos) {
+		setPos(pos);
+		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
+		optionTitle.setText("Set workers in " + resource.getClass().getSimpleName());
+		amount.setText(Integer.toString(resource.getCurrentPeople()));
+		unemployed.setText("Unemployed: " + Integer.toString(GameLogic.getUnemployed()));
+		max.setText(" / " + Integer.toString(resource.getMaxPeople()));
+		
+		closeBox.setOnMouseClicked((event) -> {
+			try {
+				quitJob();
+				remove();
+			} catch (UnsupportedOperationException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 	
 	/**
@@ -165,4 +175,13 @@ public class ChangeJobPopUp extends VBox {
 			System.out.println(this.getClass().getName() + " has not opened yet.");
 		}
 	}
+
+	public Position getPos() {
+		return pos;
+	}
+
+	public void setPos(Position pos) {
+		this.pos = pos;
+	}
+	
 }
