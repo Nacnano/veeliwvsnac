@@ -150,12 +150,6 @@ public class GameScene {
 //		setupGameUI();
 //		MapRenderer.render();
 	}
-	
-	public static void updateScene() {
-		setupGamePane();
-		setupGameUI();
-		MapRenderer.render();
-	}
 
 	/**
 	 * Initialize game pane.

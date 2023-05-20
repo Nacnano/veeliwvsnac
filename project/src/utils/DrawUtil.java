@@ -283,15 +283,16 @@ public class DrawUtil {
 		addCursorHover(canvas, true);
 		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
-		GameScene.getButtonPane().getChildren().add(canvas);
 		
-//		VBox holder = new VBox();
-//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
-//		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
-//		AnchorPane.setLeftAnchor(holder, (double) x);
-//		GameScene.getButtonPane().getChildren().add(holder);
+		VBox holder = new VBox();
+		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		holder.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
+		AnchorPane.setLeftAnchor(holder, (double) x);
+		GameScene.getButtonPane().getChildren().add(holder);
+		
+		GameScene.getButtonPane().getChildren().add(canvas);
 		
 		System.out.println("Build unit button");
 	}
@@ -311,25 +312,27 @@ public class DrawUtil {
 
 		Canvas canvas = new Canvas(GameConfig.SPRITE_SIZE * GameConfig.getScale(),
 				GameConfig.SPRITE_SIZE * GameConfig.getScale());
+		canvas.setOnMouseClicked((event) -> {
+			if (!InterruptController.isInterruptPlayerMovingInput()) {
+//				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
+				System.out.println("Clicked! " + building.getClass().getSimpleName());
+			}
+		});
+		addCursorHover(canvas, true);
+		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
+		AnchorPane.setLeftAnchor(canvas, (double) x);
 		
 		VBox holder = new VBox();
 		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
 		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
 		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
-//		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
-//		AnchorPane.setLeftAnchor(holder, (double) (x + 37 * GameConfig.getScale()));
-		
-		holder.setOnMouseClicked((event) -> {
-			if (!InterruptController.isInterruptPlayerMovingInput()) {
-				GameScene.getResourceStatus().update(building);
-				System.out.println("Clicked! " + building.getClass().getSimpleName());
-			}
-		});
-		addCursorHover(canvas, true);
-//		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
-//		AnchorPane.setLeftAnchor(canvas, (double) (x + 37 * GameConfig.getScale()));
-//		GameScene.getButtonPane().getChildren().add(canvas);
+		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
+		AnchorPane.setLeftAnchor(holder, (double) x);
 		GameScene.getButtonPane().getChildren().add(holder);
+		
+		GameScene.getButtonPane().getChildren().add(canvas);
+		
+		System.out.println("Build unit button");
 	}
 
 	/**

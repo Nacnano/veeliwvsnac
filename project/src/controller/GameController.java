@@ -123,8 +123,8 @@ public class GameController {
 		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
 		
 		Smelter smelter = new Smelter();
-		Position smelter_pos = new Position(11, 16);
-		gameMap.get(11, 16).setBuilding(smelter);
+		Position smelter_pos = new Position(11, 13);
+		gameMap.get(11, 13).setBuilding(smelter);
 		GameLogic.getBuildings().put(smelter_pos, smelter);
 		GameLogic.setNumberOfWorkers(smelter_pos, 10);
 		
