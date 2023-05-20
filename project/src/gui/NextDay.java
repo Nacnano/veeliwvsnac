@@ -39,7 +39,7 @@ public class NextDay extends HBox {
 		
 		setOnMouseClicked((event) -> {
 			try {
-				((Pane) this.getParent()).getChildren().remove(this);
+//				((Pane) this.getParent()).getChildren().remove(this);
 				GameController.nextDay();
 //				InterruptController.setSettingOpen(false);
 			} catch (UnsupportedOperationException e) {

@@ -391,18 +391,21 @@ public class GameController {
 			return;
 		}
 
-		InterruptController.setStillAnimation(true);
-		// Dispatches action
-		if (GameLogic.isOurUnit(unit) && !unit.isMoved()) {
-			selectedUnit = unit;
-			GameLogic.updateAttackTerritory(unit, true);
-			GameLogic.updateMoveTerritory(unit, true);
-			
-		} else {
-			MessageTextUtil.textWhenSelectEnemyUnit();
-			InterruptController.setStillAnimation(false);
+		if(unit.isMoved()) {
+			MessageTextUtil.textWhenUnitAlreadyMoved();
 			return;
 		}
+		
+		if(!GameLogic.isOurUnit(unit)) {
+			MessageTextUtil.textWhenSelectEnemyUnit();
+			return;
+		}
+		
+		selectedUnit = unit;
+		GameLogic.updateAttackTerritory(unit, true);
+		GameLogic.updateMoveTerritory(unit, true);
+
+		InterruptController.setStillAnimation(true);
 
 		// Plays attack animation
 		new Thread() {
@@ -428,8 +431,8 @@ public class GameController {
 		}
 
 		if(from == to) {
-			GameLogic.updateAttackTerritory(to, false);
-			GameLogic.updateMoveTerritory(to, false);
+			GameLogic.updateAttackTerritory(from, false);
+			GameLogic.updateMoveTerritory(from, false);
 			setSelectedUnit(null);
 			new Thread() {
 				@Override
@@ -442,12 +445,12 @@ public class GameController {
 			return;
 		}
 		
-		if(!GameLogic.isOurUnit(to)) {
+		if(GameLogic.isOurUnit(to)) {
 			MessageTextUtil.textWhenAttackOurUnit();
 			return;
 		}
 		
-		if(getGameMap().get(to.getPosition()).isAttackTerritory()) {
+		if(!getGameMap().get(to.getPosition()).isAttackTerritory()) {
 			MessageTextUtil.textWhenEnemyNotInAttackTerritory();
 			return;
 		}
@@ -462,8 +465,8 @@ public class GameController {
 		from.setMoved(true);
 		to.setAttacked(true);
 		setSelectedUnit(null);
-		GameLogic.updateAttackTerritory(to, false);
-		GameLogic.updateMoveTerritory(to, false);
+		GameLogic.updateAttackTerritory(from, false);
+		GameLogic.updateMoveTerritory(from, false);
 		GameLogic.attackUnit(from, to);
 
 		new Thread() {

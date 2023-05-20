@@ -491,8 +491,8 @@ public class GameLogic {
 			BaseUnit targetUnit = closestOurUnitFrom(enemy);
 			BaseBuilding targetBuilding = closestOurBuildingFrom(enemy);
 			
-			int distanceFromUnit = enemy.getPosition().getDistanceFrom(targetUnit.getPosition());
-			int distanceFromBuilding= enemy.getPosition().getDistanceFrom(targetBuilding.getPosition());
+			int distanceFromUnit = enemy.getPosition().getDistanceFrom(targetUnit);
+			int distanceFromBuilding= enemy.getPosition().getDistanceFrom(targetBuilding);
 			
 			
 			if( distanceFromUnit <= distanceFromBuilding) {
