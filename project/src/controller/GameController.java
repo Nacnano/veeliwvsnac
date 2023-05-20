@@ -318,7 +318,7 @@ public class GameController {
 			InterruptController.setStillAnimation(true);
 			new Thread(() -> {
 				try {
-					AnimationUtil.playAnimation(2).join();
+					AnimationUtil.playAnimation(1).join();
 				} catch (InterruptedException e) {
 					System.out.println("Move animation interrupted");
 				}
@@ -328,7 +328,6 @@ public class GameController {
 //					} else {
 //						postMoveUpdate(true);
 //					}
-					System.out.println(cameraPosition.getRow() + " " + cameraPosition.getColumn());
 					postGameUpdate();
 				});
 			}).start();
@@ -431,7 +430,6 @@ public class GameController {
 		GameScene.updateScene();
 
 		// Play monster animations
-		System.out.println("HOI");
 		new Thread(() -> {
 			try {
 				AnimationUtil.playAnimation(0).join();

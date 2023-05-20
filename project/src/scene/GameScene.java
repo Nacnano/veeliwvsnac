@@ -141,9 +141,14 @@ public class GameScene {
 	}
 	
 	public static void updateScene() {
-		setupGamePane();
-		setupGameUI();
-		MapRenderer.render();
+		workerStatus.update();
+		materialStatus.update();
+		resourceStatus.update(null);
+		
+		// 
+//		setupGamePane();
+//		setupGameUI();
+//		MapRenderer.render();
 	}
 
 	/**
