@@ -139,6 +139,12 @@ public class GameScene {
 
 		MapRenderer.render();
 	}
+	
+	public static void updateScene() {
+		setupGamePane();
+		setupGameUI();
+		MapRenderer.render();
+	}
 
 	/**
 	 * Initialize game pane.

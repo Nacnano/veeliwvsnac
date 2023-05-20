@@ -428,9 +428,10 @@ public class GameController {
 //		GameLogic.
 
 		// Updates user interface
-		GameScene.initScene();
+		GameScene.updateScene();
 
 		// Play monster animations
+		System.out.println("HOI");
 		new Thread(() -> {
 			try {
 				AnimationUtil.playAnimation(0).join();
