@@ -310,7 +310,7 @@ public class GameLogic {
 		}
 	}
 	
-	public void attackUnit(BaseUnit to, BaseUnit from) {
+	public static void attackUnit(BaseUnit to, BaseUnit from) {
 		to.attack(from);
 	}
 	
@@ -319,7 +319,7 @@ public class GameLogic {
 	}
 	
 	public static boolean militaryIsInCamp(MilitaryCamp camp, BaseUnit unit) {
-		if (!ourUnits.containsKey(unit)) return false;
+		if (!isOurUnit(unit)) return false;
 		Position unitPos = unit.getPosition();
 		return buildings.get(unitPos) == camp;		
 	} 
@@ -331,7 +331,7 @@ public class GameLogic {
 	}
 	
 	public static void changeMilitary(BaseUnit unit_old, BaseUnit unit_new) {
-		if (!ourUnits.containsKey(unit_old)) return;
+		if (!isOurUnit(unit_old)) return;
 		Position pos = unit_old.getPosition();
 		unit_new.setPeople(unit_old.getPeople());
 		removeOurUnit(unit_old);
@@ -410,6 +410,21 @@ public class GameLogic {
 		enemyUnits.remove(unit);
 	}
 	
+	public static boolean isOurUnit(BaseUnit unit) {
+		return getOurUnits().containsKey(unit);
+	}
+	
+	public static void updateAttackTerritory(BaseUnit unit, boolean isAttackTerritory) {
+		
+		Position p = unit.getPosition();
+		int radius = GameConfig.getAttackRangebyUnit(unit);
+		int size = GameConfig.getMapSize();
+		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
+			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
+				GameController.getGameMap().get(i, j).setAttackTerritory(isAttackTerritory);
+			}
+		}
+	}
 	
 	public static boolean isGameOver() {
 		return buildings.isEmpty() && (day >=GameConfig.getPreparationWaveNumber()*GameConfig.getDayPerWave());

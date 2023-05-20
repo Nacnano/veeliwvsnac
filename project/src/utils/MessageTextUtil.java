@@ -54,13 +54,28 @@ public class MessageTextUtil {
 		GameScene.getMessagePane().addMessage(text);
 	}
 
-	public static void textWhenCannotAttack() {
-		String displayText = "This unit cannot attack.";
+	public static void textWhenUnitAlreadyMoved() {
+		String displayText = "This unit has already moved or attacked.";
 		writeMessage(displayText);
 	}
 	
 	public static void textWhenCameraOutofMap() {
 		String displayText = "The camera cannot go outside the map.";
+		writeMessage(displayText);
+	}
+
+	public static void textWhenSelectEnemyUnit() {
+		String displayText = "This unit cannot be selected.";
+		writeMessage(displayText);
+	}
+
+	public static void textWhenEnemyNotInAttackTerritory() {
+		String displayText = "The enemy is not in your attack territory.";
+		writeMessage(displayText);
+	}
+
+	public static void textWhenAttackOurUnit() {
+		String displayText = "You cannot attack your own unit.";
 		writeMessage(displayText);
 	}
 }

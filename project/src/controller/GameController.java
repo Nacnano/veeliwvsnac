@@ -47,6 +47,12 @@ public class GameController {
 	 * Represent the {@link GameMap} of current map.
 	 */
 	private static GameMap gameMap;
+	
+	/**
+	 * Represent the {@link BaseUnit} of selected unit.
+	 */
+	private static BaseUnit selectedUnit;
+
 
 	/**
 	 * The {@link MediaPlayer} represent the background music of GameScene.
@@ -353,7 +359,6 @@ public class GameController {
 		}
 	}
 	
-
 	/**
 	 * Updates item and checks cell type after the move or stay still action. If
 	 * there is an item on the same cell as the player, collect it. If the player is
@@ -369,7 +374,6 @@ public class GameController {
 		Position cameraPosition = camera.getPosition();
 		
 		if(cameraPosition.getRow() == 0 || cameraPosition.getRow() == GameConfig.getMapSize()-1){
-			System.out.println("HOI");
 			MessageTextUtil.textWhenCameraOutofMap();
 		}
 		else if (cameraPosition.getColumn() == 0 || cameraPosition.getColumn() == GameConfig.getMapSize()-1) {
@@ -377,6 +381,40 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * Dispatch attack action.
+	 * 
+	 * @param action  The {@link DispatchAction action} to be dispatch
+	 * @param monster The target entity
+	 */
+	public static void gameUpdate(BaseUnit unit) {
+		if (InterruptController.isStillAnimation()) {
+			return;
+		}
+
+		InterruptController.setStillAnimation(true);
+		// Dispatches action
+		if (GameLogic.isOurUnit(unit) && !unit.isMoved()) {
+			selectedUnit = unit;
+			GameLogic.updateAttackTerritory(unit, true);
+			
+		} else {
+			MessageTextUtil.textWhenSelectEnemyUnit();
+			InterruptController.setStillAnimation(false);
+			return;
+		}
+
+		// Plays attack animation
+		new Thread() {
+			@Override
+			public void run() {
+				Platform.runLater(() -> {
+					postGameUpdate();
+				});
+			}
+		}.start();
+
+	}
 
 	/**
 	 * Dispatch attack action.
@@ -384,26 +422,45 @@ public class GameController {
 	 * @param action  The {@link DispatchAction action} to be dispatch
 	 * @param monster The target entity
 	 */
-	public static void gameUpdate(ControlAction action, BaseUnit from, BaseUnit to) {
+	public static void gameUpdate(BaseUnit from, BaseUnit to) {
 		if (InterruptController.isStillAnimation()) {
-			setNextAction(() -> {
-				gameUpdate(action);
-			});
 			return;
 		}
 
+		if(from == to) {
+			GameLogic.updateAttackTerritory(to, false);
+			setSelectedUnit(null);
+			new Thread() {
+				@Override
+				public void run() {
+					Platform.runLater(() -> {
+						postGameUpdate();
+					});
+				}
+			}.start();
+			return;
+		}
+		
+		if(!GameLogic.isOurUnit(to)) {
+			MessageTextUtil.textWhenAttackOurUnit();
+			return;
+		}
+		
+		if(getGameMap().get(to.getPosition()).isAttackTerritory()) {
+			MessageTextUtil.textWhenEnemyNotInAttackTerritory();
+			return;
+		}
+		
+		if(from.isMoved()) {
+			MessageTextUtil.textWhenUnitAlreadyMoved();
+			return;
+		}
+		
 		InterruptController.setStillAnimation(true);
-		// Dispatches action
-		if (!from.isMoved()) {
-			from.setMoved(true);
-			to.setAttacked(true);
-		} else {
-			MessageTextUtil.textWhenCannotAttack();
-			InterruptController.setStillAnimation(false);
-			return;
-		}
+		from.setMoved(true);
+		to.setAttacked(true);
+		GameLogic.attackUnit(to, from);
 
-		// Plays attack animation
 		new Thread() {
 			@Override
 			public void run() {
@@ -419,7 +476,6 @@ public class GameController {
 		}.start();
 
 	}
-	
 	
 	/**
 	 * Updates monsters, potion effects, and user interface after player's turn.
@@ -468,5 +524,13 @@ public class GameController {
 		fadeIn.setOnFinished((event) -> InterruptController.setTransition(false));
 
 		bgm.play();
+	}
+
+	public static BaseUnit getSelectedUnit() {
+		return selectedUnit;
+	}
+
+	public static void setSelectedUnit(BaseUnit selectedUnit) {
+		GameController.selectedUnit = selectedUnit;
 	}
 }

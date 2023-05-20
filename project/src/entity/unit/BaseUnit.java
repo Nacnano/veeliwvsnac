@@ -22,7 +22,6 @@ public class BaseUnit implements Attackable, Movable{
 	}
 	
 	public void attack(BaseUnit enemy) {
-		// if(getAttackRange() <= getPosition.getDistanceFrom(enemy.getPosition))
 		enemy.setPeople(enemy.people - (int)(getPeople()*getAttackMultiplier()) );
 	}
 	
