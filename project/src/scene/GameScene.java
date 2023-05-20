@@ -278,6 +278,7 @@ public class GameScene {
 				break;
 			default:
 				GameController.gameUpdate(ControlAction.CAMERA_STAY_STILL);
+				
 				break;
 			}
 		});
