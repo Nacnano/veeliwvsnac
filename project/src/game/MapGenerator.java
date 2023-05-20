@@ -39,7 +39,9 @@ public class MapGenerator {
 		gameMap = new GameMap();
 		for (int i = 0; i <= GameConfig.getMapSize(); i++) {
 			for (int j = 0; j <= GameConfig.getMapSize(); j++) {
-				gameMap.getGameMap()[i][j] = new Cell();
+				Cell newCell = new Cell();
+				newCell.setPosition(new Position(i, j));
+				gameMap.getGameMap()[i][j] = newCell;
 			}
 		}
 			

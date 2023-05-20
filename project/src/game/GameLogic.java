@@ -39,7 +39,7 @@ public class GameLogic {
 	private static ArrayList<Position> unemployed;
 	// private Map<Terrain, Position> map;
 	private static Map<Position, Terrain> map = new HashMap<>();
-	private static boolean[][] territory;
+	private static int[][] territory = new int[GameConfig.getMapSize()][GameConfig.getMapSize()];
 	// private Map<BaseBuilding, Position> buildings;	
 	private static Map<Position, BaseBuilding> buildings = new HashMap<>();
 	
@@ -245,7 +245,7 @@ public class GameLogic {
 		if (!b.canBuildOn(map.get(p))) return false;
 		if (buildings.containsKey(p)) return false;
 		if (!hasEnoughMaterial(b)) return false;
-		if(!territory[p.getRow()][p.getColumn()]) return false;
+		if(territory[p.getRow()][p.getColumn()] == 0) return false;
 		
 		System.out.println("Accept " + b.getClass().getSimpleName() + " on " + map.get(p));
 		return true;
@@ -254,6 +254,14 @@ public class GameLogic {
 	public static void buildBuilding(BaseBuilding b, Position p) {
 		if (!canBuildBuilding(b, p)) return;
 		
+		GameController.getGameMap().get(p.getRow(), p.getColumn()).setBuilding(b);
+		updateTerritory(b, p, 1);
+		deductMaterial(b);
+		buildings.put(p, b);
+	}
+	
+	public static void initBuilding(BaseBuilding b, Position p) {
+		GameController.getGameMap().get(p.getRow(), p.getColumn()).setBuilding(b);
 		updateTerritory(b, p, 1);
 		deductMaterial(b);
 		buildings.put(p, b);
@@ -263,9 +271,10 @@ public class GameLogic {
 		int radius = GameConfig.TERRITORY_RADIUS;
 		int size = GameConfig.getMapSize();
 		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
-			for(int j = Math.max(0, p.getColumn()-radius); i<=Math.min(p.getColumn()+radius, size);i++) {
-				territory[i][j] = true;
-				GameController.getGameMap().get(p.getRow(), p.getColumn()).increaseTerritoryBy(add);
+			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
+				System.out.println("UP" + i + " " + j);
+				territory[i][j] += add;
+				GameController.getGameMap().get(i, j).increaseTerritoryBy(add);
 			}
 		}
 	}
@@ -376,7 +385,7 @@ public class GameLogic {
 	}
 	
 	public static boolean isGameOver() {
-		return buildings.isEmpty();
+		return buildings.isEmpty() && (day >=GameConfig.getPreparationWaveNumber()*GameConfig.getDayPerWave());
 	}
 	
 	public static boolean isGameClear() {

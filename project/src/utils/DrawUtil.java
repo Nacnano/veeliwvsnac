@@ -2,6 +2,7 @@ package utils;
 
 import java.nio.IntBuffer;
 
+import controller.GameController;
 import controller.InterruptController;
 import entity.building.BaseBuilding;
 import entity.building.Field;
@@ -133,11 +134,11 @@ public class DrawUtil {
 	 * @param x    Position in the X-axis
 	 * @param cell The cell to be rendered
 	 */
-	public static void drawTerrain(int y, int x, Terrain terrain) {
+	public static void drawTerrain(int y, int x, Cell cell) {
 		GraphicsContext gc = GameScene.getGraphicsContext();
 			
 		PixelReader drawSprites;
-			switch(terrain) {
+			switch(cell.getTerrain()) {
 				case PLAIN:
 					drawSprites = plainSprites;
 					break;
@@ -155,6 +156,12 @@ public class DrawUtil {
 					drawSprites = debugSprites;
 			}
 			WritableImage img = new WritableImage(drawSprites, 32, 32);
+			System.out.println(cell.getTerritory());
+			if (cell.getTerritory() > 0) {
+				img = changeColor(img);
+			}
+
+			
 			gc.drawImage(scaleUp(img, GameConfig.getScale()), x, y - 8 * GameConfig.getScale());
 	}
 
