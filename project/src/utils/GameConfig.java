@@ -33,7 +33,7 @@ public class GameConfig {
 	
 	public static final boolean STAGE_SCALABLE = false;
 	
-	public static final int SPRITE_SIZE = 16;
+	public static final int SPRITE_SIZE = 32;
 	
 	
 	

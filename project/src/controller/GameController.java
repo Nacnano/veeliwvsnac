@@ -2,18 +2,22 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle.Control;
 
 import entity.building.Field;
 import entity.building.House;
 import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
+import entity.unit.BaseUnit;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Pair;
 import game.Camera;
 import game.Cell;
+import game.ControlAction;
 import game.GameLogic;
 import game.GameMap;
 import game.MapGenerator;
@@ -24,8 +28,10 @@ import scene.CongratulationScene;
 import scene.GameOverScene;
 import scene.GameScene;
 import scene.LandingScene;
+import utils.AnimationUtil;
 import utils.AudioUtil;
 import utils.GameConfig;
+import utils.MessageTextUtil;
 import utils.RandomUtil;
 import utils.TransitionUtil;
 
@@ -54,6 +60,34 @@ public class GameController {
 	 * Represent the current day.
 	 */
 	private static int day;
+	
+	/**
+	 * The variable that stores the next action of the player for the purpose of
+	 * delay optimization.
+	 */
+	private static Runnable nextAction = null;
+
+	/**
+	 * Setter of next action.
+	 * 
+	 * @param nextAction The action to be set
+	 */
+	public static void setNextAction(Runnable nextAction) {
+		GameController.nextAction = nextAction;
+	}
+
+	/**
+	 * Does next action if there is no {@link InterruptController interrupt}.
+	 */
+	public static void doNextAction() {
+		if (InterruptController.isInterruptPlayerMovingInput()) {
+			return;
+		}
+		if (nextAction != null) {
+			nextAction.run();
+		}
+		nextAction = null;
+	}
 
 	/**
 	 * Create new {@link GameMap} and add to {@link #levelMapList}.
@@ -215,6 +249,159 @@ public class GameController {
 		return newCamera;
 	}
 	
+	public static void gameUpdate(ControlAction action) {
+		Position cameraPosition= camera.getPosition();
+		boolean isMoved = true;
+		switch (action) {
+		case CAMERA_MOVE_UP:
+			camera.move(cameraPosition.moveUp());
+			break;
+		case CAMERA_MOVE_DOWN:
+			camera.move(cameraPosition.moveDown());
+			break;
+		case CAMERA_MOVE_LEFT:
+			camera.move(cameraPosition.moveLeft());
+			break;
+		case CAMERA_MOVE_RIGHT:
+			camera.move(cameraPosition.moveRight());
+			break;
+		case CAMERA_STAY_STILL:
+			isMoved = false;
+		default:
+			break;
+		}
+			InterruptController.setStillAnimation(true);
+			new Thread(() -> {
+				try {
+					AnimationUtil.playAnimation(2).join();
+				} catch (InterruptedException e) {
+					System.out.println("Move animation interrupted");
+				}
+				Platform.runLater(() -> {
+//					if (isMoved) {
+//						postMoveUpdate(false);
+//					} else {
+//						postMoveUpdate(true);
+//					}
+					postGameUpdate();
+				});
+			}).start();
+	}
+	
+
+	/**
+	 * Updates item and checks cell type after the move or stay still action. If
+	 * there is an item on the same cell as the player, collect it. If the player is
+	 * standing on the ladder cell, move up or down one floor.
+	 * 
+	 * @param isMove Tell whether the move is a success or not
+	 */
+	public static void postMoveUpdate(boolean isMove) {
+		GameMap thisGameMap = GameController.getGameMap();
+		Camera camera = GameController.getCamera();
+		
+		// TODO: Add logic for post move action
+//		Cell currentCell = thisGameMap.get(player.getPosY(), player.getPosX());
+//		Item cellItem = currentCell.getItem();
+//
+//		// Checks item on the cell
+//		if ((cellItem != null)) {
+//			if (player.getItemList().size() == GameConfig.MAX_ITEM) {
+//				MessageTextUtil.textWhenCannotPickedItem(cellItem);
+//				return;
+//			}
+//			player.getItemList().add(cellItem);
+//			currentCell.setItem(null);
+//			MessageTextUtil.textWhenPickUpItem(cellItem);
+//
+//			// Checks the cell type
+//		} else if ((currentCell.getType() == Cell.LADDER_UP) && isMove) {
+//			boolean isAscending = GameController.ascending();
+//			int level = GameController.getLevel();
+//			if (!isAscending) {
+//				level = 0;
+//			}
+//			MessageTextUtil.textWhenAscending(level);
+//		} else if ((currentCell.getType() == Cell.LADDER_DOWN) && isMove) {
+//			GameController.descending();
+//			MessageTextUtil.textWhenDescending(GameController.getLevel());
+//		}
+	}
+	
+
+	/**
+	 * Dispatch attack action.
+	 * 
+	 * @param action  The {@link DispatchAction action} to be dispatch
+	 * @param monster The target entity
+	 */
+	public static void gameUpdate(ControlAction action, BaseUnit from, BaseUnit to) {
+		if (InterruptController.isStillAnimation()) {
+			setNextAction(() -> {
+				gameUpdate(action);
+			});
+			return;
+		}
+
+		InterruptController.setStillAnimation(true);
+		// Dispatches action
+		if (!from.isMoved()) {
+			to.setMoved(true);
+			to.setAttacked(true);
+		} else {
+			MessageTextUtil.textWhenCannotAttack();
+			InterruptController.setStillAnimation(false);
+			return;
+		}
+
+		// Plays attack animation
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					AnimationUtil.playAnimation(2).join();
+				} catch (InterruptedException e) {
+					System.out.println("Attack animation interrupted");
+				}
+				Platform.runLater(() -> {
+					postGameUpdate();
+				});
+			}
+		}.start();
+
+	}
+	
+	
+	/**
+	 * Updates monsters, potion effects, and user interface after player's turn.
+	 */
+	public static void postGameUpdate() {
+		// Updates monsters and potions
+//		TODO: update entity details
+//		GameLogic.
+
+		// Updates user interface
+		GameScene.initScene();
+
+		// Play monster animations
+		new Thread(() -> {
+			try {
+				AnimationUtil.playAnimation(0).join();
+			} catch (InterruptedException e) {
+				System.out.println("Post game animation interrupted");
+			}
+			Platform.runLater(() -> {
+				if (GameController.isGameOver()) {
+					return;
+				}
+				InterruptController.setStillAnimation(false);
+				doNextAction();
+			});
+		}).start();
+
+	}
+
+	
 	/**
 	 * Create new {@link FadeTransition} then play transition along with background
 	 * music.
@@ -225,7 +412,7 @@ public class GameController {
 		InterruptController.setTransition(true);
 		FadeTransition fadeIn = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 0.0, 1.0);
 
-//		MapRenderer.render();
+		MapRenderer.render();
 
 		fadeIn.play();
 		fadeIn.setOnFinished((event) -> InterruptController.setTransition(false));
