@@ -190,6 +190,29 @@ public class GameController {
 		}
 		return false;
 	}
+	
+	/**
+	 * Checking condition that {@link #player} is currently Game over or not by
+	 * checking {@link #player} health.
+	 * 
+	 * @return true if {@link #player} health is less than or equals 0 otherwise
+	 *         false
+	 */
+	public static boolean isGameClear() {
+		if (GameLogic.isGameClear()) {
+			bgm.stop();
+			FadeTransition fadeOut = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 1.0, 0.0);
+
+			InterruptController.setTransition(true);
+			fadeOut.setOnFinished((event) -> {
+				SceneController.setSceneToStage(CongratulationScene.getScene());
+			});
+
+			fadeOut.play();
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Getter for {@link #gameMap}.
@@ -415,9 +438,10 @@ public class GameController {
 				System.out.println("Post game animation interrupted");
 			}
 			Platform.runLater(() -> {
-				if (GameController.isGameOver()) {
+				if (GameController.isGameOver() || GameController.isGameClear()) {
 					return;
 				}
+				
 				InterruptController.setStillAnimation(false);
 				doNextAction();
 			});
