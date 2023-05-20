@@ -101,7 +101,7 @@ public class CongratulationScene {
 		congratsTitle.setFill(Color.BURLYWOOD);
 		congratsTitle.setTextAlignment(TextAlignment.CENTER);
 
-		congratsDescription = new Text("You have reached the bottom of the dungeon (for now)");
+		congratsDescription = new Text("You have survived.");
 		congratsDescription.setFont(FontUtil.getFont("small"));
 		congratsDescription.setFill(Color.BURLYWOOD);
 		congratsDescription.setTextAlignment(TextAlignment.CENTER);

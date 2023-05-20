@@ -337,7 +337,7 @@ public class GameController {
 			InterruptController.setStillAnimation(true);
 			new Thread(() -> {
 				try {
-					AnimationUtil.playAnimation(1).join();
+					AnimationUtil.playAnimation(2).join();
 				} catch (InterruptedException e) {
 					System.out.println("Move animation interrupted");
 				}
@@ -540,7 +540,7 @@ public class GameController {
 		// Play monster animations
 		new Thread(() -> {
 			try {
-				AnimationUtil.playAnimation(0).join();
+				AnimationUtil.playAnimation(2).join();
 			} catch (InterruptedException e) {
 				System.out.println("Post game animation interrupted");
 			}
