@@ -278,6 +278,7 @@ public class DrawUtil {
 		canvas.setOnMouseClicked((event) -> {
 			if (!InterruptController.isInterruptPlayerMovingInput()) {
 //				GameLogic.gameUpdate(DispatchAction.ATTACK, (Monster) entity);
+				GameScene.addHelpMilitaryPopUp(unit);
 				System.out.println("Clicked! " + unit.getClass().getSimpleName());
 			}
 		});

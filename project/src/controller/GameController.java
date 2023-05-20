@@ -11,6 +11,7 @@ import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import entity.unit.BaseUnit;
+import entity.unit.SwordMan;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -133,6 +134,11 @@ public class GameController {
 		Position militaryCamp_pos = new Position(7, 10);
 		gameMap.get(7, 10).setBuilding(militaryCamp);
 		GameLogic.getBuildings().put(militaryCamp_pos, militaryCamp);
+		GameLogic.getMap().put(militaryCamp_pos, Terrain.PLAIN);
+		
+		SwordMan swordMan = new SwordMan();
+		gameMap.get(7, 10).setUnit(swordMan);
+		GameLogic.getOurUnits().put(swordMan, militaryCamp_pos);
 		
 		GameLogic.setFood(100);
 		GameLogic.setWood(100);

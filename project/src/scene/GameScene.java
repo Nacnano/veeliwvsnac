@@ -3,6 +3,7 @@ package scene;
 import gui.BuildMilitaryPopUp;
 import gui.ChangeJobPopUp;
 import gui.CurrentDay;
+import gui.HelpMilitaryPopUp;
 import gui.MaterialStatus;
 import gui.MessagePane;
 import gui.NextDay;
@@ -14,6 +15,7 @@ import controller.GameController;
 import controller.InterruptController;
 import entity.building.BaseBuilding;
 import entity.building.Resource;
+import entity.unit.BaseUnit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -91,6 +93,11 @@ public class GameScene {
 	private static BuildMilitaryPopUp buildMilitaryPopUp;
 	
 	/**
+	 * The {@link HelpMilitaryPopUp} that will display pop up for building military.
+	 */
+	private static HelpMilitaryPopUp helpMilitaryPopUp;	
+	
+	/**
 	 * The {@link CurrentDay} that will display current day.
 	 */
 	private static CurrentDay currentDay;
@@ -143,6 +150,7 @@ public class GameScene {
 		StackPane.setAlignment(new Group(shopPopUp), Pos.CENTER);
 		StackPane.setAlignment(new Group(changeJobPopUp), Pos.CENTER);
 		StackPane.setAlignment(new Group(buildMilitaryPopUp), Pos.CENTER);
+		StackPane.setAlignment(new Group(helpMilitaryPopUp), Pos.CENTER);
 
 		MapRenderer.render();
 	}
@@ -192,6 +200,7 @@ public class GameScene {
 		shopPopUp = new ShopPopUp();
 		changeJobPopUp = new ChangeJobPopUp();
 		buildMilitaryPopUp = new BuildMilitaryPopUp();
+		helpMilitaryPopUp = new HelpMilitaryPopUp();
 		
 		currentDay = new CurrentDay();
 		AnchorPane.setTopAnchor(currentDay, 5.0 * GameConfig.getScale());
@@ -229,6 +238,7 @@ public class GameScene {
 		
 		resourceStatus.setOnMouseClicked((event) -> {
 //			if (resourceStatus.getCurrentPeople().equals("People: -")) return;
+			if (resourceStatus.getBuilding() == null) return;
 			if (resourceStatus.getName().equals("Building: House")) return;
 			
 			if (InterruptController.isPauseOpen() || InterruptController.isShopOpen() || InterruptController.isTransition()) {
@@ -289,6 +299,13 @@ public class GameScene {
 			pausePane.requestFocus();
 			InterruptController.setPauseOpen(true);
 		});
+	}
+	
+	public static void addHelpMilitaryPopUp(BaseUnit unit) {
+		helpMilitaryPopUp.update(unit);
+		gamePane.getChildren().add(helpMilitaryPopUp);
+		helpMilitaryPopUp.requestFocus();
+		InterruptController.setIsHelpMilitaryOpen(true);
 	}
 
 	/**

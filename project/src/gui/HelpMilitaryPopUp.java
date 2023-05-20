@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
@@ -36,7 +37,11 @@ public class HelpMilitaryPopUp extends VBox {
 	 * Represent the width of the pane.
 	 */
 	private final int widthBox = 150;
-	Color btnColor = Color.BEIGE;
+	Color btnColor = Color.rgb(245, 246, 231);
+	
+	HBox optionsBox;
+	VBox healBox, upgradeSwordManBox;
+	Text currentPeopleText, unemployedText;
 
 	BaseUnit unit;
 	
@@ -44,8 +49,7 @@ public class HelpMilitaryPopUp extends VBox {
 	 * The constructor of the class. Initialize the inside component, event handler
 	 * and style.
 	 */
-	public HelpMilitaryPopUp(BaseUnit unit) {
-		this.unit = unit;
+	public HelpMilitaryPopUp() {
 		styleSetup();
 		addTitle();
 		addOptions();
@@ -64,11 +68,11 @@ public class HelpMilitaryPopUp extends VBox {
 	 * Initialize style for pane.
 	 */
 	private void styleSetup() {
-		setBackground(new Background(new BackgroundFill(Color.YELLOWGREEN, null, null)));
+		setBackground(new Background(new BackgroundFill(Color.rgb(245, 246, 231), null, null)));
 		setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		setPadding(new Insets(20));
-		setSpacing(10);
+		setSpacing(20);
 
 		setAlignment(Pos.CENTER);
 		setPrefHeight(heightBox * GameConfig.getScale());
@@ -79,14 +83,15 @@ public class HelpMilitaryPopUp extends VBox {
 	}
 	
 	private void addOptions() {
-		HBox box = new HBox(5);
-		box.setAlignment(Pos.CENTER);
+		optionsBox = new HBox(5);
+		optionsBox.setAlignment(Pos.CENTER);
 		
-		box.getChildren().add(heal());
-		if (unit instanceof SwordMan)
-			box.getChildren().add(upgradeSwordMan());
+		healBox = heal();
+		optionsBox.getChildren().add(healBox);
+//		if (unit instanceof SwordMan)
+//			box.getChildren().add(upgradeSwordMan());
 		
-		this.getChildren().add(box);
+		this.getChildren().add(optionsBox);
 	}
 
 	private VBox heal() {
@@ -94,10 +99,10 @@ public class HelpMilitaryPopUp extends VBox {
 		vbox.setAlignment(Pos.CENTER);
 		Label label = new Label("Heal");
 		label.setFont(FontUtil.getFont("extraSmall"));
-		Text text1 = new Text("Current: " + unit.getPeople() + "/" + GameConfig.MILITARY_SIZE);
-		text1.setFont(FontUtil.getFont("extraSmall"));
-		Text text2 = new Text("Unemployed: " + GameLogic.getUnemployed());
-		text2.setFont(FontUtil.getFont("extraSmall"));
+		currentPeopleText = new Text();
+		currentPeopleText.setFont(FontUtil.getFont("extraSmall"));
+		unemployedText = new Text();
+		unemployedText.setFont(FontUtil.getFont("extraSmall"));
 		
 		vbox.setOnMouseClicked((event) -> {
 			try {
@@ -108,7 +113,7 @@ public class HelpMilitaryPopUp extends VBox {
 			}
 		});
 
-		vbox.getChildren().addAll(label, text1, text2);
+		vbox.getChildren().addAll(label, currentPeopleText, unemployedText);
 		return vbox;
 	}
 	
@@ -124,6 +129,7 @@ public class HelpMilitaryPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.upgradeSwordMan(unit);
+				GameScene.getMaterialStatus().update();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -172,6 +178,19 @@ public class HelpMilitaryPopUp extends VBox {
 		this.getChildren().add(optionTitle);
 	}
 	
+	public void update(BaseUnit unit) {
+		setUnit(unit);
+		currentPeopleText.setText("Current: " + unit.getPeople() + "/" + GameConfig.MILITARY_SIZE);
+		unemployedText.setText("Unemployed: " + GameLogic.getUnemployed());
+		if (optionsBox.getChildren().size() > 1) {
+			optionsBox.getChildren().remove(optionsBox.getChildren().size() - 1);
+		}
+		if (unit instanceof SwordMan) {
+			optionsBox.getChildren().add(upgradeSwordMan());
+		}
+			
+	}
+	
 	/**
 	 * Handle when component is removed from the scene.
 	 */
@@ -185,4 +204,13 @@ public class HelpMilitaryPopUp extends VBox {
 			System.out.println(this.getClass().getName() + " has not opened yet.");
 		}
 	}
+
+	public BaseUnit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(BaseUnit unit) {
+		this.unit = unit;
+	}
+	
 }
