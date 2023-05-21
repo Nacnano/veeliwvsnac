@@ -103,9 +103,8 @@ public class GameController {
 	}
 	
 	/**
-	 * Create new {@link GameMap} and add to {@link #levelMapList}.
+	 * Create init {@link GameMap}
 	 * 
-	 * @return {@link GameMap} new floor which added to {@link #levelMapList}
 	 */
 	private static void initGameMap() {
 		gameMap = MapGenerator.generateMap("default");
@@ -116,15 +115,15 @@ public class GameController {
 		initBuildings();
 		initMaterials();
 		
-		// Test unit
-		GameLogic.addOurUnit(new SwordMan(), new Position(10, 11));
-		
 		MapGenerator.generateEnemyOnMap(gameMap);
 	}
 	
+	/**
+	 * Init buildings to {@link GameMap}
+	 * 
+	 */
 	private static void initBuildings() {
 		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
-		// handle the water case
 		while(getGameMap().get(mapCenter).getTerrain() == Terrain.WATER) {
 			mapCenter = mapCenter.moveDown();
 		}
@@ -165,6 +164,10 @@ public class GameController {
 		
 	}
 	
+	/**
+	 * Init materials to {@link GameLogic}
+	 * 
+	 */
 	public static void initMaterials() {
 		GameLogic.setFood(1000);
 		GameLogic.setWood(1000);
@@ -188,10 +191,10 @@ public class GameController {
 	}
 
 	/**
-	 * Checking condition that {@link #player} is currently Game over or not by
-	 * checking {@link #player} health.
+	 * Checking condition that {@link #GameLogic.get} is currently Game Over or not by
+	 * checking nuimber of {@link #BaseBuilding} in bulidings.
 	 * 
-	 * @return true if {@link #player} health is less than or equals 0 otherwise
+	 * @return true if number of {@link #BaseBuilding} is less than or equals 0 otherwise
 	 *         false
 	 */
 	public static boolean isGameOver() {
@@ -211,10 +214,10 @@ public class GameController {
 	}
 	
 	/**
-	 * Checking condition that {@link #player} is currently Game over or not by
-	 * checking {@link #player} health.
+	 * Checking condition that day passes the last day of attack or
+	 * checking whether the territory covers the whole map or not
 	 * 
-	 * @return true if {@link #player} health is less than or equals 0 otherwise
+	 * @return true the condition satisfies otherwise
 	 *         false
 	 */
 	public static boolean isGameClear() {
@@ -302,9 +305,9 @@ public class GameController {
 	}
 	
 	/**
-	 * Create new {@link Player} instance and register to the {@link GameMap}.
+	 * Create new {@link Camera} instance and register to the {@link GameMap}.
 	 * 
-	 * @return {@link Player} new player instance
+	 * @return {@link Camera} new camera instance
 	 */
 	private static void makeNewCamera() {
 		Camera newCamera = new Camera();
@@ -313,6 +316,12 @@ public class GameController {
 		camera = newCamera;
 	}
 	
+	/**
+	 * Move camera action.
+	 * 
+	 * @param action  The {@link ControlAction action} to set direction of {@link Camera} 
+	 * and update if the camera moves
+	 */
 	public static void gameUpdate(ControlAction action) {
 		Position cameraPosition = camera.getPosition();
 		boolean isMoved = false;
@@ -349,9 +358,8 @@ public class GameController {
 	}
 	
 	/**
-	 * Updates item and checks cell type after the move or stay still action. If
-	 * there is an item on the same cell as the player, collect it. If the player is
-	 * standing on the ladder cell, move up or down one floor.
+	 * check whether the camera is at the map border or not 
+	 * if yes, then add alert message
 	 * 
 	 * @param isMove Tell whether the move is a success or not
 	 */
@@ -369,10 +377,9 @@ public class GameController {
 	}
 	
 	/**
-	 * Dispatch attack action.
+	 * Select unit action that handle various cases for further action
 	 * 
-	 * @param action  The {@link DispatchAction action} to be dispatch
-	 * @param monster The target entity
+	 * @param unit The target unit
 	 */
 	public static void gameUpdate(BaseUnit unit) {
 		if (InterruptController.isStillAnimation()) {
@@ -395,7 +402,6 @@ public class GameController {
 
 		InterruptController.setStillAnimation(true);
 
-		// Plays attack animation
 		new Thread() {
 			@Override
 			public void run() {
@@ -408,10 +414,10 @@ public class GameController {
 	}
 
 	/**
-	 * Dispatch attack action.
+	 * Unit attack action that handle cases for attacking enemy unit
 	 * 
-	 * @param action  The {@link DispatchAction action} to be dispatch
-	 * @param monster The target entity
+	 * @param from The selected unit
+	 * @param to The target unit
 	 */
 	public static void gameUpdate(BaseUnit from, BaseUnit to) {
 		if (InterruptController.isStillAnimation()) {
@@ -474,10 +480,10 @@ public class GameController {
 	
 
 	/**
-	 * Dispatch attack action.
+	 * Unit move action handle cases for moving to another cell
 	 * 
-	 * @param action  The {@link DispatchAction action} to be dispatch
-	 * @param monster The target entity
+	 * @param unit The selected unit
+	 * @param toCell The destination cell
 	 */
 	public static void gameUpdate(BaseUnit unit, Cell toCell) {
 		if (InterruptController.isStillAnimation()) {
@@ -525,7 +531,7 @@ public class GameController {
 	}
 	
 	/**
-	 * Updates monsters, potion effects, and user interface after player's turn.
+	 * Updates user interface action.
 	 */
 	public static void postGameUpdate() {
 
@@ -568,15 +574,31 @@ public class GameController {
 
 		bgm.play();
 	}
-
+	
+	
+	/**
+	 * getter for the selected unit
+	 * 
+	 * @return Selected unit
+	 */
 	public static BaseUnit getSelectedUnit() {
 		return selectedUnit;
 	}
 
+	/**
+	 * setter for the selected unit
+	 * 
+	 * @param BaseUnit The selected unit
+	 */
 	public static void setSelectedUnit(BaseUnit selectedUnit) {
 		GameController.selectedUnit = selectedUnit;
 	}
 
+	/**
+	 * Next day for changing day after the 
+	 * player finish playing the current day
+	 * 
+	 */
 	public static void nextDay() {
 		setDay(getDay() + 1);
 		GameLogic.updateDay();
