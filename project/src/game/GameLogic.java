@@ -51,11 +51,18 @@ public class GameLogic {
 //	}
 	
 	
-	public void removeBuilding(Position p) {
-		BaseBuilding b = buildings.get(p);
+	public static void removeBuilding(BaseBuilding b) {
+//		BaseBuilding b = buildings.get(p);
+		Position p = new Position(-1, -1);
+		for(Position pos : buildings.keySet()) {
+			if (buildings.get(pos).equals(b))
+				p = pos;
+		}
+
 		updateTerritory(b, p, -1);
-		buildings.remove(p);
-		GameController.getGameMap().get(p).setBuilding(null);
+//		buildings.remove(p);
+//		GameController.getGameMap().get(p).setBuilding(null);
+		removeBuildingUtil(p);
 
 		if (b instanceof Field) {
 			currentPopulation -= ((Field) b).getCurrentPeople() * ((Field) b).getFatalityRate();
@@ -313,6 +320,11 @@ public class GameLogic {
 			buildings.remove(p1);
 			buildings.put(p2, b);
 		}
+	}
+	
+	public static void removeBuildingUtil(Position pos) {
+		buildings.remove(pos);
+		GameController.getGameMap().get(pos).setBuilding(null);
 	}
 	
 	public static void attackUnit(BaseUnit from, BaseUnit to) {

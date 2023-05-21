@@ -1,5 +1,6 @@
 package entity.building;
 
+import game.GameLogic;
 import game.Position;
 
 public abstract class BaseBuilding implements Buildable {
@@ -19,7 +20,7 @@ public abstract class BaseBuilding implements Buildable {
 	public void setDurability(int durability) {
 		// TODO: also remove building for GUI
 		if(getDurability() <= 0) {
-//			GameLogic.removeBuilding(this);
+			GameLogic.removeBuilding(this);
 		}
 		this.durability = Math.max(0, durability);
 	}
