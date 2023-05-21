@@ -6,13 +6,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import utils.DrawUtil;
 import utils.FontUtil;
 import utils.GameConfig;
 
@@ -87,7 +91,12 @@ public class CongratulationScene {
 		root = new VBox();
 		root.setPrefHeight(heightBox * GameConfig.getScale());
 		root.setPrefWidth(widthBox * GameConfig.getScale());
-		root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+		BackgroundSize bgSize = new BackgroundSize(GameConfig.getScreenWidth(), GameConfig.getScreenHeight(), false,
+				false, false, false);
+		WritableImage bgImg = DrawUtil.getWritableImage("congratulationBG.jpg");
+
+		root.setAlignment(Pos.CENTER);
+		root.setBackground(new Background(new BackgroundImage(bgImg, null, null, null, bgSize)));
 		root.setAlignment(Pos.CENTER);
 		root.setSpacing(20.0);
 	}
