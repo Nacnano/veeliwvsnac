@@ -10,8 +10,11 @@ import entity.building.MilitaryCamp;
 import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
+import entity.unit.Archer;
 import entity.unit.BaseUnit;
 import entity.unit.FieldSwordMan;
+import entity.unit.ForestSwordMan;
+import entity.unit.MountainSwordMan;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -89,6 +92,26 @@ public class DrawUtil {
 	 * Swordman sprites.
 	 */
 	private static PixelReader SwordManSprites;
+	
+	/**
+	 * Field Swordman sprites.
+	 */
+	private static PixelReader fieldSwordManSprites;
+	
+	/**
+	 * Forrest Swordman sprites.
+	 */
+	private static PixelReader forrestSwordManSprites;
+	
+	/**
+	 * Mountain Swordman sprites.
+	 */
+	private static PixelReader mountainSwordManSprites;
+	
+	/**
+	 * Archer sprites.
+	 */
+	private static PixelReader ArcherSprites;
 
 	/**
 	 * Attack mouse icon.
@@ -117,6 +140,11 @@ public class DrawUtil {
 		militaryCampSprites = getImagePixelReader("building/MilitaryCamp.png");
 		
 		SwordManSprites = getImagePixelReader("unit/SwordMan.png");
+		fieldSwordManSprites = getImagePixelReader("unit/FieldSwordMan.png");
+		forrestSwordManSprites = getImagePixelReader("unit/ForrestSwordMan.png");
+		mountainSwordManSprites = getImagePixelReader("unit/MountainSwordMan.png");
+		ArcherSprites = getImagePixelReader("unit/Archer.png");
+		
 		
 		debugSprites = getImagePixelReader("debug.png");
 	}
@@ -344,6 +372,16 @@ public class DrawUtil {
 		GraphicsContext gc = GameScene.getGraphicsContext();
 
 		WritableImage img = new WritableImage(SwordManSprites, 32, 32);
+		
+		if (unit instanceof FieldSwordMan)
+			img = new WritableImage(fieldSwordManSprites, 32, 32);
+		else if (unit instanceof ForestSwordMan)
+			img = new WritableImage(forrestSwordManSprites, 32, 32);		
+		else if (unit instanceof MountainSwordMan)
+			img = new WritableImage(mountainSwordManSprites, 32, 32);
+		else if (unit instanceof Archer)
+			img = new WritableImage(ArcherSprites, 32, 32);
+		
 		img = scaleUp(img, GameConfig.getScale());
 		
 		// TODO: Choose nicer colors

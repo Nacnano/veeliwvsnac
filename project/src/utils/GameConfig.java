@@ -95,12 +95,12 @@ public class GameConfig {
 	/**
 	 * Represents the file path of the game scene background music.
 	 */
-	public static final String GAME_SCENE_BGM = "bgm/BGMGame.mp3";
+	public static final String GAME_SCENE_BGM = "bgm/medival.mp3";
 	
 	/**
 	 * Represents the file path of the landing scene background music.
 	 */
-	public static final String LANDING_SCENE_BGM = "bgm/BGMLanding.mp3";
+	public static final String LANDING_SCENE_BGM = "bgm/medival.mp3";
 	
 	/**
 	 * Represents the file path of the training sound effect.
