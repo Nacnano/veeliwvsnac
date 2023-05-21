@@ -239,7 +239,7 @@ public class AudioUtil {
 	/**
 	 * Setter for {@link #destroyingSFX}.
 	 * 
-	 * @param dsetroyingSFX the new {@link #destroyingSFX}
+	 * @param dyingSFX the new {@link #destroyingSFX}
 	 */
 	public static void setDyingSFX(AudioClip dyingSFX) {
 		AudioUtil.dyingSFX = dyingSFX;

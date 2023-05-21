@@ -18,7 +18,7 @@ import utils.GameConfig;
 
 /**
  * The CongratulationScene class represent the {@link Scene} that show when
- * pthe player reaches {@link GameConfig#LEVEL_BOUND wave bound}.
+ * the player met winning conditions.
  */
 public class CongratulationScene {
 

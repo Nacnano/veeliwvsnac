@@ -1,5 +1,6 @@
 package gui;
 
+import game.Camera;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +17,7 @@ import utils.MessageTextUtil;
 
 /**
  * The MessagePane class is the pane that shows the message of each action that
- * the {@link Player} or {@link Monster} did.
+ * the {@link Unit}, {@link Camera}, or {@link Building} did.
  * 
  * @see MessageTextUtil
  *
