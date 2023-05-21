@@ -128,8 +128,12 @@ public class GameController {
 		
 		Position mapCenter = getGameMap().get(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2).getPosition();
 		
+		int down = 0;
 		while(getGameMap().get(mapCenter).getTerrain() == Terrain.WATER) {
-			mapCenter = mapCenter.moveDown();
+			down++;
+			mapCenter = getGameMap().get(GameConfig.getMapSize()/2 + down, GameConfig.getMapSize()/2).getPosition();
+//			mapCenter = mapCenter.moveDown();
+			
 		}
 //		GameLogic.initBuilding(new House(), mapCenter);
 		GameLogic.initBuilding(new MilitaryCamp(), mapCenter);
