@@ -152,22 +152,35 @@ public class GameConfig {
 	public static final float SWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
 	
 	public static final int FORESTSWORDMAN_ATTACK_RANGE = 2;
-	public static final int FORESTSWORDMAN_MOVE_RANGE = 1;
-	public static final float FORESTSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	public static final int FORESTSWORDMAN_MOVE_RANGE = 2;
+	public static final float FORESTSWORDMAN_ATTACK_MULTIPLIER = (float) 0.40;
 	
 	public static final int FIELDSWORDMAN_ATTACK_RANGE = 2;
-	public static final int FIELDSWORDMAN_MOVE_RANGE = 1;
-	public static final float FIELDSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	public static final int FIELDSWORDMAN_MOVE_RANGE = 2;
+	public static final float FIELDSWORDMAN_ATTACK_MULTIPLIER = (float) 0.40;
 	
 	public static final int MOUNTAINSWORDMAN_ATTACK_RANGE = 2;
-	public static final int MOUNTAINSWORDMAN_MOVE_RANGE = 1;
-	public static final float MOUNTAINSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	public static final int MOUNTAINSWORDMAN_MOVE_RANGE = 2;
+	public static final float MOUNTAINSWORDMAN_ATTACK_MULTIPLIER = (float) 0.40;
 	
 	public static final int ARCHER_ATTACK_RANGE = 4;
 	public static final int ARCHER_MOVE_RANGE = 1;
 	public static final float ARCHER_ATTACK_MULTIPLIER = (float) 0.2;
 	
 	public static final int MILLITARY_UPGRADE_PRICE = 1000;
+	
+	// Random Utility
+	
+	public static final int ALL_ENEMY_NUMBER = 5;
+	public static final int ENEMY_MIN_PEOPLE = 3;
+	public static final int ENEMY_MAX_PEOPLE = 6;
+	public static final float ENEMY_MIN_ATTACK_MULTIPLIER = (float) 0.1;
+	public static final float ENEMY_MAX_ATTACK_MULTIPLIER = (float) 0.75;
+	public static final float ENEMY_WAVE_MULTIPLIER = (float) 0.1;
+	public static final int ALL_ENEMY_DIVIDER = 4;
+	
+	// Draw Utility
+	public static final int BUILDING_MINUS_POS_Y = 8;
 
 	public static int getAttackRangebyUnit(BaseUnit unit) {
 		if(unit instanceof Archer) {

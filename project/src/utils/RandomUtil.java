@@ -84,7 +84,7 @@ public class RandomUtil {
 		
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
 		
-		allEnemyNumber = enemyWave*5;
+		allEnemyNumber = enemyWave * GameConfig.ALL_ENEMY_NUMBER;
 
 		enemyList.addAll(randomSwordManList(enemyWave));
 		enemyList.addAll(randomArcherList(enemyWave));
@@ -97,13 +97,13 @@ public class RandomUtil {
 	
 	private static ArrayList<BaseUnit> randomSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
-		int enemyNumber = RandomUtil.random(1, allEnemyNumber/4);
+		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
 		
-		int enemyMinPeople = enemyWave * 3;
-		int enemyMaxPeople = enemyWave * 6;
+		int enemyMinPeople = enemyWave * GameConfig.ENEMY_MIN_PEOPLE;
+		int enemyMaxPeople = enemyWave * GameConfig.ENEMY_MAX_PEOPLE;
 
-		float enemyMinAttackMultiplier = (float) 0.1;
-		float enemyMaxAttackMultiplier = (float) Math.min(0.75, enemyWave*0.1);
+		float enemyMinAttackMultiplier = GameConfig.ENEMY_MIN_ATTACK_MULTIPLIER;
+		float enemyMaxAttackMultiplier = Math.min(GameConfig.ENEMY_MAX_ATTACK_MULTIPLIER, enemyWave * GameConfig.ENEMY_WAVE_MULTIPLIER);
 		
 		for (int i = 0; i < enemyNumber; i++) {
 			int randomPeople = random(enemyMinPeople, enemyMaxPeople);
@@ -117,13 +117,13 @@ public class RandomUtil {
 	
 	private static ArrayList<BaseUnit> randomArcherList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
-		int enemyNumber = RandomUtil.random(1, allEnemyNumber/4);
+		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
 		
-		int enemyMinPeople = enemyWave * 3;
-		int enemyMaxPeople = enemyWave * 6;
+		int enemyMinPeople = enemyWave * GameConfig.ENEMY_MIN_PEOPLE;
+		int enemyMaxPeople = enemyWave * GameConfig.ENEMY_MAX_PEOPLE;
 
-		float enemyMinAttackMultiplier = (float) 0.1;
-		float enemyMaxAttackMultiplier = (float) Math.min(0.75, enemyWave*0.1);
+		float enemyMinAttackMultiplier = GameConfig.ENEMY_MIN_ATTACK_MULTIPLIER;
+		float enemyMaxAttackMultiplier = Math.min(GameConfig.ENEMY_MAX_ATTACK_MULTIPLIER, enemyWave * GameConfig.ENEMY_WAVE_MULTIPLIER);
 		
 		for (int i = 0; i < enemyNumber; i++) {
 			int randomPeople = random(enemyMinPeople, enemyMaxPeople);
@@ -137,13 +137,13 @@ public class RandomUtil {
 	
 	private static ArrayList<BaseUnit> randomForestSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
-		int enemyNumber = RandomUtil.random(1, allEnemyNumber/4);
+		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
 		
-		int enemyMinPeople = enemyWave * 3;
-		int enemyMaxPeople = enemyWave * 6;
+		int enemyMinPeople = enemyWave * GameConfig.ENEMY_MIN_PEOPLE;
+		int enemyMaxPeople = enemyWave * GameConfig.ENEMY_MAX_PEOPLE;
 
-		float enemyMinAttackMultiplier = (float) 0.1;
-		float enemyMaxAttackMultiplier = (float) Math.min(0.75, enemyWave*0.1);
+		float enemyMinAttackMultiplier = GameConfig.ENEMY_MIN_ATTACK_MULTIPLIER;
+		float enemyMaxAttackMultiplier = Math.min(GameConfig.ENEMY_MAX_ATTACK_MULTIPLIER, enemyWave * GameConfig.ENEMY_WAVE_MULTIPLIER);
 		
 		for (int i = 0; i < enemyNumber; i++) {
 			int randomPeople = random(enemyMinPeople, enemyMaxPeople);
@@ -157,13 +157,13 @@ public class RandomUtil {
 	
 	private static ArrayList<BaseUnit> randomFieldSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
-		int enemyNumber = RandomUtil.random(1, allEnemyNumber/4);
+		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
 		
-		int enemyMinPeople = enemyWave * 3;
-		int enemyMaxPeople = enemyWave * 6;
+		int enemyMinPeople = enemyWave * GameConfig.ENEMY_MIN_PEOPLE;
+		int enemyMaxPeople = enemyWave * GameConfig.ENEMY_MAX_PEOPLE;
 
-		float enemyMinAttackMultiplier = (float) 0.1;
-		float enemyMaxAttackMultiplier = (float) Math.min(0.75, enemyWave*0.1);
+		float enemyMinAttackMultiplier = GameConfig.ENEMY_MIN_ATTACK_MULTIPLIER;
+		float enemyMaxAttackMultiplier = Math.min(GameConfig.ENEMY_MAX_ATTACK_MULTIPLIER, enemyWave * GameConfig.ENEMY_WAVE_MULTIPLIER);
 		
 		for (int i = 0; i < enemyNumber; i++) {
 			int randomPeople = random(enemyMinPeople, enemyMaxPeople);
@@ -177,13 +177,13 @@ public class RandomUtil {
 	
 	private static ArrayList<BaseUnit> randomMountainSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
-		int enemyNumber = RandomUtil.random(1, allEnemyNumber/4);
+		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
 		
-		int enemyMinPeople = enemyWave * 3;
-		int enemyMaxPeople = enemyWave * 6;
+		int enemyMinPeople = enemyWave * GameConfig.ENEMY_MIN_PEOPLE;
+		int enemyMaxPeople = enemyWave * GameConfig.ENEMY_MAX_PEOPLE;
 
-		float enemyMinAttackMultiplier = (float) 0.1;
-		float enemyMaxAttackMultiplier = (float) Math.min(0.75, enemyWave*0.1);
+		float enemyMinAttackMultiplier = GameConfig.ENEMY_MIN_ATTACK_MULTIPLIER;
+		float enemyMaxAttackMultiplier = Math.min(GameConfig.ENEMY_MAX_ATTACK_MULTIPLIER, enemyWave * GameConfig.ENEMY_WAVE_MULTIPLIER);
 		
 		for (int i = 0; i < enemyNumber; i++) {
 			int randomPeople = random(enemyMinPeople, enemyMaxPeople);
