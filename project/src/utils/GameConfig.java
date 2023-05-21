@@ -67,17 +67,17 @@ public class GameConfig {
 	/**
 	 * Represents the number of enemy waves in the game.
 	 */
-	private static int enemyWaveNumber = 0;
+	private static int enemyWaveNumber = 5;
 	
 	/**
 	 * Represents the number of days per wave in the game.
 	 */
-	private static int dayPerWave = 1;
+	private static int dayPerWave = 5;
 	
 	/**
 	 * Represents the number of preparation waves before the first enemy wave.
 	 */
-	private static int preparationWaveNumber = 5;
+	private static int preparationWaveNumber = 2;
 	
 	/**
 	 * Represents the endless mode state
@@ -92,7 +92,7 @@ public class GameConfig {
 	/**
 	 * Represents the volume level of the background music.
 	 */
-	private static double bgmVolume = 0.1;
+	private static double bgmVolume = 0.4;
 	
 	/**
 	 * Represents the volume level of the sound effects.

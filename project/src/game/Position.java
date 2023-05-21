@@ -1,5 +1,6 @@
 package game;
 
+import controller.GameController;
 import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
 import utils.GameConfig;
@@ -124,7 +125,8 @@ public class Position {
      * @return The new position after moving up.
      */
     public Position moveUp() {
-        return new Position(getRow() - 1, getColumn());
+//        return new Position(getRow() - 1, getColumn());
+    	return GameController.getGameMap().get(getRow() - 1, getColumn()).getPosition();
     }
 
     /**
@@ -133,7 +135,8 @@ public class Position {
      * @return The new position after moving down.
      */
     public Position moveDown() {
-        return new Position(getRow() + 1, getColumn());
+//        return new Position(getRow() + 1, getColumn());
+    	return GameController.getGameMap().get(getRow() + 1, getColumn()).getPosition();
     }
 
     /**
@@ -142,7 +145,8 @@ public class Position {
      * @return The new position after moving left.
      */
     public Position moveLeft() {
-        return new Position(getRow(), getColumn() - 1);
+//        return new Position(getRow(), getColumn() - 1);
+    	return GameController.getGameMap().get(getRow(), getColumn() - 1).getPosition();
     }
 
     /**
@@ -151,7 +155,8 @@ public class Position {
      * @return The new position after moving right.
      */
     public Position moveRight() {
-        return new Position(getRow(), getColumn() + 1);
+//        return new Position(getRow(), getColumn() + 1);
+    	return GameController.getGameMap().get(getRow(), getColumn() + 1).getPosition();
     }
 
     /**
@@ -161,7 +166,8 @@ public class Position {
      * @return The position representing the direction vector from this position to the specified position.
      */
     public Position directionFrom(Position p) {
-        return new Position(getRow() - p.getRow(), getColumn() - p.getColumn());
+//        return new Position(getRow() - p.getRow(), getColumn() - p.getColumn());
+    	return GameController.getGameMap().get(getRow() - p.getRow(), getColumn() - p.getColumn()).getPosition();
     }
 
     /**

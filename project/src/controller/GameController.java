@@ -124,7 +124,10 @@ public class GameController {
 	 * 
 	 */
 	private static void initBuildings() {
-		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
+//		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
+		
+		Position mapCenter = getGameMap().get(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2).getPosition();
+		
 		while(getGameMap().get(mapCenter).getTerrain() == Terrain.WATER) {
 			mapCenter = mapCenter.moveDown();
 		}

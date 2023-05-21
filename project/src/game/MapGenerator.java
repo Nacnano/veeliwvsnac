@@ -3,7 +3,9 @@ package game;
 import java.util.ArrayList;
 
 import controller.GameController;
+import entity.building.MilitaryCamp;
 import entity.unit.BaseUnit;
+import entity.unit.SwordMan;
 import utils.GameConfig;
 import utils.RandomUtil;
 import utils.TextFileUtil;
@@ -40,7 +42,8 @@ public class MapGenerator {
 		for (int i = 0; i <= GameConfig.getMapSize(); i++) {
 			for (int j = 0; j <= GameConfig.getMapSize(); j++) {
 				Cell newCell = new Cell();
-				newCell.setPosition(new Position(i, j));
+				Position pos = new Position(i, j);
+				newCell.setPosition(pos);
 				gameMap.getGameMap()[i][j] = newCell;
 			}
 		}
@@ -98,7 +101,7 @@ public class MapGenerator {
 			return;
 		}
 		
-		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day);
+		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day / GameConfig.getDayPerWave());
 
 		for (BaseUnit enemy : enemyList) {
 			boolean isAdd = false;
