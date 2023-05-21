@@ -75,7 +75,6 @@ public class InterruptController {
 	 * </p>
 	 * <ul>
 	 * <Li>{@link #isImmobilize}</li>
-	 * <li>{@link #isInventoryOpen}</li>
 	 * <li>{@link #isTransition}</li>
 	 * <li>{@link #isStillAnimation}</li>
 	 * </ul>
@@ -84,7 +83,7 @@ public class InterruptController {
 	 *         false
 	 */
 	public static boolean isInterruptPlayerMovingInput() {
-		return isPauseOpen || isSettingOpen || isInventoryOpen || isTransition || isStillAnimation;
+		return isPauseOpen || isSettingOpen  || isTransition || isStillAnimation;
 	}
 
 	/**

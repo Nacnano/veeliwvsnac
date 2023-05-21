@@ -177,7 +177,6 @@ public class DrawUtil {
 		if (cell.getTerrain() == null) {
 			return;
 		}
-		
 
 		Canvas canvas = new Canvas(GameConfig.SPRITE_SIZE * GameConfig.getScale(),
 				GameConfig.SPRITE_SIZE * GameConfig.getScale());
@@ -192,6 +191,7 @@ public class DrawUtil {
 				
 				System.out.println("Clicked! " + cell.getTerrain());
 			}
+			
 		});
 		addCursorHover(canvas, true);
 		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));

@@ -107,7 +107,7 @@ public class GameController {
 	 * 
 	 * @return {@link GameMap} new floor which added to {@link #levelMapList}
 	 */
-	private static GameMap initGameMap() {
+	private static void initGameMap() {
 		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
@@ -120,8 +120,6 @@ public class GameController {
 		GameLogic.addOurUnit(new SwordMan(), new Position(10, 11));
 		
 		MapGenerator.generateEnemyOnMap(gameMap);
-		
-		return gameMap;
 	}
 	
 	private static void initBuildings() {
@@ -294,9 +292,10 @@ public class GameController {
 	 * Setup {@link GameScene} when start or restart game.
 	 */
 	private static void sceneSetup() {
-		InterruptController.resetInterruptState();
-		GameScene.getMessagePane().resetMessage();
 		SceneController.setSceneToStage(GameScene.getScene());
+		GameScene.getMessagePane().resetMessage();
+		InterruptController.resetInterruptState();
+		
 		GameScene.getWorkerStatus().update();
 		GameScene.getMaterialStatus().update();
 		GameScene.getResourceStatus().update(null);
