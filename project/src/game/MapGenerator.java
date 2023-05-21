@@ -53,7 +53,7 @@ public class MapGenerator {
 	 */
 	private static void buildNewMap(GameMap gameMap, String mapName) {
 		
-		String[] mapContents = TextFileUtil.ReadTextFile("map/" + mapName + ".txt");
+		String[] mapContents = TextFileUtil.readTextFile("map/" + mapName + ".txt");
 				
 		for (int i = 0; i < GameConfig.getMapSize(); i++) {
 			for (int j = 0; j < GameConfig.getMapSize(); j++) {

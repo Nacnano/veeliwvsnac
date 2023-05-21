@@ -16,7 +16,7 @@ import entity.unit.SwordMan;
 
 /**
  * The RandomUtil is the class that provide the random method and random the
- * status of {@link Potion}, {@link Armor} and {@link Weapon} from pool.
+ * enemy list from pool.
  *
  */
 public class RandomUtil {
@@ -27,7 +27,7 @@ public class RandomUtil {
 	private static Random rand = new Random();
 	
 	/**
-	 * Represent the {@link Random} instance.
+	 * Represent the total number of all enemy.
 	 */
 	private static int allEnemyNumber;
 
@@ -80,6 +80,12 @@ public class RandomUtil {
 		list.toArray(array);
 	}
 	
+	/**
+	 * Generates a random enemy list based on the enemy wave.
+	 * 
+	 * @param enemyWave the number of enemy waves
+	 * @return the generated enemy list
+	 */
 	public static ArrayList<BaseUnit> randomEnemyList(int enemyWave) {
 		
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
@@ -95,6 +101,12 @@ public class RandomUtil {
 		return enemyList;
 	}
 	
+	/**
+	 * Generates {@link SwordMan} list based on the enemy wave.
+	 * 
+	 * @param enemyWave the number of enemy waves
+	 * @return the generated enemy list
+	 */
 	private static ArrayList<BaseUnit> randomSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
 		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
@@ -115,6 +127,12 @@ public class RandomUtil {
 		return enemyList;
 	}
 	
+	/**
+	 * Generates {@link Archer} list based on the enemy wave.
+	 * 
+	 * @param enemyWave the number of enemy waves
+	 * @return the generated enemy list
+	 */
 	private static ArrayList<BaseUnit> randomArcherList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
 		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
@@ -135,6 +153,12 @@ public class RandomUtil {
 		return enemyList;
 	}
 	
+	/**
+	 * Generates {@link FOrestSwordMan} list based on the enemy wave.
+	 * 
+	 * @param enemyWave the number of enemy waves
+	 * @return the generated enemy list
+	 */
 	private static ArrayList<BaseUnit> randomForestSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
 		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
@@ -155,6 +179,12 @@ public class RandomUtil {
 		return enemyList;
 	}
 	
+	/**
+	 * Generates {@link FieldSwordMan} list based on the enemy wave.
+	 * 
+	 * @param enemyWave the number of enemy waves
+	 * @return the generated enemy list
+	 */
 	private static ArrayList<BaseUnit> randomFieldSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
 		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
@@ -175,6 +205,12 @@ public class RandomUtil {
 		return enemyList;
 	}
 	
+	/**
+	 * Generates {@link MountainSwordMan} list based on the enemy wave.
+	 * 
+	 * @param enemyWave the number of enemy waves
+	 * @return the generated enemy list
+	 */
 	private static ArrayList<BaseUnit> randomMountainSwordManList(int enemyWave){
 		ArrayList<BaseUnit> enemyList = new ArrayList<>();
 		int enemyNumber = RandomUtil.random(1, allEnemyNumber / GameConfig.ALL_ENEMY_DIVIDER);
