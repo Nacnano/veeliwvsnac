@@ -640,7 +640,6 @@ public class GameLogic {
 		return ourUnits;
 	}
 	
-	//For testing
 	public static void SetCurrentPopulation(int amount) {
 		currentPopulation = amount;
 	}
