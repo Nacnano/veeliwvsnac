@@ -7,10 +7,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The TextFileUtil class provides utility methods for reading text files.
+ */
 public class TextFileUtil {
 
-	public static String[] ReadTextFile(String filePath) {
-
+    /**
+     * Reads a text file from the specified file path and returns the contents as an array of strings.
+     *
+     * @param filePath The path of the text file to be read.
+     * @return An array of strings representing the contents of the text file, or null if the file is not found or an error occurs.
+     */
+    public static String[] readTextFile(String filePath) {
         try {
             InputStream inputStream = ClassLoader.getSystemResourceAsStream(filePath);
             if (inputStream == null) {
@@ -21,11 +29,10 @@ public class TextFileUtil {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             List<String> lines = new ArrayList<String>();
-            
-            
+
             String line;
             while ((line = reader.readLine()) != null) {
-            	lines.add(line.replace("\n", "").replace("\r", ""));
+                lines.add(line.replace("\n", "").replace("\r", ""));
             }
             reader.close();
 
@@ -39,8 +46,6 @@ public class TextFileUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		return null;
+        return null;
     }
 }
-
-
