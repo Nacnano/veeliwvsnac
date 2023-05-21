@@ -191,10 +191,10 @@ public class GameController {
 	}
 
 	/**
-	 * Checking condition that {@link #GameLogic.get} is currently Game Over or not by
-	 * checking nuimber of {@link #BaseBuilding} in bulidings.
+	 * Checking condition that {@link GameLogic} is currently Game Over or not by
+	 * checking nuimber of {@link BaseBuilding} in bulidings.
 	 * 
-	 * @return true if number of {@link #BaseBuilding} is less than or equals 0 otherwise
+	 * @return true if number of {@link BaseBuilding} is less than or equals 0 otherwise
 	 *         false
 	 */
 	public static boolean isGameOver() {
@@ -284,7 +284,7 @@ public class GameController {
 	/**
 	 * Setter for {@link #day}.
 	 * 
-	 * @param newDaythe new {@link #day}
+	 * @param newDay The new {@link #day}
 	 */
 	public static void setDay(int newDay) {
 		day = newDay;

@@ -3,6 +3,11 @@ package entity.building;
 import game.GameLogic;
 import game.Position;
 
+/**
+ * 
+ * @author nacnano
+ *
+ */
 public abstract class BaseBuilding implements Buildable {
 
 	/**

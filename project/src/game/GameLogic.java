@@ -728,16 +728,16 @@ public class GameLogic {
 					attackUnit(enemy, targetUnit);
 				}
 				else {
-					moveUnitusingShortestPath(enemy, targetUnit.getPosition());
+					moveUnitUsingShortestPath(enemy, targetUnit.getPosition());
 				}
 				
 			}
 			else if (targetBuilding != null) {
 				if(isInAttackRange(enemy, targetBuilding.getPosition())) {
-					destroyBuiding(enemy, targetBuilding);
+					destroyBuilding(enemy, targetBuilding);
 				}
 				else {
-					moveUnitusingShortestPath(enemy, targetBuilding.getPosition());
+					moveUnitUsingShortestPath(enemy, targetBuilding.getPosition());
 				}
 			}
 		}

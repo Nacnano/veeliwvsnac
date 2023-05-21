@@ -30,6 +30,13 @@ public class MountainSwordMan extends SwordMan implements Attackable, Movable{
 		super();
 	}
 	
+	/**
+     * Buffs the unit based on the terrain it is on.
+     * If the unit is on a plain terrain, its attack multiplier and move range are set to field swordman values
+     * defined in the GameConfig. Otherwise, they are set to the default swordman values.
+     *
+     * @param terrain The terrain on which the unit is located.
+     */
 	public void buffByTerrain(Terrain T) {
 		if (GameLogic.getOurUnitTerrain(this) == Terrain.MOUNTAIN) {
 			this.setAttackMultiplier(GameConfig.MOUNTAINSWORDMAN_ATTACK_MULTIPLIER);
@@ -39,16 +46,6 @@ public class MountainSwordMan extends SwordMan implements Attackable, Movable{
 			this.setAttackMultiplier(GameConfig.SWORDMAN_ATTACK_MULTIPLIER);
 			this.setMoveRange(GameConfig.SWORDMAN_MOVE_RANGE);
 		}
-	}
-
-	public void attack() {
-		// some logic to check terrain
-		// if(GameLogic.)
-	}
-	
-	public void move() {
-		// some logic to check terrain
-		// if(GameLogic.)
 	}
 	
 }
