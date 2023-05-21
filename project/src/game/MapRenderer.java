@@ -199,6 +199,13 @@ public class MapRenderer {
 					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
 				}));
 			}
+			
+			// Draw building HP Bar
+			if (thisCell.getBuilding() != null) {
+				pq.add(new Node(posY, posX, 99, () -> {
+					DrawUtil.drawBuildingDurabilityBar(posY - GameConfig.BUILDING_MINUS_POS_Y, posX,thisCell.getBuilding());
+				}));
+			}
 
 			// Draw unit
 			if (thisCell.getUnit() != null) {
@@ -214,7 +221,7 @@ public class MapRenderer {
 			}
 			if ((thisCell.getUnit() instanceof BaseUnit) && (frame == 0)) {
 				pq.add(new Node(posY, posX, 3, () -> {
-					DrawUtil.addUnitButton(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit());
+					DrawUtil.addUnitButton(posY + finalShiftY, posX + finalShiftX, thisCell);
 				}));
 			}
 			

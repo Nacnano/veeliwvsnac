@@ -11,6 +11,7 @@ import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import entity.unit.BaseUnit;
+import entity.unit.FieldSwordMan;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -244,7 +245,7 @@ public class DrawUtil {
 		gc.setFill(Color.BLACK);
 		gc.fillRect(x + 4 * GameConfig.getScale(), y - 4 * GameConfig.getScale(), 25 * GameConfig.getScale(),
 				2 * GameConfig.getScale());
-		gc.setFill(Color.RED);
+		gc.setFill(Color.LIGHTSKYBLUE);
 		gc.fillRect(x + 4 * GameConfig.getScale(), y - 4 * GameConfig.getScale(),
 				Math.ceil((double) building.getDurability() / (double) GameConfig.FIELD_DURABILITY * 25.0 * GameConfig.getScale()),
 				2 * GameConfig.getScale());
@@ -312,7 +313,7 @@ public class DrawUtil {
 			}
 		});
 		addCursorHover(canvas, true);
-		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
+		AnchorPane.setTopAnchor(canvas, (double) (y - GameConfig.BUILDING_MINUS_POS_Y * GameConfig.getScale()));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
 		
 //		VBox holder = new VBox();
@@ -373,7 +374,8 @@ public class DrawUtil {
 	 * @param x      Position in the X-axis
 	 * @param entity The entity to adds the button on
 	 */
-	public static void addUnitButton(int y, int x, BaseUnit unit) {
+	public static void addUnitButton(int y, int x, Cell cell) {
+		BaseUnit unit = cell.getUnit();
 		if (unit == null) {
 			return;
 		}
@@ -389,7 +391,9 @@ public class DrawUtil {
 				else {
 					GameController.gameUpdate(GameController.getSelectedUnit(), unit);
 				}
-				GameScene.addHelpMilitaryPopUp(unit);
+				if (cell.getBuilding() instanceof MilitaryCamp) {
+					GameScene.addHelpMilitaryPopUp(cell);
+				}
 				System.out.println("Clicked! " + unit.getClass().getSimpleName());
 			}
 		});

@@ -52,11 +52,18 @@ public class GameLogic {
 //	}
 	
 	
-	public void removeBuilding(Position p) {
-		BaseBuilding b = buildings.get(p);
+	public static void removeBuilding(BaseBuilding b) {
+//		BaseBuilding b = buildings.get(p);
+		Position p = new Position(-1, -1);
+		for(Position pos : buildings.keySet()) {
+			if (buildings.get(pos).equals(b))
+				p = pos;
+		}
+
 		updateTerritory(b, p, -1);
-		buildings.remove(p);
-		GameController.getGameMap().get(p).setBuilding(null);
+//		buildings.remove(p);
+//		GameController.getGameMap().get(p).setBuilding(null);
+		removeBuildingUtil(p);
 
 		if (b instanceof Field) {
 			currentPopulation -= ((Field) b).getCurrentPeople() * ((Field) b).getFatalityRate();
@@ -113,7 +120,7 @@ public class GameLogic {
 		}
 	} 
 	
-	public int getMaxPopulation() {
+	public static int getMaxPopulation() {
 		int countHouse = 0;
 		for (BaseBuilding b : buildings.values()) {
 			if (b instanceof House) 
@@ -163,7 +170,7 @@ public class GameLogic {
 		}
 	}
 	
-	public void updateCurrentPopulation() {
+	public static void updateCurrentPopulation() {
 		if (currentPopulation >= getMaxPopulation()) return;
 		int newPopulation = currentPopulation + (int) (currentPopulation * GameConfig.HOUSE_BORN_RATE);
 		currentPopulation = Math.min(getMaxPopulation(), newPopulation);
@@ -254,7 +261,7 @@ public class GameLogic {
 		if (!hasEnoughMaterial(b)) return false;
 		if(territory[p.getRow()][p.getColumn()] == 0) return false;
 		
-		System.out.println("Accept " + b.getClass().getSimpleName() + " on " + map.get(p));
+//		System.out.println("Accept " + b.getClass().getSimpleName() + " on " + map.get(p));
 		return true;
 	}
 	
@@ -316,6 +323,11 @@ public class GameLogic {
 		}
 	}
 	
+	public static void removeBuildingUtil(Position pos) {
+		buildings.remove(pos);
+		GameController.getGameMap().get(pos).setBuilding(null);
+	}
+	
 	public static void attackUnit(BaseUnit from, BaseUnit to) {
 		from.attack(to);
 	}
@@ -344,6 +356,7 @@ public class GameLogic {
 		if (!isOurUnit(unit_old)) return;
 		Position pos = unit_old.getPosition();
 		unit_new.setPeople(unit_old.getPeople());
+		unit_new.setMoved(unit_old.isMoved());
 		removeOurUnit(unit_old);
 		addOurUnit(unit_new, pos);
 	}
@@ -355,14 +368,13 @@ public class GameLogic {
 	
 	public static void upgradeSwordMan(BaseUnit unit) {
 		Position pos = ourUnits.get(unit);
-		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
+//		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
 		if (!payToUpgrateMilitary()) return;
 		
 		Terrain terrain = map.get(pos);
 		if (terrain == Terrain.FOREST) {
 			BaseUnit new_unit = new ForestSwordMan();
 			GameLogic.changeMilitary(unit, new_unit);
-			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
 		}
 		else if (terrain == Terrain.MOUNTAIN) {
 			BaseUnit new_unit = new MountainSwordMan();
@@ -371,7 +383,6 @@ public class GameLogic {
 		else if (terrain == Terrain.PLAIN) {
 			BaseUnit new_unit = new FieldSwordMan();
 			GameLogic.changeMilitary(unit, new_unit);
-			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
 		}
 	}
 	
@@ -385,10 +396,13 @@ public class GameLogic {
 			unit = new Archer();
 		
 		for (Position pos : buildings.keySet()) {
-			if (buildings.get(pos).equals(building))
+			if (buildings.get(pos).equals(building)) {
 				addOurUnit(unit, pos);	
+				unit.setPosition(pos);
+			}
 		}
-		System.out.println("Successfully build " + unit.getClass().getSimpleName());
+		System.out.println("Successfully build " + unit.getClass().getSimpleName() + " on " + getOurUnitTerrain(unit));
+	
 	}
 	
 	public static void heal(BaseUnit unit) {
@@ -444,6 +458,10 @@ public class GameLogic {
 	public static void updateAttackTerritory(BaseUnit unit, boolean isAttackTerritory) {
 		
 		Position p = unit.getPosition();
+		
+		if (unit instanceof SwordMan)
+			((SwordMan) unit).buffByTerrain(map.get(p));
+		
 		int radius = GameConfig.getAttackRangebyUnit(unit);
 		int size = GameConfig.getMapSize();
 		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
@@ -456,7 +474,12 @@ public class GameLogic {
 	public static void updateMoveTerritory(BaseUnit unit, boolean isMoveTerritory) {
 		
 		Position p = unit.getPosition();
-		int radius = GameConfig.getMoveRangebyUnit(unit);
+		
+		if (unit instanceof SwordMan)
+			((SwordMan) unit).buffByTerrain(map.get(p));
+		
+//		int radius = GameConfig.getMoveRangebyUnit(unit);
+		int radius = unit.getMoveRange();
 		int size = GameConfig.getMapSize();
 		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
 			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
@@ -469,6 +492,7 @@ public class GameLogic {
 		enemyMove();
 		resetUnitMove();
 		updateResources();
+		updateCurrentPopulation();
 	}
 	
 	public static void resetUnitMove() {

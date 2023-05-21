@@ -135,32 +135,32 @@ public class GameController {
 //		GameLogic.getBuildings().put(field_pos, field);
 //		GameLogic.setNumberOfWorkers(field_pos, 10);
 //		
-		GameLogic.initBuilding(new Mine(), new Position(9, 6));
+		GameLogic.initBuilding(new Mine(), gameMap.get(9, 6).getPosition());
 //		Mine mine = new Mine();
 //		Position mine_pos = new Position(9, 6);
 //		gameMap.get(9, 6).setBuilding(mine);
 //		GameLogic.getBuildings().put(mine_pos, mine);
 //		GameLogic.setNumberOfWorkers(mine_pos, 10);
 //		
-		GameLogic.initBuilding(new Sawmill(), new Position(10, 4));
+		GameLogic.initBuilding(new Sawmill(), gameMap.get(10, 4).getPosition());
 //		Sawmill sawmill = new Sawmill();
 //		Position sawmill_pos = new Position(10, 4);
 //		gameMap.get(10, 4).setBuilding(sawmill);
 //		GameLogic.getBuildings().put(sawmill_pos, sawmill);
 //		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
 //		
-		GameLogic.initBuilding(new Smelter(), new Position(11, 13));
+		GameLogic.initBuilding(new Smelter(), gameMap.get(11, 13).getPosition());
 //		Smelter smelter = new Smelter();
 //		Position smelter_pos = new Position(11, 13);
 //		gameMap.get(11, 13).setBuilding(smelter);
 //		GameLogic.getBuildings().put(smelter_pos, smelter);
 //		GameLogic.setNumberOfWorkers(smelter_pos, 10);
 		
-		Position militaryCamp_pos = new Position(7, 10);
+		Position militaryCamp_pos = gameMap.get(7, 10).getPosition();    // new Position(7, 10);
 		GameLogic.initBuilding(new MilitaryCamp(), militaryCamp_pos);
 		
-		SwordMan swordMan = new SwordMan();
-		GameLogic.addOurUnit(swordMan, militaryCamp_pos);
+//		SwordMan swordMan = new SwordMan();
+//		GameLogic.addOurUnit(swordMan, militaryCamp_pos);
 		
 	}
 	

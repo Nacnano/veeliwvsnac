@@ -3,6 +3,7 @@ package gui;
 import controller.InterruptController;
 import entity.building.BaseBuilding;
 import game.GameLogic;
+import game.MapRenderer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -167,6 +168,7 @@ public class BuildMilitaryPopUp extends VBox {
 		buildSwordManBox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildMilitary(building, "SwordMan");
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -176,6 +178,7 @@ public class BuildMilitaryPopUp extends VBox {
 		buildArcherBox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildMilitary(building, "Archer");
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();

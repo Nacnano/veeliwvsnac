@@ -401,12 +401,12 @@ public class GameConfig {
 	/**
 	 * Represents the move range of a forest swordsman.
 	 */
-	public static final int FORESTSWORDMAN_MOVE_RANGE = 1;
+	public static final int FORESTSWORDMAN_MOVE_RANGE = 2;
 
 	/**
 	 * Represents the attack multiplier of a forest swordsman.
 	 */
-	public static final float FORESTSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	public static final float FORESTSWORDMAN_ATTACK_MULTIPLIER = (float) 0.40;
 
 	/**
 	 * Represents the attack range of a field swordsman.
@@ -416,12 +416,12 @@ public class GameConfig {
 	/**
 	 * Represents the move range of a field swordsman.
 	 */
-	public static final int FIELDSWORDMAN_MOVE_RANGE = 1;
+	public static final int FIELDSWORDMAN_MOVE_RANGE = 2;
 
 	/**
 	 * Represents the attack multiplier of a field swordsman.
 	 */
-	public static final float FIELDSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	public static final float FIELDSWORDMAN_ATTACK_MULTIPLIER = (float) 0.40;
 
 	/**
 	 * Represents the attack range of a mountain swordsman.
@@ -431,12 +431,12 @@ public class GameConfig {
 	/**
 	 * Represents the move range of a mountain swordsman.
 	 */
-	public static final int MOUNTAINSWORDMAN_MOVE_RANGE = 1;
+	public static final int MOUNTAINSWORDMAN_MOVE_RANGE = 2;
 
 	/**
 	 * Represents the attack multiplier of a mountain swordsman.
 	 */
-	public static final float MOUNTAINSWORDMAN_ATTACK_MULTIPLIER = (float) 0.25;
+	public static final float MOUNTAINSWORDMAN_ATTACK_MULTIPLIER = (float) 0.40;
 
 	/**
 	 * Represents the attack range of an archer.
@@ -457,6 +457,19 @@ public class GameConfig {
 	 * Represents the price for military upgrades.
 	 */
 	public static final int MILLITARY_UPGRADE_PRICE = 1000;
+	
+	// Random Utility
+	
+	public static final int ALL_ENEMY_NUMBER = 5;
+	public static final int ENEMY_MIN_PEOPLE = 3;
+	public static final int ENEMY_MAX_PEOPLE = 6;
+	public static final float ENEMY_MIN_ATTACK_MULTIPLIER = (float) 0.1;
+	public static final float ENEMY_MAX_ATTACK_MULTIPLIER = (float) 0.75;
+	public static final float ENEMY_WAVE_MULTIPLIER = (float) 0.1;
+	public static final int ALL_ENEMY_DIVIDER = 4;
+	
+	public static final int BUILDING_MINUS_POS_Y = 8;
+	// Draw Utility
 
 	/**
 	 * Retrieves the attack range of a specific unit.

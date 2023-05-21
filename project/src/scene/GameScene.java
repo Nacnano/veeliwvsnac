@@ -14,6 +14,7 @@ import gui.ShopPopUp;
 import gui.WorkerStatus;
 import controller.GameController;
 import controller.InterruptController;
+import entity.building.BaseBuilding;
 import entity.unit.BaseUnit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,7 +30,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import game.Cell;
 import game.ControlAction;
+import game.GameLogic;
 import game.MapRenderer;
 import game.Position;
 import utils.DrawUtil;
@@ -251,10 +254,20 @@ public class GameScene {
 					buildMilitaryPopUp.remove();
 					return;
 				}
-				buildMilitaryPopUp.update(resourceStatus.getBuilding());
-				gamePane.getChildren().add(buildMilitaryPopUp);
-				buildMilitaryPopUp.requestFocus();
-				InterruptController.setIsBuildMilitaryOpen(true);
+				
+				Position building_pos = new Position(-1, -1);
+				for (Position pos : GameLogic.getBuildings().keySet()) {
+					if (GameLogic.getBuildings().get(pos).equals(resourceStatus.getBuilding()))
+						building_pos = pos;
+				}
+				
+				// If there is a military above, do not build a new pack
+				if (GameController.getGameMap().get(building_pos).getUnit() == null) {
+					buildMilitaryPopUp.update(resourceStatus.getBuilding());
+					gamePane.getChildren().add(buildMilitaryPopUp);
+					buildMilitaryPopUp.requestFocus();
+					InterruptController.setIsBuildMilitaryOpen(true);
+				}
 			}
 			else {
 				if (InterruptController.isChangeJobOpen()) {
@@ -302,7 +315,8 @@ public class GameScene {
 		});
 	}
 	
-	public static void addHelpMilitaryPopUp(BaseUnit unit) {
+	public static void addHelpMilitaryPopUp(Cell cell) {
+		BaseUnit unit = cell.getUnit();
 		helpMilitaryPopUp.update(unit);
 		gamePane.getChildren().add(helpMilitaryPopUp);
 		helpMilitaryPopUp.requestFocus();
