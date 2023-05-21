@@ -29,8 +29,12 @@ public class SwordMan extends BaseUnit implements Movable, Attackable{
 		super(people, attackRange, moveRange, attackMultiplier);
 	}
 	
+	/**
+	 * Buffs the SwordMan unit based on the given terrain.
+	 * 
+	 * @param t The terrain on which the unit is positioned.
+	 */
 	public void buffByTerrain(Terrain t) {
-//		System.out.println("1)");
 		setAttackMultiplier(GameConfig.SWORDMAN_ATTACK_MULTIPLIER);
 		setMoveRange(GameConfig.SWORDMAN_MOVE_RANGE);
 	}

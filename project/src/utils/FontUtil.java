@@ -4,7 +4,7 @@ import javafx.scene.text.Font;
 
 /**
  * The FontUtil class provides methods about font.
- *
+ * @author nacnano
  */
 public class FontUtil {
 

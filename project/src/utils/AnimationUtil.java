@@ -13,7 +13,7 @@ import game.MapRenderer;
 
 /**
  * The AnimationUtil class provides methods about animation.
- *
+ * @author nacnano
  */
 public class AnimationUtil {
 

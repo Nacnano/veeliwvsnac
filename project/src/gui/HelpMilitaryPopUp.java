@@ -143,7 +143,7 @@ public class HelpMilitaryPopUp extends VBox {
 		Terrain terrain = GameLogic.getOurUnitTerrain(unit);
 		Label label = new Label("Upgrade to " + terrain + " Swordman");
 		label.setFont(FontUtil.getFont("extraSmall"));
-		Text text = new Text("Money: " + GameConfig.MILLITARY_UPGRADE_PRICE);
+		Text text = new Text("Money: " + GameConfig.MILITARY_UPGRADE_PRICE);
 		text.setFont(FontUtil.getFont("extraSmall"));
 		
 		// Change military to the upgraded unit

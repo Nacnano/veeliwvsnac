@@ -19,7 +19,7 @@ public class Sawmill extends Resource {
 	/**
 	 * Check can build on plain or forest
 	 * 
-	 * @param t
+	 * @param t The terrain that the player wants to build on
 	 * @return true if terrain is plain or forest otherwise
 	 * false
 	 */

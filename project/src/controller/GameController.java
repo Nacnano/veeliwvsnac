@@ -1,4 +1,5 @@
 package controller;
+import entity.building.BaseBuilding;
 import entity.building.House;
 import entity.building.MilitaryCamp;
 import entity.building.Mine;
@@ -30,7 +31,7 @@ import utils.TransitionUtil;
 
 /**
  * The GameController class is the class that control about the {@link #gameMap}
- * which currently render and the changing of {@link #level} inside the game.
+ * which currently render and the changing of {@link #day} inside the game.
  */
 public class GameController {
 
@@ -110,7 +111,7 @@ public class GameController {
 		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
-		GameLogic.SetCurrentPopulation(500);
+		GameLogic.setCurrentPopulation(500);
 		
 		initBuildings();
 		initMaterials();
@@ -191,10 +192,10 @@ public class GameController {
 	}
 
 	/**
-	 * Checking condition that {@link #GameLogic.get} is currently Game Over or not by
-	 * checking nuimber of {@link #BaseBuilding} in bulidings.
+	 * Checking condition that {@link GameLogic} is currently Game Over or not by
+	 * checking nuimber of {@link BaseBuilding} in bulidings.
 	 * 
-	 * @return true if number of {@link #BaseBuilding} is less than or equals 0 otherwise
+	 * @return true if number of {@link BaseBuilding} is less than or equals 0 otherwise
 	 *         false
 	 */
 	public static boolean isGameOver() {
@@ -284,7 +285,7 @@ public class GameController {
 	/**
 	 * Setter for {@link #day}.
 	 * 
-	 * @param newDaythe new {@link #day}
+	 * @param newDay The new {@link #day}
 	 */
 	public static void setDay(int newDay) {
 		day = newDay;

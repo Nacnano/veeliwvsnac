@@ -19,7 +19,7 @@ public class MilitaryCamp extends BaseBuilding {
 	/**
 	 * Check cannot build on water
 	 * 
-	 * @param t
+	 * @param t The terrain that the player wants to build on
 	 * @return true if terrain is not water otherwise
 	 * false
 	 */

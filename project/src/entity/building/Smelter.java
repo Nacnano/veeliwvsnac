@@ -19,7 +19,7 @@ public class Smelter extends Resource {
 	/**
 	 * Check can build on plain or mountain
 	 * 
-	 * @param t
+	 * @param t The terrain that the player want to build on
 	 * @return true if terrain is plain or mountain otherwise
 	 * false
 	 */

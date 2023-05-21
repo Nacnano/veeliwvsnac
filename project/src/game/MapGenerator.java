@@ -20,6 +20,7 @@ public class MapGenerator {
 	/**
 	 * Generates new {@link GameMap}.
 	 * 
+	 * @param mapName The String of map name
 	 * @return Randomly generated {@link GameMap}
 	 */
 	public static GameMap generateMap(String mapName) {
@@ -82,9 +83,10 @@ public class MapGenerator {
 
 
 	/**
-	 * Generate new set of {@link Monster} which will assign to {@link GameMap}
+	 * Generate new set of {@link BaseUnit} which will assign to {@link GameMap}
 	 * 
-	 * @param gameMap the {@link GameMap} that assign {@link Monster} to
+	 * @param gameMap the {@link GameMap} that assign {@link BaseUnit} to
+	 * be on a random part of the map
 	 */
 	public static void generateEnemyOnMap(GameMap gameMap) {
 		int day = GameController.getDay();
