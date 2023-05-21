@@ -1,5 +1,6 @@
 package gui;
 
+import controller.GameController;
 import controller.InterruptController;
 import entity.unit.BaseUnit;
 import entity.unit.FieldSwordMan;
@@ -7,7 +8,9 @@ import entity.unit.ForestSwordMan;
 import entity.unit.MountainSwordMan;
 import entity.unit.SwordMan;
 import game.GameLogic;
+import game.MapRenderer;
 import game.Terrain;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -25,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import scene.GameScene;
+import utils.AnimationUtil;
 import utils.FontUtil;
 import utils.GameConfig;
 
@@ -128,10 +132,28 @@ public class HelpMilitaryPopUp extends VBox {
 		Text text = new Text("Money: " + GameConfig.MILLITARY_UPGRADE_PRICE);
 		text.setFont(FontUtil.getFont("extraSmall"));
 		
+		// Change military to the upgraded unit
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.upgradeSwordMan(unit);
 				GameScene.getMaterialStatus().update();
+				
+				// Play animations
+//				new Thread(() -> {
+//					try {
+//						AnimationUtil.playAnimation(2).join();
+//					} catch (InterruptedException e) {
+//						System.out.println("Post game animation interrupted");
+//					}
+//					Platform.runLater(() -> {
+//						if (GameController.isGameOver() || GameController.isGameClear()) {
+//							return;
+//						}
+//						InterruptController.setStillAnimation(false);
+//					});
+//				}).start();
+				MapRenderer.render();
+				
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -189,6 +211,7 @@ public class HelpMilitaryPopUp extends VBox {
 		}
 		if (unit instanceof SwordMan) {
 			if (unit instanceof FieldSwordMan || unit instanceof ForestSwordMan || unit instanceof MountainSwordMan) return;
+			
 			optionsBox.getChildren().add(upgradeSwordMan());
 		}
 			

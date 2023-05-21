@@ -29,6 +29,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import game.Cell;
 import game.ControlAction;
 import game.MapRenderer;
 import game.Position;
@@ -302,7 +303,8 @@ public class GameScene {
 		});
 	}
 	
-	public static void addHelpMilitaryPopUp(BaseUnit unit) {
+	public static void addHelpMilitaryPopUp(Cell cell) {
+		BaseUnit unit = cell.getUnit();
 		helpMilitaryPopUp.update(unit);
 		gamePane.getChildren().add(helpMilitaryPopUp);
 		helpMilitaryPopUp.requestFocus();

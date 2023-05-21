@@ -343,6 +343,7 @@ public class GameLogic {
 		if (!isOurUnit(unit_old)) return;
 		Position pos = unit_old.getPosition();
 		unit_new.setPeople(unit_old.getPeople());
+		unit_new.setMoved(true);
 		removeOurUnit(unit_old);
 		addOurUnit(unit_new, pos);
 	}
@@ -354,14 +355,13 @@ public class GameLogic {
 	
 	public static void upgradeSwordMan(BaseUnit unit) {
 		Position pos = ourUnits.get(unit);
-		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
+//		if (!(buildings.get(pos) instanceof MilitaryCamp)) return;
 		if (!payToUpgrateMilitary()) return;
 		
 		Terrain terrain = map.get(pos);
 		if (terrain == Terrain.FOREST) {
 			BaseUnit new_unit = new ForestSwordMan();
 			GameLogic.changeMilitary(unit, new_unit);
-			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
 		}
 		else if (terrain == Terrain.MOUNTAIN) {
 			BaseUnit new_unit = new MountainSwordMan();
@@ -370,7 +370,6 @@ public class GameLogic {
 		else if (terrain == Terrain.PLAIN) {
 			BaseUnit new_unit = new FieldSwordMan();
 			GameLogic.changeMilitary(unit, new_unit);
-			GameController.getGameMap().get(pos.getRow(), pos.getColumn()).setUnit(new_unit);
 		}
 	}
 	
