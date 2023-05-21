@@ -468,8 +468,8 @@ public class GameConfig {
 	public static final float ENEMY_WAVE_MULTIPLIER = (float) 0.1;
 	public static final int ALL_ENEMY_DIVIDER = 4;
 	
-	// Draw Utility
 	public static final int BUILDING_MINUS_POS_Y = 8;
+	// Draw Utility
 
 	/**
 	 * Retrieves the attack range of a specific unit.
