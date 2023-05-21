@@ -98,7 +98,6 @@ public class MapGenerator {
 			return;
 		}
 		
-		System.out.println(day);
 		ArrayList<BaseUnit> enemyList = RandomUtil.randomEnemyList(day);
 
 		for (BaseUnit enemy : enemyList) {

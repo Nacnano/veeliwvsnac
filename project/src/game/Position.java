@@ -173,4 +173,14 @@ public class Position {
     public String toString() {
         return String.format("Position: %d %d", getRow(), getColumn());
     }
+    
+    @Override
+    public boolean equals(Object o) {
+    	if(o == this) return true;
+    	  if (o == null || getClass() != o.getClass()) {
+              return false;
+          }
+          Position cmp = (Position) o;
+    	return (cmp.getColumn() == getColumn()) && (cmp.getRow() == getRow());
+    }
 }

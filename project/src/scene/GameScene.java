@@ -160,6 +160,9 @@ public class GameScene {
 		MapRenderer.render();
 	}
 	
+	/**
+	 * Updates scenes
+	 */
 	public static void updateScene() {
 		workerStatus.update();
 		materialStatus.update();
