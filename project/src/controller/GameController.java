@@ -1,4 +1,5 @@
 package controller;
+import entity.building.BaseBuilding;
 import entity.building.House;
 import entity.building.MilitaryCamp;
 import entity.building.Mine;

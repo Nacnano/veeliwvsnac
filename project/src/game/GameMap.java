@@ -67,6 +67,12 @@ public class GameMap {
 		return gameMap[i][j];
 	}
 	
+	/**
+	 * Getter for {@link Cell} of the specified position.
+	 * 
+	 * @param position The position 
+	 * @return Cell at the specified position
+	 */
 	public Cell get(Position position) {
 		return get(position.getRow(), position.getColumn());
 	}

@@ -34,7 +34,7 @@ public class ForestSwordMan extends SwordMan implements Attackable, Movable{
      * If the unit is on a plain terrain, its attack multiplier and move range are set to field swordman values
      * defined in the GameConfig. Otherwise, they are set to the default swordman values.
      *
-     * @param terrain The terrain on which the unit is located.
+     * @param T The terrain on which the unit is located.
      */
 	public void buffByTerrain(Terrain T) {
 		if (GameLogic.getOurUnitTerrain(this) == Terrain.FOREST) {

@@ -21,6 +21,9 @@ import entity.unit.MountainSwordMan;
 import entity.unit.SwordMan;
 import utils.GameConfig;
 
+/**
+ * The GameLogic class is the class that control logics during the day
+ */
 public class GameLogic {
 	/**
 	 * The amount of wood in the game.
@@ -368,8 +371,8 @@ public class GameLogic {
 	/**
 	 * Sells the player's materials for money
 	 * 
-	 * @param m
-	 * @param amount
+	 * @param m The material that the players wants to sell
+	 * @param amount The amount of the material that the players wants to sell
 	 */
 	public static void sellMaterial(Material m, int amount) {
 		System.out.println("Selling " + m + "  amount = " + amount);

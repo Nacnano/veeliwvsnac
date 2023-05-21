@@ -20,6 +20,7 @@ public class MapGenerator {
 	/**
 	 * Generates new {@link GameMap}.
 	 * 
+	 * @param mapName The String of map name
 	 * @return Randomly generated {@link GameMap}
 	 */
 	public static GameMap generateMap(String mapName) {

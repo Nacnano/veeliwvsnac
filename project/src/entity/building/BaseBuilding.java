@@ -4,7 +4,7 @@ import game.GameLogic;
 import game.Position;
 
 /**
- * 
+ * he base class for building. They can build.
  * @author nacnano
  *
  */

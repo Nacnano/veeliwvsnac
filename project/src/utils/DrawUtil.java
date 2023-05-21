@@ -30,7 +30,8 @@ import scene.GameScene;
 /**
  * The utility class that provide sprite drawing method and PixelReader for
  * sprite.
- *
+ * 
+ * @author nacnano
  */
 public class DrawUtil {
 
@@ -505,8 +506,42 @@ public class DrawUtil {
 	 * Enum representing colors mapped to hue values.
 	 */
 	public enum ColortoHue {
-	    RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, VIOLET;
+	    /**
+	     * Represents the color red.
+	     */
+	    RED,
+
+	    /**
+	     * Represents the color orange.
+	     */
+	    ORANGE,
+
+	    /**
+	     * Represents the color yellow.
+	     */
+	    YELLOW,
+
+	    /**
+	     * Represents the color green.
+	     */
+	    GREEN,
+
+	    /**
+	     * Represents the color cyan.
+	     */
+	    CYAN,
+
+	    /**
+	     * Represents the color blue.
+	     */
+	    BLUE,
+
+	    /**
+	     * Represents the color violet.
+	     */
+	    VIOLET;
 	}
+
 
 	/**
 	 * Converts a ColortoHue enum value to its corresponding hue value.

@@ -9,6 +9,8 @@ import entity.unit.SwordMan;
 
 /**
  * This class contains configuration settings for the game.
+ * 
+ * @author nacnano
  */
 public class GameConfig {
 	

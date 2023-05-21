@@ -6,7 +6,8 @@ import utils.GameConfig;
 /**
  * The Camera class is used to represent the camera. It stores position,
  * isMoving, and direction.
- *
+ * 
+ * @author nacnano
  */
 public class Camera {
 
@@ -86,7 +87,7 @@ public class Camera {
 
 	/**
 	 * Setter for {@link Direction}
-	 * @param isMoving The moving state of the camera
+	 * @param direction The moving state of the camera
 	 */
 	public void setDirection(Position direction) {
 		this.direction = direction;

@@ -22,7 +22,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import utils.FontUtil;
 import utils.GameConfig;
-
+/**
+ * The BuildingMilitaryPopUp is the pane for building military
+ * @author nacnano
+ *
+ */
 public class BuildMilitaryPopUp extends VBox {
 
 	/**

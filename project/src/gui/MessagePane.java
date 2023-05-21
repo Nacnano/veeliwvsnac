@@ -1,5 +1,7 @@
 package gui;
 
+import entity.building.BaseBuilding;
+import entity.unit.BaseUnit;
 import game.Camera;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -17,7 +19,7 @@ import utils.MessageTextUtil;
 
 /**
  * The MessagePane class is the pane that shows the message of each action that
- * the {@link Unit}, {@link Camera}, or {@link Building} did.
+ * the {@link BaseUnit}, {@link Camera}, or {@link BaseBuilding} did.
  * 
  * @see MessageTextUtil
  *

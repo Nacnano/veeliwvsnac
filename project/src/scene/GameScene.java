@@ -315,6 +315,11 @@ public class GameScene {
 		});
 	}
 	
+	/**
+	 * Add Help Military Popup
+	 * 
+	 * @param cell The cell
+	 */
 	public static void addHelpMilitaryPopUp(Cell cell) {
 		BaseUnit unit = cell.getUnit();
 		helpMilitaryPopUp.update(unit);
@@ -323,6 +328,11 @@ public class GameScene {
 		InterruptController.setIsHelpMilitaryOpen(true);
 	}
 	
+	/**
+	 * Add Build Popup
+	 * 
+	 * @param pos The position
+	 */
 	public static void addBuildPopUp(Position pos) {
 		buildPopUp.update(pos);
 		gamePane.getChildren().add(buildPopUp);
