@@ -102,7 +102,7 @@ public class MessageTextUtil {
 	 * Generates the text when attempting to move outside the move territory and adds it to the {@link MessagePane}.
 	 */
 	public static void textWhenMoveOutsideMoveTerritory() {
-		String displayText = "That 	cell is not in your move territory.";
+		String displayText = "That cell is not in your move territory.";
 		writeMessage(displayText);
 	}
 }
