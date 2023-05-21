@@ -113,6 +113,7 @@ public class HelpMilitaryPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.heal(unit);
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -138,20 +139,6 @@ public class HelpMilitaryPopUp extends VBox {
 				GameLogic.upgradeSwordMan(unit);
 				GameScene.getMaterialStatus().update();
 				
-				// Play animations
-//				new Thread(() -> {
-//					try {
-//						AnimationUtil.playAnimation(2).join();
-//					} catch (InterruptedException e) {
-//						System.out.println("Post game animation interrupted");
-//					}
-//					Platform.runLater(() -> {
-//						if (GameController.isGameOver() || GameController.isGameClear()) {
-//							return;
-//						}
-//						InterruptController.setStillAnimation(false);
-//					});
-//				}).start();
 				MapRenderer.render();
 				
 				remove();

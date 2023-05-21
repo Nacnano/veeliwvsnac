@@ -254,7 +254,7 @@ public class GameLogic {
 		if (!hasEnoughMaterial(b)) return false;
 		if(territory[p.getRow()][p.getColumn()] == 0) return false;
 		
-		System.out.println("Accept " + b.getClass().getSimpleName() + " on " + map.get(p));
+//		System.out.println("Accept " + b.getClass().getSimpleName() + " on " + map.get(p));
 		return true;
 	}
 	
@@ -344,7 +344,7 @@ public class GameLogic {
 		if (!isOurUnit(unit_old)) return;
 		Position pos = unit_old.getPosition();
 		unit_new.setPeople(unit_old.getPeople());
-		unit_new.setMoved(true);
+		unit_new.setMoved(unit_old.isMoved());
 		removeOurUnit(unit_old);
 		addOurUnit(unit_new, pos);
 	}
@@ -384,10 +384,13 @@ public class GameLogic {
 			unit = new Archer();
 		
 		for (Position pos : buildings.keySet()) {
-			if (buildings.get(pos).equals(building))
+			if (buildings.get(pos).equals(building)) {
 				addOurUnit(unit, pos);	
+				unit.setPosition(pos);
+			}
 		}
-		System.out.println("Successfully build " + unit.getClass().getSimpleName());
+		System.out.println("Successfully build " + unit.getClass().getSimpleName() + " on " + getOurUnitTerrain(unit));
+	
 	}
 	
 	public static void heal(BaseUnit unit) {
@@ -443,6 +446,10 @@ public class GameLogic {
 	public static void updateAttackTerritory(BaseUnit unit, boolean isAttackTerritory) {
 		
 		Position p = unit.getPosition();
+		
+		if (unit instanceof SwordMan)
+			((SwordMan) unit).buffByTerrain(map.get(p));
+		
 		int radius = GameConfig.getAttackRangebyUnit(unit);
 		int size = GameConfig.getMapSize();
 		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
@@ -455,7 +462,12 @@ public class GameLogic {
 	public static void updateMoveTerritory(BaseUnit unit, boolean isMoveTerritory) {
 		
 		Position p = unit.getPosition();
-		int radius = GameConfig.getMoveRangebyUnit(unit);
+		
+		if (unit instanceof SwordMan)
+			((SwordMan) unit).buffByTerrain(map.get(p));
+		
+//		int radius = GameConfig.getMoveRangebyUnit(unit);
+		int radius = unit.getMoveRange();
 		int size = GameConfig.getMapSize();
 		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
 			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {

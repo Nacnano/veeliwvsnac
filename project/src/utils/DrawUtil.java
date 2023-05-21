@@ -313,7 +313,7 @@ public class DrawUtil {
 			}
 		});
 		addCursorHover(canvas, true);
-		AnchorPane.setTopAnchor(canvas, (double) (y - 8 * GameConfig.getScale()));
+		AnchorPane.setTopAnchor(canvas, (double) (y - GameConfig.BUILDING_MINUS_POS_Y * GameConfig.getScale()));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
 		
 //		VBox holder = new VBox();
