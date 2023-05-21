@@ -111,7 +111,7 @@ public class GameController {
 		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
-		GameLogic.setCurrentPopulation(500);
+		GameLogic.setCurrentPopulation(GameConfig.INITIAL_POPULATION);
 		
 		initBuildings();
 		initMaterials();
@@ -124,7 +124,10 @@ public class GameController {
 	 * 
 	 */
 	private static void initBuildings() {
-		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
+//		Position mapCenter = new Position(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2);
+		
+		Position mapCenter = getGameMap().get(GameConfig.getMapSize()/2, GameConfig.getMapSize()/2).getPosition();
+		
 		while(getGameMap().get(mapCenter).getTerrain() == Terrain.WATER) {
 			mapCenter = mapCenter.moveDown();
 		}
@@ -139,11 +142,11 @@ public class GameController {
 	 * 
 	 */
 	public static void initMaterials() {
-		GameLogic.setFood(1000);
-		GameLogic.setWood(1000);
-		GameLogic.setStone(1000);
-		GameLogic.setIron(1000);
-		GameLogic.setMoney(1000);
+		GameLogic.setFood(GameConfig.INITIAL_FOOD);
+		GameLogic.setWood(GameConfig.INITIAL_WOOD);
+		GameLogic.setStone(GameConfig.INITIAL_STONE);
+		GameLogic.setIron(GameConfig.INITIAL_IRON);
+		GameLogic.setMoney(GameConfig.INITIAL_MONEY);
 	}
 
 	/**

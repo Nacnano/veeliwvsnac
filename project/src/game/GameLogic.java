@@ -178,6 +178,7 @@ public class GameLogic {
 	 * Updates resoures in the game.
 	 */
 	public static void updateResources() {
+		
 		for (BaseBuilding b : buildings.values()) {
 			int currentPeople = 0;
 			try {
@@ -202,6 +203,9 @@ public class GameLogic {
 				ironOre -= tmp;
 			}
 		}
+		
+		// consume food
+		food = (int) Math.max(0, food - currentPopulation * GameConfig.CONSUME_RATE);
 	}
 
 	/**
@@ -842,7 +846,7 @@ public class GameLogic {
 	 * @return {@code true} if the game is over, {@code false} otherwise.
 	 */
 	public static boolean isGameOver() {
-		return buildings.isEmpty();
+		return buildings.isEmpty() || currentPopulation == 0 || food == 0;
 	}
 
 	/**
