@@ -24,6 +24,9 @@ import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * The ShopPopUp is the pane for shop popup to handle shop action
+ */
 public class ShopPopUp extends VBox {
 	
 	/**

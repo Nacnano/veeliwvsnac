@@ -12,6 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import utils.GameConfig;
 
+/**
+ * The styled VBox template for button
+ */
 public class StyledVBoxButton extends VBox {
 
 	/**
