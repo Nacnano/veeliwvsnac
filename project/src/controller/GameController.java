@@ -577,18 +577,18 @@ public class GameController {
 	
 	
 	/**
-	 * getter for the selected unit
+	 * Getter for {@link #selectedUnit}
 	 * 
-	 * @return Selected unit
+	 * @return {@link #selectedUnit}
 	 */
 	public static BaseUnit getSelectedUnit() {
 		return selectedUnit;
 	}
 
 	/**
-	 * setter for the selected unit
+	 * Setter for {@link #selectedUnit}
 	 * 
-	 * @param BaseUnit The selected unit
+	 * @param selectedUnit The selected unit of {@link #selectedUnit}
 	 */
 	public static void setSelectedUnit(BaseUnit selectedUnit) {
 		GameController.selectedUnit = selectedUnit;
