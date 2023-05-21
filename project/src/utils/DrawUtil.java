@@ -245,7 +245,7 @@ public class DrawUtil {
 		gc.setFill(Color.BLACK);
 		gc.fillRect(x + 4 * GameConfig.getScale(), y - 4 * GameConfig.getScale(), 25 * GameConfig.getScale(),
 				2 * GameConfig.getScale());
-		gc.setFill(Color.RED);
+		gc.setFill(Color.LIGHTSKYBLUE);
 		gc.fillRect(x + 4 * GameConfig.getScale(), y - 4 * GameConfig.getScale(),
 				Math.ceil((double) building.getDurability() / (double) GameConfig.FIELD_DURABILITY * 25.0 * GameConfig.getScale()),
 				2 * GameConfig.getScale());
