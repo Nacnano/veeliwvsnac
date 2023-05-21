@@ -128,7 +128,9 @@ public class GameController {
 		while(getGameMap().get(mapCenter).getTerrain() == Terrain.WATER) {
 			mapCenter = mapCenter.moveDown();
 		}
-		GameLogic.initBuilding(new House(), mapCenter);
+//		GameLogic.initBuilding(new House(), mapCenter);
+		GameLogic.initBuilding(new MilitaryCamp(), mapCenter);
+		GameLogic.addOurUnit(new SwordMan(), mapCenter.moveDown());
 		
 	}
 	
@@ -365,9 +367,7 @@ public class GameController {
 			return;
 		}
 		
-		selectedUnit = unit;
-		GameLogic.updateAttackTerritory(unit, true);
-		GameLogic.updateMoveTerritory(unit, true);
+		selectUnit(unit, true);
 
 		InterruptController.setStillAnimation(true);
 
@@ -394,9 +394,7 @@ public class GameController {
 		}
 
 		if(from == to) {
-			GameLogic.updateAttackTerritory(from, false);
-			GameLogic.updateMoveTerritory(from, false);
-			setSelectedUnit(null);
+			selectUnit(from, false);
 			new Thread() {
 				@Override
 				public void run() {
@@ -427,9 +425,7 @@ public class GameController {
 		
 		from.setMoved(true);
 		to.setAttacked(true);
-		setSelectedUnit(null);
-		GameLogic.updateAttackTerritory(from, false);
-		GameLogic.updateMoveTerritory(from, false);
+		selectUnit(from, false);
 		GameLogic.attackUnit(from, to);
 
 		new Thread() {
@@ -477,10 +473,8 @@ public class GameController {
 		}
 		
 		unit.setMoved(true);
-		GameLogic.updateMoveTerritory(unit, false);
-		GameLogic.updateAttackTerritory(unit, false);
+		selectUnit(unit, false);
 		GameLogic.moveUnit(unit, toCell.getPosition());
-		setSelectedUnit(null);
 		
 		InterruptController.setStillAnimation(true);
 		new Thread() {
@@ -563,11 +557,26 @@ public class GameController {
 	public static void setSelectedUnit(BaseUnit selectedUnit) {
 		GameController.selectedUnit = selectedUnit;
 	}
+	
+	/**
+	 * A Method for both set selected unit and update unit territory.
+	 * 
+	 * @param unit The selected unit of {@link #selectedUnit}
+	 * @param isSelected reppresent is going to be select or not
+	 */
+	public static void selectUnit(BaseUnit unit, boolean isSelected) {
+		GameLogic.updateUnitTerritory(unit, isSelected);
+		if(isSelected) {
+			setSelectedUnit(unit);
+		}
+		else {
+			setSelectedUnit(null);
+		}
+	}
 
 	/**
 	 * Next day for changing day after the 
 	 * player finish playing the current day
-	 * 
 	 */
 	public static void nextDay() {
 		setDay(getDay() + 1);

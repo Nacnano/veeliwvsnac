@@ -67,7 +67,7 @@ public class GameConfig {
 	/**
 	 * Represents the number of enemy waves in the game.
 	 */
-	private static int enemyWaveNumber = 5;
+	private static int enemyWaveNumber = 0;
 	
 	/**
 	 * Represents the number of days per wave in the game.

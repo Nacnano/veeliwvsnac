@@ -481,11 +481,17 @@ public class GameLogic {
 	 */
 	public static void changeMilitary(BaseUnit unit_old, BaseUnit unit_new) {
 		if (!isOurUnit(unit_old)) return;
+		
 		Position pos = unit_old.getPosition();
 		unit_new.setPeople(unit_old.getPeople());
 		unit_new.setMoved(unit_old.isMoved());
 		removeOurUnit(unit_old);
 		addOurUnit(unit_new, pos);
+		
+		if(GameController.getSelectedUnit() == unit_old) {
+			GameController.selectUnit(unit_old, false);
+			GameController.selectUnit(unit_new, true);
+		}
 	}
 
 	/**
@@ -613,6 +619,9 @@ public class GameLogic {
 	 * @param unit The unit to be removed.
 	 */
 	public static void removeOurUnit(BaseUnit unit) {
+		if(GameController.getSelectedUnit() == unit) {
+			
+		}
 		GameController.getGameMap().get(unit.getPosition()).setUnit(null);
 		ourUnits.remove(unit);
 	}
@@ -637,6 +646,18 @@ public class GameLogic {
 		return getOurUnits().containsKey(unit);
 	}
 
+	/**
+	 * Updates both the attack territory and move territory 
+	 * based on the unit's position and attack range.
+	 *
+	 * @param unit		The unit for which to update the unit territory.
+	 * @param isAdded	{@code true} to set the tiles in the unitterritory, {@code false} to clear them.
+	 */
+	public static void updateUnitTerritory(BaseUnit unit, boolean isAdded) {
+		updateAttackTerritory(unit, isAdded);
+		updateMoveTerritory(unit, isAdded);
+	}
+	
 	/**
 	 * Updates the attack territory based on the unit's position and attack range.
 	 *
