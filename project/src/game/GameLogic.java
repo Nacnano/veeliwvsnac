@@ -832,7 +832,13 @@ public class GameLogic {
 	 */
 	public static boolean isGameClear() {
 	    boolean isCoverAllMap = territoryCount == (GameConfig.getMapSize() * GameConfig.getMapSize());
-	    return isCoverAllMap || GameController.getDay() >= (GameConfig.getPreparationWaveNumber() + GameConfig.getEnemyWaveNumber()) * GameConfig.getDayPerWave();
+	    if(isCoverAllMap) {
+	    	return true;
+	    }
+	    if(GameConfig.isEndless()) {
+	    	return false;
+	    }
+	    return GameController.getDay() >= (GameConfig.getPreparationWaveNumber() + GameConfig.getEnemyWaveNumber()) * GameConfig.getDayPerWave();
 	}
 
 	/**

@@ -72,12 +72,17 @@ public class GameConfig {
 	/**
 	 * Represents the number of days per wave in the game.
 	 */
-	private static int dayPerWave = 5;
+	private static int dayPerWave = 1;
 	
 	/**
 	 * Represents the number of preparation waves before the first enemy wave.
 	 */
-	private static int preparationWaveNumber = 10;
+	private static int preparationWaveNumber = 5;
+	
+	/**
+	 * Represents the endless mode state
+	 */
+	private static boolean isEndless = false;
 	
 	/**
 	 * Represents the territory radius.
@@ -729,6 +734,24 @@ public class GameConfig {
 	 */
 	public static void setEffectVolume(double effectVolume) {
 		GameConfig.effectVolume = effectVolume;
+	}
+
+	/**
+	 * Retrieves {@link #isEndless}
+	 *
+	 * @return state of {@link #isEndless}
+	 */
+	public static boolean isEndless() {
+		return isEndless;
+	}
+
+	/**
+	 * Sets endless mode
+	 * 
+	 * @param isEndless Set state of endless mode
+	 */
+	public static void setEndless(boolean isEndless) {
+		GameConfig.isEndless = isEndless;
 	}
 	
 }
