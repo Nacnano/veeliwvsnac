@@ -6,20 +6,19 @@ import entity.building.BaseBuilding;
 /**
  * The Cell class is used to represent individual cells in {@link GameMap}. It
  * stores data of {@link Terrain}, {@link BaseUnit} and {@link BaseBuilding} on this cell.
- *
  */
 public class Cell {
-	
+
 	/**
 	 * The position of this cell.
 	 */
 	private Position position;
-	
 
 	/**
 	 * The type of this cell.
 	 */
 	private Terrain terrain;
+
 	/**
 	 * The entity on this cell.
 	 */
@@ -29,17 +28,17 @@ public class Cell {
 	 * The building on this cell.
 	 */
 	private BaseBuilding building;
-	
+
 	/**
 	 * The territory state.
 	 */
 	private int territory;
-	
+
 	/**
 	 * The attack territory state.
 	 */
 	private boolean attackTerritory;
-	
+
 	/**
 	 * The moving territory state.
 	 */
@@ -54,8 +53,8 @@ public class Cell {
 
 	/**
 	 * Creates a new cell with a specified type.
-	 * 
-	 * @param terrain Type of the new cell
+	 *
+	 * @param terrain Type of the new cell.
 	 */
 	public Cell(Terrain terrain) {
 		setTerrain(terrain);
@@ -65,17 +64,17 @@ public class Cell {
 
 	/**
 	 * Getter for terrain.
-	 * 
-	 * @return This cell's terrain
+	 *
+	 * @return This cell's terrain.
 	 */
 	public Terrain getTerrain() {
 		return terrain;
 	}
-	
+
 	/**
-	 * Setter for unit.
-	 * 
-	 * @param unit The unit to be set.
+	 * Setter for terrain.
+	 *
+	 * @param terrain The terrain to be set.
 	 */
 	public void setTerrain(Terrain terrain) {
 		this.terrain = terrain;
@@ -83,8 +82,8 @@ public class Cell {
 
 	/**
 	 * Getter for unit.
-	 * 
-	 * @return This cell's unit
+	 *
+	 * @return This cell's unit.
 	 */
 	public BaseUnit getUnit() {
 		return unit;
@@ -92,7 +91,7 @@ public class Cell {
 
 	/**
 	 * Setter for unit.
-	 * 
+	 *
 	 * @param unit The unit to be set.
 	 */
 	public void setUnit(BaseUnit unit) {
@@ -101,8 +100,8 @@ public class Cell {
 
 	/**
 	 * Getter for building.
-	 * 
-	 * @return This cell's building
+	 *
+	 * @return This cell's building.
 	 */
 	public BaseBuilding getBuilding() {
 		return building;
@@ -110,47 +109,91 @@ public class Cell {
 
 	/**
 	 * Setter for building.
-	 * 
+	 *
 	 * @param building The building to be set.
 	 */
 	public void setBuilding(BaseBuilding building) {
 		this.building = building;
 	}
 
+	/**
+	 * Getter for territory.
+	 *
+	 * @return The territory state of this cell.
+	 */
 	public int getTerritory() {
 		return territory;
 	}
 
+	/**
+	 * Setter for territory.
+	 *
+	 * @param isTerritory The territory state to be set.
+	 */
 	public void setTerritory(int isTerritory) {
 		this.territory = isTerritory;
 	}
-	
+
+	/**
+	 * Increases the territory state by the specified amount.
+	 *
+	 * @param add The amount to increase the territory state by.
+	 */
 	public void increaseTerritoryBy(int add) {
 		setTerritory(getTerritory() + add);
 	}
 
+	/**
+	 * Getter for position.
+	 *
+	 * @return The position of this cell.
+	 */
 	public Position getPosition() {
 		return position;
 	}
 
+	/**
+	 * Setter for position.
+	 *
+	 * @param position The position to be set.
+	 */
 	public void setPosition(Position position) {
 		this.position = position;
 	}
 
+	/**
+	 * Checks if this cell is an attack territory.
+	 *
+	 * @return {@code true} if this cell is an attack territory, {@code false} otherwise
+	 */
 	public boolean isAttackTerritory() {
 		return attackTerritory;
 	}
 
+	/**
+	 * Sets the attack territory state of this cell.
+	 *
+	 * @param attackTerritory The attack territory state to be set.
+	 */
 	public void setAttackTerritory(boolean attackTerritory) {
 		this.attackTerritory = attackTerritory;
 	}
 
+	/**
+	 * Checks if this cell is a moving territory.
+	 *
+	 * @return {@code true} if this cell is a moving territory, {@code false} otherwise.
+	 */
 	public boolean isMoveTerritory() {
 		return moveTerritory;
 	}
 
+	/**
+	 * Sets the moving territory state of this cell.
+	 *
+	 * @param moveTerritory The moving territory state to be set.
+	 */
 	public void setMoveTerritory(boolean moveTerritory) {
 		this.moveTerritory = moveTerritory;
 	}
-
 }

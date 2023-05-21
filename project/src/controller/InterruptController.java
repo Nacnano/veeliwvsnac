@@ -39,14 +39,29 @@ public class InterruptController {
 	 */
 	private static boolean isStillAnimation;
 	
+	/**
+	 * Represent that the shop is still open or not.
+	 */
 	private static boolean isShopOpen;
 	
+	/**
+	 * Represent that the build is still open or not.
+	 */
 	private static boolean isBuildOpen;
 	
+	/**
+	 * Represent that the build military is still open or not.
+	 */
 	private static boolean isBuildMilitaryOpen;
 	
+	/**
+	 * Represent that the change job is still open or not.
+	 */
 	private static boolean isChangeJobOpen;
 	
+	/**
+	 * Represent that the help military is still open or not.
+	 */
 	private static boolean isHelpMilitaryOpen;
 
 	/**
@@ -74,7 +89,8 @@ public class InterruptController {
 	 * <b>The field which will be checked in condition</b>
 	 * </p>
 	 * <ul>
-	 * <Li>{@link #isImmobilize}</li>
+	 * <li>{@link #isPauseOpen}</li>
+	 * <li>{@link #isSettingOpen}</li>
 	 * <li>{@link #isTransition}</li>
 	 * <li>{@link #isStillAnimation}</li>
 	 * </ul>
@@ -194,42 +210,92 @@ public class InterruptController {
 		InterruptController.isStillAnimation = isStillAnimation;
 	}
 	
+	/**
+	 * Getter for {@link #isShopOpen}.
+	 * 
+	 * @return {@link #isShopOpen}
+	 */
 	public static boolean isShopOpen() {
 		return isShopOpen;
 	}
 	
+	/**
+	 * Setter for {@link #isShopOpen}.
+	 * 
+	 * @param isShopOpen new state of {@link #isShopOpen}
+	 */
 	public static void setIsShopOpen(boolean isShopOpen) {
 		InterruptController.isShopOpen = isShopOpen;
 	}
 	
+	/**
+	 * Getter for {@link #isBuildOpen}.
+	 * 
+	 * @return {@link #isBuildOpen}
+	 */
 	public static boolean isBuildOpen() {
 		return isBuildOpen;
 	}
 	
+	/**
+	 * Setter for {@link #isBuildOpen}.
+	 * 
+	 * @param isBuildOpen new state of {@link #isBuildOpen}
+	 */
 	public static void setIsBuildOpen(boolean isBuildOpen) {
 		InterruptController.isBuildOpen = isBuildOpen;
 	}
 	
+	/**
+	 * Getter for {@link #isBuildMilitaryOpen}.
+	 * 
+	 * @return {@link #isBuildMilitaryOpen}
+	 */
 	public static boolean isBuildMilitaryOpen() {
 		return isBuildMilitaryOpen;
 	}
 	
+	/**
+	 * Setter for {@link #isBuildMilitaryOpen}.
+	 * 
+	 * @param isBuildMilitaryOpen new state of {@link #isBuildMilitaryOpen}
+	 */
 	public static void setIsBuildMilitaryOpen(boolean isBuildMilitaryOpen) {
 		InterruptController.isBuildMilitaryOpen = isBuildMilitaryOpen;
 	}
 	
+	/**
+	 * Getter for {@link #isChangeJobOpen}.
+	 * 
+	 * @return {@link #isChangeJobOpen}
+	 */
 	public static boolean isChangeJobOpen() {
 		return isChangeJobOpen;
 	}
 	
+	/**
+	 * Setter for {@link #isChangeJobOpen}.
+	 * 
+	 * @param isChangeJobOpen new state of {@link #isChangeJobOpen}
+	 */
 	public static void setIsChangeJobOpen(boolean isChangeJobOpen) {
 		InterruptController.isChangeJobOpen = isChangeJobOpen;
 	}
 	
+	/**
+	 * Getter for {@link #isHelpMilitaryOpen}.
+	 * 
+	 * @return {@link #isHelpMilitaryOpen}
+	 */
 	public static boolean isHelpMilitaryOpen() {
 		return isHelpMilitaryOpen;
 	}
 	
+	/**
+	 * Setter for {@link #isHelpMilitaryOpen}.
+	 * 
+	 * @param isHelpMilitaryOpen new state of {@link #isHelpMilitaryOpen}
+	 */
 	public static void setIsHelpMilitaryOpen(boolean isHelpMilitaryOpen) {
 		InterruptController.isHelpMilitaryOpen = isHelpMilitaryOpen;
 	}

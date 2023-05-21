@@ -1,10 +1,11 @@
 package game;
 
+import javafx.scene.control.skin.TextInputControlSkin.Direction;
 import utils.GameConfig;
 
 /**
- * The Player class is used to represent the player. It stores status, equipped
- * armor, equipped weapon, and items that the player has.
+ * The Camera class is used to represent the camera. It stores position,
+ * isMoving, and direction.
  *
  */
 public class Camera {
@@ -19,11 +20,18 @@ public class Camera {
 	 */
 	private boolean isMoving;
 	
+	/**
+	 * Moving direction of the camera.
+	 */
 	private Position direction = new Position(0, 0);
 
 	
 	/**
 	 * move the camera to the destination
+	 * 
+	 * @param destination Destinationof the camera
+	 * @return true if the camera can move otherwise
+	 * false
 	 */
 	public boolean move(Position destination) {
 		if(destination.getColumn() < 0 || destination.getColumn() >= GameConfig.getMapSize() || destination.getRow() < 0 || destination.getRow() >= GameConfig.getMapSize())
@@ -34,10 +42,8 @@ public class Camera {
 		return true;
 	}
 
-
-
 	/**
-	 * Getter for position.
+	 * Getter for {@link Position}
 	 * 
 	 * @return The camera's position
 	 */
@@ -46,7 +52,7 @@ public class Camera {
 	}
 
 	/**
-	 * Setter for position.
+	 * Setter for {@link Position}
 	 * 
 	 * @param position The position to be set
 	 */
@@ -54,18 +60,34 @@ public class Camera {
 		this.position = position;
 	}
 
+	/**
+	 * Getter for {@link #isMoving}
+	 * @return isMoving The moving state of the camera
+	 */
 	public boolean isMoving() {
 		return isMoving;
 	}
 
+	/**
+	 * Setter for {@link #isMoving}
+	 * @param isMoving The moving state of the camera
+	 */
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
 	}
 
+	/**
+	 * Getter for {@link Direction}
+	 * @return direction The moving direction of the camera
+	 */
 	public Position getDirection() {
 		return direction;
 	}
 
+	/**
+	 * Setter for {@link Direction}
+	 * @param isMoving The moving state of the camera
+	 */
 	public void setDirection(Position direction) {
 		this.direction = direction;
 	}

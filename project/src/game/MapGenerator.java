@@ -91,7 +91,7 @@ public class MapGenerator {
 		
 		if(day%GameConfig.getDayPerWave() != 0) {
 //			return;
-			// test with mock enemy
+			// TODO: test with mock enemy
 			day = 10;
 		}
 		

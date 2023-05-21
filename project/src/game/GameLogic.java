@@ -37,6 +37,7 @@ public class GameLogic {
 	// private Map<Terrain, Position> map;
 	private static Map<Position, Terrain> map = new HashMap<>();
 	private static int[][] territory = new int[GameConfig.getMapSize()][GameConfig.getMapSize()];
+	private static int territoryCount = 0;
 	// private Map<BaseBuilding, Position> buildings;	
 	private static Map<Position, BaseBuilding> buildings = new HashMap<>();
 	
@@ -279,8 +280,6 @@ public class GameLogic {
 		GameController.getGameMap().get(p).setBuilding(b);
 		updateTerritory(b, p, 1);
 		buildings.put(p, b);
-//		map.put(p, GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
-//		System.out.println(b.getClass().getSimpleName() + "  terrain: " + GameController.getGameMap().get(p.getRow(), p.getColumn()).getTerrain());
 	}
 	
 	private static void updateTerritory(BaseBuilding b, Position p,int add) {
@@ -288,6 +287,8 @@ public class GameLogic {
 		int size = GameConfig.getMapSize();
 		for(int i = Math.max(0, p.getRow()-radius); i<=Math.min(p.getRow()+radius, size);i++) {
 			for(int j = Math.max(0, p.getColumn()-radius); j<=Math.min(p.getColumn()+radius, size);j++) {
+				if(territory[i][j] == 0 && add == 1) territoryCount += 1;
+				if(territory[i][j] == 1 && add == -1) territoryCount -= 1;
 				territory[i][j] += add;
 				GameController.getGameMap().get(i, j).increaseTerritoryBy(add);
 			}
@@ -585,7 +586,8 @@ public class GameLogic {
 	}
 	
 	public static boolean isGameClear() {
-		return day >= (GameConfig.getPreparationWaveNumber()+GameConfig.getEnemyWaveNumber())*GameConfig.getDayPerWave();
+		boolean isCoverAllMap = territoryCount == (GameConfig.getMapSize() * GameConfig.getMapSize());
+		return isCoverAllMap || day >= (GameConfig.getPreparationWaveNumber()+GameConfig.getEnemyWaveNumber())*GameConfig.getDayPerWave();
 	}
 	
 	// Getters and Setters for materials
@@ -662,7 +664,6 @@ public class GameLogic {
 		return ourUnits;
 	}
 	
-	//For testing
 	public static void SetCurrentPopulation(int amount) {
 		currentPopulation = amount;
 	}
@@ -673,6 +674,14 @@ public class GameLogic {
 
 	public static void setEnemyUnits(Map<BaseUnit, Position> enemyUnits) {
 		GameLogic.enemyUnits = enemyUnits;
+	}
+
+	public static int getTerritoryCount() {
+		return territoryCount;
+	}
+
+	public static void setTerritoryCount(int territoryCount) {
+		GameLogic.territoryCount = territoryCount;
 	}
 	
 }
