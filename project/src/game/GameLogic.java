@@ -113,7 +113,7 @@ public class GameLogic {
 		}
 	} 
 	
-	public int getMaxPopulation() {
+	public static int getMaxPopulation() {
 		int countHouse = 0;
 		for (BaseBuilding b : buildings.values()) {
 			if (b instanceof House) 
@@ -163,7 +163,7 @@ public class GameLogic {
 		}
 	}
 	
-	public void updateCurrentPopulation() {
+	public static void updateCurrentPopulation() {
 		if (currentPopulation >= getMaxPopulation()) return;
 		int newPopulation = currentPopulation + (int) (currentPopulation * GameConfig.HOUSE_BORN_RATE);
 		currentPopulation = Math.min(getMaxPopulation(), newPopulation);
@@ -468,6 +468,7 @@ public class GameLogic {
 		enemyMove();
 		resetUnitMove();
 		updateResources();
+		updateCurrentPopulation();
 	}
 	
 	public static void resetUnitMove() {
