@@ -459,17 +459,45 @@ public class GameConfig {
 	public static final int MILLITARY_UPGRADE_PRICE = 1000;
 	
 	// Random Utility
-	
+	/**
+	 * Represents the number of all enemies.
+	 */
 	public static final int ALL_ENEMY_NUMBER = 5;
+
+	/**
+	 * Represents the minimum number of people in an enemy group.
+	 */
 	public static final int ENEMY_MIN_PEOPLE = 3;
+
+	/**
+	 * Represents the maximum number of people in an enemy group.
+	 */
 	public static final int ENEMY_MAX_PEOPLE = 6;
+
+	/**
+	 * Represents the minimum attack multiplier for enemies.
+	 */
 	public static final float ENEMY_MIN_ATTACK_MULTIPLIER = (float) 0.1;
+
+	/**
+	 * Represents the maximum attack multiplier for enemies.
+	 */
 	public static final float ENEMY_MAX_ATTACK_MULTIPLIER = (float) 0.75;
+
+	/**
+	 * Represents the wave multiplier for enemies.
+	 */
 	public static final float ENEMY_WAVE_MULTIPLIER = (float) 0.1;
+
+	/**
+	 * Represents the divider for all enemy calculations.
+	 */
 	public static final int ALL_ENEMY_DIVIDER = 4;
-	
+
+	/**
+	 * Represents the y-coordinate offset for building positioning.
+	 */
 	public static final int BUILDING_MINUS_POS_Y = 8;
-	// Draw Utility
 
 	/**
 	 * Retrieves the attack range of a specific unit.

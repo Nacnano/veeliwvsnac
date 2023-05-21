@@ -241,7 +241,6 @@ public class GameScene {
 		});
 		
 		resourceStatus.setOnMouseClicked((event) -> {
-//			if (resourceStatus.getCurrentPeople().equals("People: -")) return;
 			if (resourceStatus.getBuilding() == null) return;
 			if (resourceStatus.getName().equals("Building: House")) return;
 			
@@ -335,9 +334,9 @@ public class GameScene {
 	 */
 	private static void addEventListener() {
 		scene.setOnKeyPressed((event) -> {
-//			if (InterruptController.isInterruptPlayerMovingInput() && !InterruptController.isStillAnimation()) {
-//				return;
-//			}
+			if (InterruptController.isInterruptPlayerMovingInput() && !InterruptController.isStillAnimation()) {
+				return;
+			}
 			KeyCode keycode = event.getCode();
 			switch (keycode) {
 			case W:
