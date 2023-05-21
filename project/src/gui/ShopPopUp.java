@@ -24,6 +24,9 @@ import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * Represents a pop-up window for the shop in the game GUI.
+ */
 public class ShopPopUp extends VBox {
 	
 	/**
@@ -61,7 +64,7 @@ public class ShopPopUp extends VBox {
 	}
 
 	/**
-	 * Update value inside setting to current value.
+	 * Update values inside shop to current values.
 	 */
 	public void sellMaterial() {
 		GameLogic.sellMaterial(Material.FOOD, Integer.parseInt(food_amount.getText()));
@@ -89,8 +92,8 @@ public class ShopPopUp extends VBox {
 	}
 
 	/**
-	 * Initialize new {@link #optionContainer} and add component to container.
-	 */
+     * Adds the options section to the pane for entering amount of materials to sell.
+     */
 	public void addOptionContainer() {
 		food_max = new Text(" / " + Integer.toString(GameLogic.getFood()));
 		wood_max = new Text(" / " + Integer.toString(GameLogic.getWood()));
@@ -180,6 +183,9 @@ public class ShopPopUp extends VBox {
 		this.getChildren().add(optionTitle);
 	}
 	
+	/**
+     * Updates the amounts to their initial values.
+     */
 	public void update() {
 		food_amount.setText("0");
 		food_max.setText(" / " + Integer.toString(GameLogic.getFood()));

@@ -25,6 +25,11 @@ import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * The ChangeJobPopUp class represents a graphical user interface component that displays a pop-up
+ * window for changing the number of workers in a building. It allows the user to input the desired
+ * number of workers and save the changes.
+ */
 public class ChangeJobPopUp extends VBox {
 
 	/**
@@ -49,9 +54,9 @@ public class ChangeJobPopUp extends VBox {
 	BaseBuilding building;
 	
 	/**
-	 * The constructor of the class. Initialize the inside component, event handler
-	 * and style.
-	 */
+     * Constructs a new ChangeJobPopUp object. It initializes the internal components, event handlers,
+     * and style of the pop-up window.
+     */
 	public ChangeJobPopUp() {
 		styleSetup();
 		addTitle();
@@ -93,8 +98,8 @@ public class ChangeJobPopUp extends VBox {
 	}
 
 	/**
-	 * Initialize new {@link #optionContainer} and add component to container.
-	 */
+     * Initializes the new option container and adds components to the container.
+     */
 	public void addOptionContainer() {
 		unemployed = new Text();
 		unemployed.setFont(FontUtil.getFont("extraSmall"));
@@ -144,11 +149,13 @@ public class ChangeJobPopUp extends VBox {
 		this.getChildren().add(optionTitle);
 	}
 	
-	
+	/**
+     * Updates the pop-up window with the specified building.
+     *
+     * @param building The building to be updated in the pop-up window.
+     */
 	public void update(BaseBuilding building) {
-//		setPos(pos);
 		setBuilding(building);
-//		Resource resource = (Resource) GameLogic.getBuildings().get(pos);
 		Resource resource = (Resource) building;
 		optionTitle.setText("Set workers in " + resource.getClass().getSimpleName());
 		amount.setText(Integer.toString(resource.getCurrentPeople()));
@@ -180,19 +187,21 @@ public class ChangeJobPopUp extends VBox {
 			System.out.println(this.getClass().getName() + " has not opened yet.");
 		}
 	}
-
-//	public Position getPos() {
-//		return pos;
-//	}
-//
-//	public void setPos(Position pos) {
-//		this.pos = pos;
-//	}
 	
+	/**
+     * Retrieves the current building associated with the pop-up window.
+     *
+     * @return The current building associated with the pop-up window.
+     */
 	public BaseBuilding getBuilding() {
 		return building;
 	}
 	
+	 /**
+     * Sets the building for the pop-up window.
+     *
+     * @param building The building to be associated with the pop-up window.
+     */
 	public void setBuilding(BaseBuilding building) {
 		this.building = building;
 	}

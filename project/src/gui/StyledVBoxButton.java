@@ -12,6 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import utils.GameConfig;
 
+/**
+ * The StyledVBoxButton is a VBOX that is specifically used in pop up GUI.
+ *
+ */
 public class StyledVBoxButton extends VBox {
 
 	/**

@@ -12,9 +12,17 @@ import javafx.scene.text.Text;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * The WorkerStatus class represents a graphical component that displays the number of workers
+ * assigned to different work areas.
+ */
 public class WorkerStatus extends VBox {
 	private Text field, mine, sawmill, smelter;
 	
+	/**
+     * Constructs a new WorkerStatus object.
+     * Initializes the visual appearance and text components.
+     */
 	public WorkerStatus() {
 		this.setBackground(new Background(new BackgroundFill(Color.DARKORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setPrefSize(50 * GameConfig.getScale(), 50 * GameConfig.getScale());
@@ -36,6 +44,9 @@ public class WorkerStatus extends VBox {
 		this.getChildren().addAll(field, mine, sawmill, smelter);
 	}
 	
+	/**
+     * Updates the displayed worker counts by fetching the current values from the GameLogic.
+     */
 	public void update() {
 		this.setField(GameLogic.getNumberOfWorkers("Field"));
 		this.setMine(GameLogic.getNumberOfWorkers("Mine"));
@@ -43,18 +54,38 @@ public class WorkerStatus extends VBox {
 		this.setSmelter(GameLogic.getNumberOfWorkers("Smelter"));
 	}
 	
+	/**
+     * Sets the number of field workers and updates the corresponding text.
+     *
+     * @param field the number of field workers
+     */
 	public void setField(int field) {
 		this.field.setText("Field Workers: " + Integer.toString(field));
 	}
 	
+	/**
+     * Sets the number of mine workers and updates the corresponding text.
+     *
+     * @param mine the number of mine workers
+     */
 	public void setMine(int mine) {
 		this.mine.setText("Mine Workers: " + Integer.toString(mine));
 	}
 	
+	/**
+     * Sets the number of sawmill workers and updates the corresponding text.
+     *
+     * @param sawmill the number of sawmill workers
+     */
 	public void setSawmill(int sawmill) {
 		this.sawmill.setText("Sawmill Workers: " + Integer.toString(sawmill));
 	}
 	
+	/**
+     * Sets the number of smelter workers and updates the corresponding text.
+     *
+     * @param smelter the number of smelter workers
+     */
 	public void setSmelter(int smelter) {
 		this.smelter.setText("Smelter Workers: " + Integer.toString(smelter));
 	}

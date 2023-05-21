@@ -15,6 +15,11 @@ import javafx.scene.text.Text;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * The NextDay class represents a graphical component that allows the user to advance to the next day in the game.
+ * It is a clickable box with the text "Next Day >>>" displayed on it.
+ * When clicked, it triggers the next day action in the game.
+ */
 public class NextDay extends HBox {
 
 	/**
@@ -27,6 +32,10 @@ public class NextDay extends HBox {
 	 */
 	private final int widthBox = 40;
 	
+	/**
+     * Constructs a new NextDay component.
+     * It sets up the style, adds the text label, and registers the mouse click event handler.
+     */
 	public NextDay() {
 		styleSetup();
 		Text text = new Text("Next Day >>>");
@@ -43,6 +52,9 @@ public class NextDay extends HBox {
 
 	}
 	
+	/**
+     * Initializes the style for the pane.
+     */
 	private void styleSetup() {
 		setBackground(new Background(new BackgroundFill(Color.LIGHTCORAL, null, null)));
 		setBorder(new Border(

@@ -14,10 +14,18 @@ import javafx.scene.text.Text;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * The MaterialStatus class represents a graphical component that displays the current material status of the game.
+ * It shows the quantities of food, wood, stone, iron, iron ore, and money.
+ */
 public class MaterialStatus extends HBox {
 	
 	private Text food, wood, stone, iron, ironOre, money;
 	
+	/**
+     * Constructs a new MaterialStatus component.
+     * It sets up the layout and initializes the text elements for each material.
+     */
 	public MaterialStatus() {
 		
 		this.setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -79,6 +87,10 @@ public class MaterialStatus extends HBox {
 	
 	}
 	
+	/**
+     * Updates the material quantities displayed in the component.
+     * It retrieves the current material quantities from the GameLogic class and sets them in the corresponding text elements.
+     */
 	public void update() {
 		this.setFood(GameLogic.getFood());
 		this.setWood(GameLogic.getWood());
@@ -88,26 +100,56 @@ public class MaterialStatus extends HBox {
 		this.setMoney(GameLogic.getMoney());
 	}
 
+	/**
+     * Sets the quantity of food displayed in the component.
+     *
+     * @param food The quantity of food to set.
+     */
 	public void setFood(int food) {
 		this.food.setText(Integer.toString(food));
 	}
 
+	/**
+     * Sets the quantity of wood displayed in the component.
+     *
+     * @param wood The quantity of wood to set.
+     */
 	public void setWood(int wood) {
 		this.wood.setText(Integer.toString(wood));
 	}
 
+	/**
+     * Sets the quantity of stone displayed in the component.
+     *
+     * @param stone The quantity of stone to set.
+     */
 	public void setStone(int stone) {
 		this.stone.setText(Integer.toString(stone));
 	}
 
+	/**
+     * Sets the quantity of iron displayed in the component.
+     *
+     * @param iron The quantity of iron to set.
+     */
 	public void setIron(int iron) {
 		this.iron.setText(Integer.toString(iron));
 	}
 
+	/**
+     * Sets the quantity of iron ore displayed in the component.
+     *
+     * @param ironOre The quantity of iron ore to set.
+     */
 	public void setIronOre(int ironOre) {
 		this.ironOre.setText(Integer.toString(ironOre));
 	}
 
+	/**
+     * Sets the amount of money displayed in the component.
+     *
+     * @param money The amount of money to set.
+     */
 	public void setMoney(int money) {
 		this.money.setText(Integer.toString(money));
 	}

@@ -302,6 +302,7 @@ public class GameController {
 		GameScene.getWorkerStatus().update();
 		GameScene.getMaterialStatus().update();
 		GameScene.getResourceStatus().update(null);
+		GameScene.getCurrentDay().update();
 	}
 	
 	/**
@@ -568,6 +569,10 @@ public class GameController {
 		FadeTransition fadeIn = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 0.0, 1.0);
 
 		MapRenderer.render();
+		GameScene.getWorkerStatus().update();
+		GameScene.getMaterialStatus().update();
+		GameScene.getResourceStatus().update(null);
+		GameScene.getCurrentDay().update();
 
 		fadeIn.play();
 		fadeIn.setOnFinished((event) -> InterruptController.setTransition(false));
@@ -603,6 +608,5 @@ public class GameController {
 		setDay(getDay() + 1);
 		GameLogic.updateDay();
 		initialTransition();
-		
 	}
 }

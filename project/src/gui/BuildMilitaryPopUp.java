@@ -36,7 +36,6 @@ public class BuildMilitaryPopUp extends VBox {
 	private final int widthBox = 50;
 	Color btnColor = Color.rgb(245, 246, 231);
 	
-//	Position pos;
 	BaseBuilding building;
 	
 	HBox optionsBox;
@@ -79,6 +78,9 @@ public class BuildMilitaryPopUp extends VBox {
 
 	}
 	
+	/**
+	 * Adds the options section to the pop-up.
+	 */
 	private void addOptions() {
 		optionsBox = new HBox(5);
 		optionsBox.setAlignment(Pos.CENTER);
@@ -97,11 +99,14 @@ public class BuildMilitaryPopUp extends VBox {
 		this.getChildren().add(optionsBox);
 	}
 	
+	/**
+	 * Creates a VBox for building SwordMan units.
+	 *
+	 * @return The VBox for building SwordMan units.
+	 */
 	private VBox buildSwordMan() {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
-//		vbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
-//				new BorderWidths(GameConfig.getScale()))));
 		Label label = new Label("SwordMan");
 		label.setFont(FontUtil.getFont("extraSmall"));
 
@@ -110,6 +115,11 @@ public class BuildMilitaryPopUp extends VBox {
 		return vbox;
 	}
 	
+	/**
+	 * Creates a VBox for building Archer units.
+	 *
+	 * @return The VBox for building Archer units.
+	 */
 	private VBox buildArcher() {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -121,7 +131,7 @@ public class BuildMilitaryPopUp extends VBox {
 	}
 	
 	/**
-	 * Initialize new title text.
+	 * Adds the title text to the pop-up.
 	 */
 	private void addTitle() {
 		Text optionTitle = new Text("Build a military");
@@ -132,6 +142,9 @@ public class BuildMilitaryPopUp extends VBox {
 		this.getChildren().add(optionTitle);
 	}
 	
+	/**
+	 * Adds the close text section to the pop-up.
+	 */
 	private void addCloseText() {
 		HBox closeBox = new HBox();
 		closeBox.setPadding(new Insets(10, 0, 0, 0));
@@ -155,6 +168,11 @@ public class BuildMilitaryPopUp extends VBox {
 		this.getChildren().add(closeBox);
 	}
 	
+	/**
+	 * Updates the pop-up with the specified building.
+	 *
+	 * @param building The base building associated with the pop-up.
+	 */
 	public void update(BaseBuilding building) {
 		setBuilding(building);
 		
@@ -200,10 +218,20 @@ public class BuildMilitaryPopUp extends VBox {
 		}
 	}
 
+	/**
+	 * Gets the base building associated with the pop-up.
+	 *
+	 * @return The base building associated with the pop-up.
+	 */
 	public BaseBuilding getBuilding() {
 		return building;
 	}
 
+	/**
+	 * Sets the base building associated with the pop-up.
+	 *
+	 * @param building The base building to be associated with the pop-up.
+	 */
 	public void setBuilding(BaseBuilding building) {
 		this.building = building;
 	}

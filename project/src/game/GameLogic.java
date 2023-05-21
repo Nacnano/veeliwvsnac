@@ -517,17 +517,16 @@ public class GameLogic {
 			int distanceFromBuilding= enemy.getPosition().getDistanceFrom(targetBuilding);
 			
 			
-			if( distanceFromUnit <= distanceFromBuilding) {
+			if( distanceFromUnit <= distanceFromBuilding && targetUnit != null ) {
 				if(isInAttackRange(enemy, targetUnit.getPosition())) {
 					attackUnit(enemy, targetUnit);
 				}
 				else {
-					
 					moveUnitusingShortestPath(enemy, targetUnit.getPosition());
 				}
 				
 			}
-			else {
+			else if (targetBuilding != null) {
 				if(isInAttackRange(enemy, targetBuilding.getPosition())) {
 					destroyBuiding(enemy, targetBuilding);
 				}
@@ -582,7 +581,7 @@ public class GameLogic {
 	}
 	
 	public static boolean isGameOver() {
-		return buildings.isEmpty() && (day >=GameConfig.getPreparationWaveNumber()*GameConfig.getDayPerWave());
+		return buildings.isEmpty();
 	}
 	
 	public static boolean isGameClear() {

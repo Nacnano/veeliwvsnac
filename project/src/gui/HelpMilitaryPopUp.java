@@ -1,6 +1,5 @@
 package gui;
 
-import controller.GameController;
 import controller.InterruptController;
 import entity.unit.BaseUnit;
 import entity.unit.FieldSwordMan;
@@ -10,7 +9,6 @@ import entity.unit.SwordMan;
 import game.GameLogic;
 import game.MapRenderer;
 import game.Terrain;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -28,10 +26,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import scene.GameScene;
-import utils.AnimationUtil;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * The HelpMilitaryPopUp class represents a graphical user interface component that provides options
+ * to assist with military units. It allows healing units and upgrading swordsmen to a specific terrain type.
+ * It also displays information about the current unit and unemployed population for consideration;
+ */
 public class HelpMilitaryPopUp extends VBox {
 
 	/**
@@ -52,9 +54,9 @@ public class HelpMilitaryPopUp extends VBox {
 	BaseUnit unit;
 	
 	/**
-	 * The constructor of the class. Initialize the inside component, event handler
-	 * and style.
-	 */
+     * Constructs a new HelpMilitaryPopUp object. It initializes the style of the pane, adds title, options,
+     * and close text. It also sets an event handler for the ESCAPE key to close the pane.
+     */
 	public HelpMilitaryPopUp() {
 		styleSetup();
 		addTitle();
@@ -88,18 +90,24 @@ public class HelpMilitaryPopUp extends VBox {
 
 	}
 	
+	/**
+     * Adds the options section to the pane, including the heal option.
+     */
 	private void addOptions() {
 		optionsBox = new HBox(5);
 		optionsBox.setAlignment(Pos.CENTER);
 		
 		healBox = heal();
 		optionsBox.getChildren().add(healBox);
-//		if (unit instanceof SwordMan)
-//			box.getChildren().add(upgradeSwordMan());
 		
 		this.getChildren().add(optionsBox);
 	}
 
+	/**
+     * Creates a VBox component for the heal option.
+     *
+     * @return The VBox component for healing.
+     */
 	private VBox heal() {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -124,6 +132,11 @@ public class HelpMilitaryPopUp extends VBox {
 		return vbox;
 	}
 	
+	/**
+     * Creates a VBox component for upgrading a swordsman to a specific terrain type.
+     *
+     * @return The VBox component for upgrading a swordsman.
+     */
 	private VBox upgradeSwordMan() {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -189,6 +202,11 @@ public class HelpMilitaryPopUp extends VBox {
 		this.getChildren().add(optionTitle);
 	}
 	
+	/**
+     * Updates the pane with the current unit's information and displays the unemployed population.
+     *
+     * @param unit The current unit.
+     */
 	public void update(BaseUnit unit) {
 		setUnit(unit);
 		currentPeopleText.setText("Current: " + unit.getPeople() + "/" + GameConfig.MILITARY_SIZE);
@@ -218,10 +236,20 @@ public class HelpMilitaryPopUp extends VBox {
 		}
 	}
 
+	/**
+     * Returns the current unit.
+     *
+     * @return The current unit.
+     */
 	public BaseUnit getUnit() {
 		return unit;
 	}
 
+	/**
+     * Sets the current unit.
+     *
+     * @param unit The current unit to set.
+     */
 	public void setUnit(BaseUnit unit) {
 		this.unit = unit;
 	}

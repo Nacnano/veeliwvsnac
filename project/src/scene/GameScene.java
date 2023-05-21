@@ -164,6 +164,7 @@ public class GameScene {
 		workerStatus.update();
 		materialStatus.update();
 		resourceStatus.update(null);
+		currentDay.update();
 	}
 
 	/**
@@ -413,13 +414,25 @@ public class GameScene {
 	/**
 	 * Getter for Next Day pane.
 	 * 
-	 * @return Next Dat pane
+	 * @return Next Day pane
 	 */
 	public static NextDay getNextDay() {
 		if (nextDay == null) {
 			initScene();
 		}
 		return nextDay;
+	}
+	
+	/**
+	 * Getter for Current Day pane.
+	 * 
+	 * @return Current Day pane
+	 */
+	public static CurrentDay getCurrentDay() {
+		if (currentDay == null) {
+			initScene();
+		}
+		return currentDay;
 	}
 
 	/**

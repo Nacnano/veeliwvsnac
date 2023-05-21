@@ -30,6 +30,11 @@ import scene.GameScene;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ * The BuildPopUp class represents a graphical user interface component that displays a pop-up
+ * window for building options. It allows the user to select and build different types of buildings
+ * on the game map.
+ */
 public class BuildPopUp extends VBox {
 
 	/**
@@ -85,12 +90,21 @@ public class BuildPopUp extends VBox {
 
 	}
 	
+	/**
+     * Adds the options box to the BuildPopUp pane.
+     */
 	private void addOptions() {
 		optionsBox = new HBox(5);
 		optionsBox.setAlignment(Pos.CENTER);
 		this.getChildren().add(optionsBox);
 	}
 	
+	/**
+     * Builds and returns a VBox component for the specified Field object.
+     *
+     * @param field The Field object for which to build the VBox component.
+     * @return The constructed VBox component.
+     */
 	private VBox buildField(Field field) {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -123,6 +137,12 @@ public class BuildPopUp extends VBox {
 		return vbox;
 	}
 	
+	/**
+     * Builds and returns a VBox component for the specified Mine object.
+     *
+     * @param mine The Mine object for which to build the VBox component.
+     * @return The constructed VBox component.
+     */
 	private VBox buildMine(Mine mine) {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -155,6 +175,12 @@ public class BuildPopUp extends VBox {
 		return vbox;
 	}
 	
+	/**
+     * Builds and returns a VBox component for the specified Sawmill object.
+     *
+     * @param sawmill The Sawmill object for which to build the VBox component.
+     * @return The constructed VBox component.
+     */
 	private VBox buildSawmill(Sawmill sawmill) {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -187,6 +213,12 @@ public class BuildPopUp extends VBox {
 		return vbox;
 	}
 	
+	/**
+     * Builds and returns a VBox component for the specified Smelter object.
+     *
+     * @param smelter The Smelter object for which to build the VBox component.
+     * @return The constructed VBox component.
+     */
 	private VBox buildSmelter(Smelter smelter) {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -219,6 +251,12 @@ public class BuildPopUp extends VBox {
 		return vbox;
 	}
 	
+	/**
+     * Builds and returns a VBox component for the specified House object.
+     *
+     * @param house The House object for which to build the VBox component.
+     * @return The constructed VBox component.
+     */
 	private VBox buildHouse(House house) {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -251,6 +289,12 @@ public class BuildPopUp extends VBox {
 		return vbox;
 	}
 	
+	/**
+     * Builds and returns a VBox component for the specified Military Camp object.
+     *
+     * @param militaryCamp The Military Camp object for which to build the VBox component.
+     * @return The constructed VBox component.
+     */
 	private VBox buildMilitaryCamp(MilitaryCamp militaryCamp) {
 		StyledVBoxButton vbox = new StyledVBoxButton(btnColor);
 		vbox.setAlignment(Pos.CENTER);
@@ -295,6 +339,9 @@ public class BuildPopUp extends VBox {
 		this.getChildren().add(optionTitle);
 	}
 	
+	/**
+	 * Adds the close text section to the pop-up.
+	 */
 	private void addCloseText() {
 		HBox closeBox = new HBox();
 		closeBox.setPadding(new Insets(10, 0, 0, 0));
@@ -318,6 +365,11 @@ public class BuildPopUp extends VBox {
 		this.getChildren().add(closeBox);
 	}
 	
+	/**
+	 * Updates the pop-up with the specified position.
+	 *
+	 * @param pos The Position associated with the pop-up.
+	 */
 	public void update(Position pos) {
 		setPos(pos);
 		optionsBox.getChildren().clear();
@@ -362,10 +414,20 @@ public class BuildPopUp extends VBox {
 		}
 	}
 
+	/**
+	 * Gets the position associated with the pop-up.
+	 *
+	 * @return The position associated with the pop-up.
+	 */
 	public Position getPos() {
 		return pos;
 	}
 
+	/**
+	 * Sets the position associated with the pop-up.
+	 *
+	 * @param pos The Position to be associated with the pop-up.
+	 */
 	public void setPos(Position pos) {
 		this.pos = pos;
 	}
