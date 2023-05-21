@@ -19,7 +19,7 @@ public class Mine extends Resource {
 	/**
 	 * Check can build on plain or mountain
 	 * 
-	 * @param t
+	 * @param t The terrain that the player wants to build on
 	 * @return true if terrain is plain or mountain otherwise
 	 * false
 	 */
