@@ -12,6 +12,8 @@ import scene.LandingScene;
 /**
  * The GameAudioUtils class is the class that provide the {@link MediaPlayer}
  * for audio and update volume method.
+ * 
+ * @author nacnano
  */
 public class AudioUtil {
 
@@ -167,7 +169,7 @@ public class AudioUtil {
 	/**
 	 * Setter for {@link #trainingSFX}.
 	 * 
-	 * @param trainingSFX the new {@link #traningSFX}
+	 * @param trainingSFX the new {@link #trainingSFX}
 	 */
 	public static void settrainingSFX(AudioClip trainingSFX) {
 		AudioUtil.trainingSFX = trainingSFX;
@@ -185,7 +187,7 @@ public class AudioUtil {
 	/**
 	 * Setter for {@link #buildingSFX}.
 	 * 
-	 * @param buidingSFX the new {@link #buidingSFX}
+	 * @param buildingSFX the new {@link #buildingSFX}
 	 */
 	public static void setBuildingSFX(AudioClip buildingSFX) {
 		AudioUtil.buildingSFX = buildingSFX;
@@ -203,7 +205,7 @@ public class AudioUtil {
 	/**
 	 * Setter for {@link #destroyingSFX}.
 	 * 
-	 * @param dsetroyingSFX the new {@link #destroyingSFX}
+	 * @param destroyingSFX the new {@link #destroyingSFX}
 	 */
 	public static void setDestroyingSFX(AudioClip destroyingSFX) {
 		AudioUtil.destroyingSFX = destroyingSFX;
@@ -239,7 +241,7 @@ public class AudioUtil {
 	/**
 	 * Setter for {@link #destroyingSFX}.
 	 * 
-	 * @param dsetroyingSFX the new {@link #destroyingSFX}
+	 * @param dyingSFX the new {@link #destroyingSFX}
 	 */
 	public static void setDyingSFX(AudioClip dyingSFX) {
 		AudioUtil.dyingSFX = dyingSFX;

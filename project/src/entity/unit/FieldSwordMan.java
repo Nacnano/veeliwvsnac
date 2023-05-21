@@ -30,6 +30,13 @@ public class FieldSwordMan extends SwordMan implements Attackable, Movable{
 		super();
 	}
 	
+	/**
+     * Buffs the unit based on the terrain it is on.
+     * If the unit is on a plain terrain, its attack multiplier and move range are set to field swordman values
+     * defined in the GameConfig. Otherwise, they are set to the default swordman values.
+     *
+     * @param T The terrain on which the unit is located.
+     */
 	public void buffByTerrain(Terrain T) {
 		if (GameLogic.getOurUnitTerrain(this) == Terrain.PLAIN) {
 			this.setAttackMultiplier(GameConfig.FIELDSWORDMAN_ATTACK_MULTIPLIER);
@@ -41,28 +48,4 @@ public class FieldSwordMan extends SwordMan implements Attackable, Movable{
 		}
 	}
 
-//	public void attack(BaseUnit to) {
-//		Terrain terrain = GameLogic.getOurUnitTerrain(this);
-//		if (terrain == Terrain.PLAIN) {
-//			System.out.println(this.getClass().getSimpleName() + " is buff 'cause it's in " + terrain + "  ;-)");
-//			this.setAttackMultiplier(GameConfig.FIELDSWORDMAN_ATTACK_MULTIPLIER);
-//			super.attack(to);
-//			this.setAttackMultiplier(GameConfig.SWORDMAN_ATTACK_MULTIPLIER);
-//		}
-//		else {
-//			super.attack(to);
-//		}
-//	}
-//	
-//	public void move(Position destination) {
-//		Terrain terrain = GameLogic.getOurUnitTerrain(this);
-//		if (terrain == Terrain.PLAIN) {
-//			this.setMoveRange(GameConfig.FIELDSWORDMAN_MOVE_RANGE);
-//			super.move(destination);
-//			this.setMoveRange(GameConfig.SWORDMAN_MOVE_RANGE);
-//		}
-//		else {
-//			super.move(destination);
-//		}
-//	}
 }

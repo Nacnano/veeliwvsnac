@@ -19,7 +19,7 @@ public class Field extends Resource {
 	/**
 	 * Check can build on plain
 	 * 
-	 * @param t
+	 * @param t The terrain which building will be building on
 	 * @return true if terrain is plain otherwise
 	 * false
 	 */

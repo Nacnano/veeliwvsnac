@@ -65,6 +65,12 @@ public class SettingPane extends VBox {
 	private CheckBox animationCheckBox;
 	
 	/**
+	 * Represent the {@link CheckBox} that control the endless
+	 * mode of the game.
+	 */
+	private CheckBox endlessCheckBox;
+	
+	/**
 	 * The constructor of the class. Initialize the inside component, event handler
 	 * and style.
 	 */
@@ -74,6 +80,7 @@ public class SettingPane extends VBox {
 		addBgmVolumeSlider();
 		addEffectVolumeSlider();
 		addDisableAnimation();
+		addEndless();
 		addOptionContainer();
 		addCloseText();
 
@@ -93,6 +100,7 @@ public class SettingPane extends VBox {
 		effectVolumeSlider.setValue((int) (GameConfig.getEffectVolume() * 100));
 		bgmVolumeSlider.setValue((int) (GameConfig.getBgmVolume() * 100));
 		animationCheckBox.setSelected(GameConfig.isSkipMoveAnimation());
+		endlessCheckBox.setSelected(GameConfig.isEndless());
 	}
 
 	/**
@@ -145,6 +153,9 @@ public class SettingPane extends VBox {
 
 		optionContainer.add(disableLabel, 0, 2);
 		optionContainer.add(animationCheckBox, 1, 2);
+		
+		optionContainer.add(endlessLabel, 0, 3);
+		optionContainer.add(endlessCheckBox, 1, 3);
 		
 		getChildren().add(optionContainer);
 	}
@@ -232,6 +243,21 @@ public class SettingPane extends VBox {
 
 			GameConfig.setSkipMoveAnimation(newSkipMove);
 			animationCheckBox.setSelected(newSkipMove);
+		});
+	}
+	
+	/**
+	 * Initialize new {@link #end}.
+	 */
+	private void addEndless() {
+		endlessCheckBox = new CheckBox();
+		endlessCheckBox.setSelected(GameConfig.isEndless());
+
+		endlessCheckBox.setOnMouseClicked((event) -> {
+			boolean newEndless = !GameConfig.isEndless();
+
+			GameConfig.setEndless(newEndless);
+			endlessCheckBox.setSelected(newEndless);
 		});
 	}
 }

@@ -1,4 +1,5 @@
 package controller;
+import entity.building.BaseBuilding;
 import entity.building.House;
 import entity.building.MilitaryCamp;
 import entity.building.Mine;
@@ -30,7 +31,7 @@ import utils.TransitionUtil;
 
 /**
  * The GameController class is the class that control about the {@link #gameMap}
- * which currently render and the changing of {@link #level} inside the game.
+ * which currently render and the changing of {@link #day} inside the game.
  */
 public class GameController {
 
@@ -110,11 +111,11 @@ public class GameController {
 		gameMap = MapGenerator.generateMap("default");
 		
 		GameLogic.getBuildings().clear();
-		GameLogic.SetCurrentPopulation(500);
+		GameLogic.setCurrentPopulation(500);
 		
 		initBuildings();
 		initMaterials();
-		
+	
 		MapGenerator.generateEnemyOnMap(gameMap);
 	}
 	
@@ -128,39 +129,6 @@ public class GameController {
 			mapCenter = mapCenter.moveDown();
 		}
 		GameLogic.initBuilding(new House(), mapCenter);
-		
-//		Field field = new Field();
-//		Position field_pos = new Position(10, 11);
-//		gameMap.get(10, 11).setBuilding(field);
-//		GameLogic.getBuildings().put(field_pos, field);
-//		GameLogic.setNumberOfWorkers(field_pos, 10);
-//		
-		GameLogic.initBuilding(new Mine(), gameMap.get(9, 6).getPosition());
-//		Mine mine = new Mine();
-//		Position mine_pos = new Position(9, 6);
-//		gameMap.get(9, 6).setBuilding(mine);
-//		GameLogic.getBuildings().put(mine_pos, mine);
-//		GameLogic.setNumberOfWorkers(mine_pos, 10);
-//		
-		GameLogic.initBuilding(new Sawmill(), gameMap.get(10, 4).getPosition());
-//		Sawmill sawmill = new Sawmill();
-//		Position sawmill_pos = new Position(10, 4);
-//		gameMap.get(10, 4).setBuilding(sawmill);
-//		GameLogic.getBuildings().put(sawmill_pos, sawmill);
-//		GameLogic.setNumberOfWorkers(sawmill_pos, 10);
-//		
-		GameLogic.initBuilding(new Smelter(), gameMap.get(11, 13).getPosition());
-//		Smelter smelter = new Smelter();
-//		Position smelter_pos = new Position(11, 13);
-//		gameMap.get(11, 13).setBuilding(smelter);
-//		GameLogic.getBuildings().put(smelter_pos, smelter);
-//		GameLogic.setNumberOfWorkers(smelter_pos, 10);
-		
-		Position militaryCamp_pos = gameMap.get(7, 10).getPosition();    // new Position(7, 10);
-		GameLogic.initBuilding(new MilitaryCamp(), militaryCamp_pos);
-		
-//		SwordMan swordMan = new SwordMan();
-//		GameLogic.addOurUnit(swordMan, militaryCamp_pos);
 		
 	}
 	
@@ -191,10 +159,10 @@ public class GameController {
 	}
 
 	/**
-	 * Checking condition that {@link #GameLogic.get} is currently Game Over or not by
-	 * checking nuimber of {@link #BaseBuilding} in bulidings.
+	 * Checking condition that {@link GameLogic} is currently Game Over or not by
+	 * checking nuimber of {@link BaseBuilding} in bulidings.
 	 * 
-	 * @return true if number of {@link #BaseBuilding} is less than or equals 0 otherwise
+	 * @return true if number of {@link BaseBuilding} is less than or equals 0 otherwise
 	 *         false
 	 */
 	public static boolean isGameOver() {
@@ -284,7 +252,7 @@ public class GameController {
 	/**
 	 * Setter for {@link #day}.
 	 * 
-	 * @param newDaythe new {@link #day}
+	 * @param newDay The new {@link #day}
 	 */
 	public static void setDay(int newDay) {
 		day = newDay;
@@ -569,10 +537,7 @@ public class GameController {
 		FadeTransition fadeIn = TransitionUtil.makeFadingNode(GameScene.getGamePane(), 0.0, 1.0);
 
 		MapRenderer.render();
-		GameScene.getWorkerStatus().update();
-		GameScene.getMaterialStatus().update();
-		GameScene.getResourceStatus().update(null);
-		GameScene.getCurrentDay().update();
+		postGameUpdate();
 
 		fadeIn.play();
 		fadeIn.setOnFinished((event) -> InterruptController.setTransition(false));
@@ -607,6 +572,7 @@ public class GameController {
 	public static void nextDay() {
 		setDay(getDay() + 1);
 		GameLogic.updateDay();
+		MapGenerator.generateEnemyOnMap(gameMap);
 		initialTransition();
 	}
 }

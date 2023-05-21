@@ -34,7 +34,8 @@ import scene.GameScene;
 /**
  * The utility class that provide sprite drawing method and PixelReader for
  * sprite.
- *
+ * 
+ * @author nacnano
  */
 public class DrawUtil {
 
@@ -119,7 +120,7 @@ public class DrawUtil {
 	private static Image attackMouseIcon;
 	
 	/**
-	 * Attack mouse icon.
+	 * Debug icon.
 	 */
 	private static PixelReader debugSprites;
 
@@ -180,13 +181,13 @@ public class DrawUtil {
 			}
 			WritableImage img = new WritableImage(drawSprites, 32, 32);
 			if(cell.isMoveTerritory()) {
-				img = changeColorbyHue(img, ColortoHue.GREEN, 0.5);
+				img = changeColorByHue(img, ColortoHue.GREEN, 0.5);
 			}
 			else if(cell.isAttackTerritory()) {
-				img = changeColorbyHue(img, ColortoHue.ORANGE, 0.5);
+				img = changeColorByHue(img, ColortoHue.ORANGE, 0.5);
 			}
 			else if (cell.getTerritory() > 0) {
-				img = changeColorbyOpacity(img, 0.6);
+				img = changeColorByOpacity(img, 0.6);
 			}
 
 			
@@ -199,7 +200,7 @@ public class DrawUtil {
 	 * 
 	 * @param y      Position in the Y-axis
 	 * @param x      Position in the X-axis
-	 * @param entity The entity to adds the button on
+	 * @param cell 	The cell to adds the button on
 	 */
 	public static void addTerrainButton(int y, int x, Cell cell) {
 		if (cell.getTerrain() == null) {
@@ -224,28 +225,17 @@ public class DrawUtil {
 		addCursorHover(canvas, true);
 		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
-		
-//		VBox holder = new VBox();
-//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
-//		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
-//		AnchorPane.setLeftAnchor(holder, (double) x);
-//		GameScene.getButtonPane().getChildren().add(holder);
-		
 		GameScene.getButtonPane().getChildren().add(canvas);
-		
-//		System.out.println("Build unit button");
 	}
 
 
 	/**
-	 * Renders health point bar of the {@link Entity entity} at the specified
+	 * Renders people point bar of the {@link BaseUnit unit} at the specified
 	 * position on the game scene.
 	 * 
 	 * @param y      Position in the Y-axis
 	 * @param x      Position in the X-axis
-	 * @param entity The entity to be rendered
+	 * @param unit The entity to be rendered
 	 */
 	public static void drawUnitPeopleBar(int y, int x, BaseUnit unit) {
 
@@ -260,12 +250,12 @@ public class DrawUtil {
 	}
 	
 	/**
-	 * Renders health point bar of the {@link Entity entity} at the specified
+	 * Renders durability point bar of the {@link BaseBuilding building} at the specified
 	 * position on the game scene.
 	 * 
 	 * @param y      Position in the Y-axis
 	 * @param x      Position in the X-axis
-	 * @param entity The entity to be rendered
+	 * @param building The entity to be rendered
 	 */
 	public static void drawBuildingDurabilityBar(int y, int x, BaseBuilding building) {
 
@@ -280,11 +270,11 @@ public class DrawUtil {
 	}
 	
 	/**
-	 * Renders {@link Entity entity} at the specified position on the game scene.
+	 * Renders {@link BaseBuilding building} at the specified position on the game scene.
 	 * 
 	 * @param y      Position in the Y-axis
 	 * @param x      Position in the X-axis
-	 * @param entity The entity to be rendered
+	 * @param building The entity to be rendered
 	 */
 	public static void drawBuilding(int y, int x, BaseBuilding building) {
 		if (building == null) {
@@ -307,7 +297,7 @@ public class DrawUtil {
 		
 		img = scaleUp(img, GameConfig.getScale());
 		if (building.isAttacked()) {
-			img = changeColorbyHue(img, ColortoHue.YELLOW, 0.5);
+			img = changeColorByHue(img, ColortoHue.YELLOW, 0.5);
 		}
 
 		gc.drawImage(img, x, y - 20);
@@ -319,7 +309,7 @@ public class DrawUtil {
 	 * 
 	 * @param y      Position in the Y-axis
 	 * @param x      Position in the X-axis
-	 * @param entity The entity to adds the button on
+	 * @param cell The entity to adds the button on
 	 */
 	public static void addBuildingButton(int y, int x, Cell cell) {
 		BaseBuilding building = cell.getBuilding();
@@ -343,24 +333,15 @@ public class DrawUtil {
 		addCursorHover(canvas, true);
 		AnchorPane.setTopAnchor(canvas, (double) (y - GameConfig.BUILDING_MINUS_POS_Y * GameConfig.getScale()));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
-		
-//		VBox holder = new VBox();
-//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
-//		AnchorPane.setTopAnchor(holder, (double) (y - 8 * GameConfig.getScale()));
-//		AnchorPane.setLeftAnchor(holder, (double) x);
-//		GameScene.getButtonPane().getChildren().add(holder);
-		
 		GameScene.getButtonPane().getChildren().add(canvas);
 	}
 
 	/**
-	 * Renders {@link Entity entity} at the specified position on the game scene.
+	 * Renders {@link Cell cell} at the specified position on the game scene.
 	 * 
 	 * @param y      Position in the Y-axis
 	 * @param x      Position in the X-axis
-	 * @param entity The entity to be rendered
+	 * @param cell The cell to be rendered
 	 * @param frame  The current animation frame
 	 */
 	public static void drawUnit(int y, int x, Cell cell, int frame) {
@@ -387,18 +368,18 @@ public class DrawUtil {
 		// TODO: Choose nicer colors
 		if(GameLogic.isOurUnit(unit)) {
 			if(!unit.isMoved()) {
-				img = changeColorbyHue(img, ColortoHue.GREEN, 0.6);
+				img = changeColorByHue(img, ColortoHue.GREEN, 0.6);
 			}
 		}
 		if(!GameLogic.isOurUnit(unit)) {
-			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
+			img = changeColorByHue(img, ColortoHue.RED, 0.5);
 			if(cell.isAttackTerritory()) {
-				img = changeColorbyHue(img, ColortoHue.RED, 0.7);
+				img = changeColorByHue(img, ColortoHue.RED, 0.7);
 			}
 		}
 
 		if (unit.isAttacked()) {
-			img = changeColorbyHue(img, ColortoHue.RED, 0.5);
+			img = changeColorByHue(img, ColortoHue.RED, 0.5);
 		}
 		
 		gc.drawImage(img, x, y);
@@ -410,7 +391,7 @@ public class DrawUtil {
 	 * 
 	 * @param y      Position in the Y-axis
 	 * @param x      Position in the X-axis
-	 * @param entity The entity to adds the button on
+	 * @param cell The cell to adds the button on
 	 */
 	public static void addUnitButton(int y, int x, Cell cell) {
 		BaseUnit unit = cell.getUnit();
@@ -438,14 +419,6 @@ public class DrawUtil {
 		addCursorHover(canvas, true);
 		AnchorPane.setTopAnchor(canvas, (double) (y/* - 8 */));
 		AnchorPane.setLeftAnchor(canvas, (double) x);
-		
-//		VBox holder = new VBox();
-//		holder.setPrefWidth(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setPrefHeight(GameConfig.SPRITE_SIZE * GameConfig.getScale());
-//		holder.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
-//		AnchorPane.setTopAnchor(holder, (double) (y/* - 8 */));
-//		AnchorPane.setLeftAnchor(holder, (double) x);
-//		GameScene.getButtonPane().getChildren().add(holder);
 		
 		GameScene.getButtonPane().getChildren().add(canvas);
 	}
@@ -539,79 +512,131 @@ public class DrawUtil {
 		bigImage.getPixelWriter().setPixels(0, 0, newWidth, newHeight, pf, dst, 0, newWidth);
 		return bigImage;
 	}
-
 	/**
-	 * Change color of the image to be red.
-	 * 
-	 * @param img The image to be changed
+	 * Change the color of the image by hue.
+	 *
+	 * @param img     The image to be changed
+	 * @param toColor Target color
+	 * @param d       Saturation
 	 * @return Changed color image
 	 */
-	private static WritableImage changeColorbyHue(WritableImage img, ColortoHue toColor, double d) {
+	private static WritableImage changeColorByHue(WritableImage img, ColortoHue toColor, double d) {
 
-		int width = (int) img.getWidth();
-		int height = (int) img.getHeight();
-		WritableImage newImg = new WritableImage(width, height);
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				Color color = img.getPixelReader().getColor(x, y);
-				newImg.getPixelWriter().setColor(x, y, color);
+	    int width = (int) img.getWidth();
+	    int height = (int) img.getHeight();
+	    WritableImage newImg = new WritableImage(width, height);
+	    for (int y = 0; y < height; y++) {
+	        for (int x = 0; x < width; x++) {
+	            Color color = img.getPixelReader().getColor(x, y);
+	            newImg.getPixelWriter().setColor(x, y, color);
 
-				double hue = colorStringtoHueValue(toColor);
-				double brightness = color.getBrightness();
-				double opacity = color.getOpacity();
+	            double hue = colorStringToHueValue(toColor);
+	            double brightness = color.getBrightness();
+	            double opacity = color.getOpacity();
 
-				Color newColor = Color.hsb(hue, d, brightness, opacity);
-                newImg.getPixelWriter().setColor(x, y, newColor);
-			}
-		}
-		return newImg;
+	            Color newColor = Color.hsb(hue, d, brightness, opacity);
+	            newImg.getPixelWriter().setColor(x, y, newColor);
+	        }
+	    }
+	    return newImg;
 	}
-	
-	
+
+	/**
+	 * Enum representing colors mapped to hue values.
+	 */
 	public enum ColortoHue {
-		RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, VIOLET;
-	}
-	private static double colorStringtoHueValue(ColortoHue color) {
-		switch(color) {
-		case RED:
-			return 0;
-		case ORANGE:
-			return 30;
-		case YELLOW:
-			return 60;
-		case GREEN:
-			return 120;
-		case CYAN:
-			return 180;
-		case BLUE:
-			return 240;
-		case VIOLET:
-			return  300;
-		default:
-			return 0;
-		}
-	}
-	
-	private static WritableImage changeColorbyOpacity(WritableImage img, double d) {
+	    /**
+	     * Represents the color red.
+	     */
+	    RED,
 
-		int width = (int) img.getWidth();
-		int height = (int) img.getHeight();
-		WritableImage newImg = new WritableImage(width, height);
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				Color color = img.getPixelReader().getColor(x, y);
-				newImg.getPixelWriter().setColor(x, y, color);
+	    /**
+	     * Represents the color orange.
+	     */
+	    ORANGE,
 
-				double red = color.getRed();
-                double green = color.getGreen();
-                double blue = color.getBlue();
-                double opacity = color.getOpacity();
+	    /**
+	     * Represents the color yellow.
+	     */
+	    YELLOW,
 
-                Color newColor = new Color(red, green, blue, opacity*d);
-                newImg.getPixelWriter().setColor(x, y, newColor);
-			}
-		}
-		return newImg;
+	    /**
+	     * Represents the color green.
+	     */
+	    GREEN,
+
+	    /**
+	     * Represents the color cyan.
+	     */
+	    CYAN,
+
+	    /**
+	     * Represents the color blue.
+	     */
+	    BLUE,
+
+	    /**
+	     * Represents the color violet.
+	     */
+	    VIOLET;
 	}
+
+
+	/**
+	 * Converts a ColortoHue enum value to its corresponding hue value.
+	 *
+	 * @param color The ColortoHue enum value
+	 * @return The hue value associated with the enum value
+	 */
+	private static double colorStringToHueValue(ColortoHue color) {
+	    switch (color) {
+	        case RED:
+	            return 0;
+	        case ORANGE:
+	            return 30;
+	        case YELLOW:
+	            return 60;
+	        case GREEN:
+	            return 120;
+	        case CYAN:
+	            return 180;
+	        case BLUE:
+	            return 240;
+	        case VIOLET:
+	            return 300;
+	        default:
+	            return 0;
+	    }
+	}
+
+	/**
+	 * Change the color of the image by opacity.
+	 *
+	 * @param img The image to be changed
+	 * @param d   Opacity factor
+	 * @return Changed color image
+	 */
+	private static WritableImage changeColorByOpacity(WritableImage img, double d) {
+
+	    int width = (int) img.getWidth();
+	    int height = (int) img.getHeight();
+	    WritableImage newImg = new WritableImage(width, height);
+	    for (int y = 0; y < height; y++) {
+	        for (int x = 0; x < width; x++) {
+	            Color color = img.getPixelReader().getColor(x, y);
+	            newImg.getPixelWriter().setColor(x, y, color);
+
+	            double red = color.getRed();
+	            double green = color.getGreen();
+	            double blue = color.getBlue();
+	            double opacity = color.getOpacity();
+
+	            Color newColor = new Color(red, green, blue, opacity * d);
+	            newImg.getPixelWriter().setColor(x, y, newColor);
+	        }
+	    }
+	    return newImg;
+	}
+
 
 }

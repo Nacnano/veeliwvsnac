@@ -9,6 +9,8 @@ import entity.unit.SwordMan;
 
 /**
  * This class contains configuration settings for the game.
+ * 
+ * @author nacnano
  */
 public class GameConfig {
 	
@@ -70,12 +72,17 @@ public class GameConfig {
 	/**
 	 * Represents the number of days per wave in the game.
 	 */
-	private static int dayPerWave = 5;
+	private static int dayPerWave = 1;
 	
 	/**
 	 * Represents the number of preparation waves before the first enemy wave.
 	 */
-	private static int preparationWaveNumber = 10;
+	private static int preparationWaveNumber = 5;
+	
+	/**
+	 * Represents the endless mode state
+	 */
+	private static boolean isEndless = false;
 	
 	/**
 	 * Represents the territory radius.
@@ -456,20 +463,48 @@ public class GameConfig {
 	/**
 	 * Represents the price for military upgrades.
 	 */
-	public static final int MILLITARY_UPGRADE_PRICE = 1000;
+	public static final int MILITARY_UPGRADE_PRICE = 1000;
 	
 	// Random Utility
-	
+	/**
+	 * Represents the number of all enemies.
+	 */
 	public static final int ALL_ENEMY_NUMBER = 5;
+
+	/**
+	 * Represents the minimum number of people in an enemy group.
+	 */
 	public static final int ENEMY_MIN_PEOPLE = 3;
+
+	/**
+	 * Represents the maximum number of people in an enemy group.
+	 */
 	public static final int ENEMY_MAX_PEOPLE = 6;
+
+	/**
+	 * Represents the minimum attack multiplier for enemies.
+	 */
 	public static final float ENEMY_MIN_ATTACK_MULTIPLIER = (float) 0.1;
+
+	/**
+	 * Represents the maximum attack multiplier for enemies.
+	 */
 	public static final float ENEMY_MAX_ATTACK_MULTIPLIER = (float) 0.75;
+
+	/**
+	 * Represents the wave multiplier for enemies.
+	 */
 	public static final float ENEMY_WAVE_MULTIPLIER = (float) 0.1;
+
+	/**
+	 * Represents the divider for all enemy calculations.
+	 */
 	public static final int ALL_ENEMY_DIVIDER = 4;
-	
+
+	/**
+	 * Represents the y-coordinate offset for building positioning.
+	 */
 	public static final int BUILDING_MINUS_POS_Y = 8;
-	// Draw Utility
 
 	/**
 	 * Retrieves the attack range of a specific unit.
@@ -699,6 +734,24 @@ public class GameConfig {
 	 */
 	public static void setEffectVolume(double effectVolume) {
 		GameConfig.effectVolume = effectVolume;
+	}
+
+	/**
+	 * Retrieves {@link #isEndless}
+	 *
+	 * @return state of {@link #isEndless}
+	 */
+	public static boolean isEndless() {
+		return isEndless;
+	}
+
+	/**
+	 * Sets endless mode
+	 * 
+	 * @param isEndless Set state of endless mode
+	 */
+	public static void setEndless(boolean isEndless) {
+		GameConfig.isEndless = isEndless;
 	}
 	
 }
