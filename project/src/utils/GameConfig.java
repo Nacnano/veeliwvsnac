@@ -456,7 +456,7 @@ public class GameConfig {
 	/**
 	 * Represents the price for military upgrades.
 	 */
-	public static final int MILLITARY_UPGRADE_PRICE = 1000;
+	public static final int MILITARY_UPGRADE_PRICE = 1000;
 	
 	// Random Utility
 	/**
