@@ -173,7 +173,6 @@ public class DrawUtil {
 	 * @param entity The entity to adds the button on
 	 */
 	public static void addTerrainButton(int y, int x, Cell cell) {
-		// TODO: add logic for checking ours or enemy
 		if (cell.getTerrain() == null) {
 			return;
 		}
@@ -346,7 +345,7 @@ public class DrawUtil {
 		WritableImage img = new WritableImage(SwordManSprites, 32, 32);
 		img = scaleUp(img, GameConfig.getScale());
 		
-		// TODO: Choose nice colors
+		// TODO: Choose nicer colors
 		if(GameLogic.isOurUnit(unit)) {
 			if(!unit.isMoved()) {
 				img = changeColorbyHue(img, ColortoHue.GREEN, 0.6);
@@ -375,7 +374,6 @@ public class DrawUtil {
 	 * @param entity The entity to adds the button on
 	 */
 	public static void addUnitButton(int y, int x, BaseUnit unit) {
-		// TODO: add logic for checking ours or enemy
 		if (unit == null) {
 			return;
 		}

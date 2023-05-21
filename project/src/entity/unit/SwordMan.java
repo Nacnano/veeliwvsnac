@@ -12,5 +12,4 @@ public class SwordMan extends BaseUnit implements Movable, Attackable{
 		super(people, attackRange, moveRange, attackMultiplier);
 	}
 	
-	// attack and move can be used by calling "super" for BaseUnit's method (The logics are the same.)
 }

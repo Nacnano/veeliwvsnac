@@ -358,7 +358,6 @@ public class GameController {
 	public static void postMoveUpdate(boolean isMove) {
 		Camera camera = GameController.getCamera();
 		
-		// TODO: Add logic for post move action
 		Position cameraPosition = camera.getPosition();
 		
 		if(cameraPosition.getRow() == 0 || cameraPosition.getRow() == GameConfig.getMapSize()-1){
@@ -529,14 +528,11 @@ public class GameController {
 	 * Updates monsters, potion effects, and user interface after player's turn.
 	 */
 	public static void postGameUpdate() {
-		// Updates monsters and potions
-//		TODO: update entity details
-//		GameLogic.
 
 		// Updates user interface
 		GameScene.updateScene();
 
-		// Play monster animations
+		// Play animations
 		new Thread(() -> {
 			try {
 				AnimationUtil.playAnimation(2).join();

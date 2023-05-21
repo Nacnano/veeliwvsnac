@@ -51,23 +51,16 @@ public class Camera {
 	 * @param position The position to be set
 	 */
 	public void setPosition(Position position) {
-		// TODO: add logic to control the camera to be only in the map
 		this.position = position;
 	}
-
-
 
 	public boolean isMoving() {
 		return isMoving;
 	}
 
-
-
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
 	}
-
-
 
 	public Position getDirection() {
 		return direction;

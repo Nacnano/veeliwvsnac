@@ -51,12 +51,10 @@ public class AnimationUtil {
 		Map<BaseUnit, Position> ourUnits = GameLogic.getOurUnits();
 		Map<BaseUnit, Position> enemyUnits = GameLogic.getEnemyUnits();
 		
-		// TODO: Maybe call from GameLogic and do the same to building as well
 		Map<Position, BaseBuilding> buildings = GameLogic.getBuildings();
 			
 			
 		Thread animation = new Thread(() -> {
-			// Checks if any entity move or attacked
 			boolean isAttacked = false;
 			boolean isMoved = camera.isMoving();
 			
@@ -71,7 +69,6 @@ public class AnimationUtil {
 				isAttacked |= building.getValue().isAttacked();
 			}
 			
-//			isMove &= !GameConfig.isSkipMoveAnimation();
 			if (isAttacked) {
 				Platform.runLater(() -> {
 					MapRenderer.render();
@@ -79,7 +76,6 @@ public class AnimationUtil {
 			}
 
 						
-			// Plays move and attack animation
 			Thread attackAnimation = null;
 			Thread moveAnimation = null;
 			if (isMoved) {

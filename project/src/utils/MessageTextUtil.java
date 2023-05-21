@@ -50,7 +50,6 @@ public class MessageTextUtil {
 	 * @param text the text that will append to {@link MessagePane}
 	 */
 	private static void writeMessage(String text) {
-//		text = "- " + text;
 		GameScene.getMessagePane().addMessage(text);
 	}
 

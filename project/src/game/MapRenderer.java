@@ -181,12 +181,6 @@ public class MapRenderer {
 			int shiftX = 0;
 			int shiftY = 0;
 
-//			for animation
-//			BaseUnit unit = thisCell.getUnit();
-//			if ((unit != null)) {
-//				shiftX = -Direction.getMoveX(entity.getDirection(), frame * GameConfig.getScale());
-//				shiftY = -Direction.getMoveY(entity.getDirection(), frame * GameConfig.getScale());
-//			}
 
 			int finalShiftY = shiftY;
 			int finalShiftX = shiftX;
@@ -202,9 +196,7 @@ public class MapRenderer {
 			// Draw building which on cell
 			if (thisCell.getBuilding() != null) {
 				pq.add(new Node(posY, posX, 2, () -> {
-//					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
 					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
-//					DrawUtil.addBuildingButton(posY, posX, thisCell.getBuilding());
 				}));
 			}
 
@@ -228,18 +220,11 @@ public class MapRenderer {
 			
 			if (thisCell.getBuilding() != null  && (frame == 0)) {
 				pq.add(new Node(posY, posX, 2, () -> {
-//					System.out.println("  Building: " + thisCell.getBuilding().getClass().getSimpleName() + "  Row: " + posY + "  Col: " + posX);
-//					DrawUtil.drawBuilding(posY, posX, thisCell.getBuilding());
 					DrawUtil.addBuildingButton(posY, posX, thisCell);
 				}));
 			}
 			
 			if (thisCell.getTerrain() != null && (frame == 0)) {
-				
-				// Temporary for preventing scene overflow
-				if (thisCell.getPosition().getColumn() >= 13) continue;
-				if (thisCell.getPosition().getRow() >= 13) continue;
-				
 				pq.add(new Node(posY, posX, 1, () -> {
 					DrawUtil.addTerrainButton(posY, posX, thisCell);
 				}));

@@ -91,7 +91,7 @@ public class MapGenerator {
 		
 		if(day%GameConfig.getDayPerWave() != 0) {
 //			return;
-			// test with real enemy
+			// test with mock enemy
 			day = 10;
 		}
 		
@@ -106,7 +106,6 @@ public class MapGenerator {
 
 				Cell currentCell = gameMap.get(randomY, randomX);
 
-				// TODO: Add logic to check not to add enemy in our territory
 				if (currentCell.getTerrain() == Terrain.WATER && currentCell.getUnit() == null && currentCell.getTerritory() == 0) {
 					GameLogic.addEnemyUnit(enemy, currentCell.getPosition());
 					isAdd = true;

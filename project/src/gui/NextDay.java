@@ -35,9 +35,7 @@ public class NextDay extends HBox {
 		
 		setOnMouseClicked((event) -> {
 			try {
-//				((Pane) this.getParent()).getChildren().remove(this);
 				GameController.nextDay();
-//				InterruptController.setSettingOpen(false);
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
 			}
@@ -49,8 +47,6 @@ public class NextDay extends HBox {
 		setBackground(new Background(new BackgroundFill(Color.LIGHTCORAL, null, null)));
 		setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-//		setPadding(new Insets(20));
-//		setSpacing(10);
 
 		setAlignment(Pos.CENTER);
 		setPrefHeight(heightBox * GameConfig.getScale());

@@ -28,8 +28,6 @@ public class Position {
 	public int getColumn() {
 		return this.column;
 	}
-	
-	// Manhattan distance?
 	public int getDistanceFrom(Position p) {
 		if(p == null) {
 			return 2*GameConfig.getMapSize();

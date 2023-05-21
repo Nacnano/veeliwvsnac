@@ -8,12 +8,6 @@ import entity.unit.MountainSwordMan;
 import entity.unit.SwordMan;
 
 public class GameConfig {
-	
-	// TODO: Add getter and setter for all of theses?
-	// We also need to do the document for these T_T.
-	
-	
-	
 	// GRAPHIC
 	
 	/**
