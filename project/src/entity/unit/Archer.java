@@ -2,6 +2,10 @@ package entity.unit;
 
 import utils.GameConfig;
 
+/**
+ * The Archer class represents Archer unit. They can attack and move.
+ *
+ */
 public class Archer extends BaseUnit implements Movable, Attackable{
 
 	/**
