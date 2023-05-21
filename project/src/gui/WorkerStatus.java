@@ -12,6 +12,9 @@ import javafx.scene.text.Text;
 import utils.FontUtil;
 import utils.GameConfig;
 
+/**
+ *	The WorkerStatus class provide the player infomation about workers on each materials
+ */
 public class WorkerStatus extends VBox {
     private Text field, mine, sawmill, smelter;
 
