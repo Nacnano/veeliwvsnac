@@ -187,7 +187,7 @@ public class GameConfig {
 	/**
 	 * Represents the maximum number of people that the house can hold.
 	 */
-	public static final int HOUSE_MAX_PEOPLE = 50;
+	public static final int HOUSE_MAX_PEOPLE = 250;
 	
 	/**
 	 * Represents the fatality rate of the field unit.
@@ -237,7 +237,7 @@ public class GameConfig {
 	/**
 	 * Represents the born rate of the house unit.
 	 */
-	public static final float HOUSE_BORN_RATE = (float) 0.10;
+	public static final float HOUSE_BORN_RATE = (float) 0.30;
 	
 	/**
 	 * Represents the money required to build the field unit.
@@ -381,6 +381,11 @@ public class GameConfig {
 	public static final int IRON_PRICE = 5;
 	
 	/**
+	 * Consume Food Rate
+	 */
+	public static final float CONSUME_RATE = (float) 0.1;
+	
+	/**
 	 * Represents the maximum size of the military.
 	 */
 	public static final int MILITARY_SIZE = 100;
@@ -505,6 +510,16 @@ public class GameConfig {
 	 * Represents the y-coordinate offset for building positioning.
 	 */
 	public static final int BUILDING_MINUS_POS_Y = 8;
+	
+	/**
+	 * Represents the initial food
+	 */
+	public static final int INITIAL_FOOD = 1000;
+	public static final int INITIAL_WOOD = 1000;
+	public static final int INITIAL_STONE = 1000;
+	public static final int INITIAL_IRON = 1000;
+	public static final int INITIAL_MONEY = 5000;
+	public static final int INITIAL_POPULATION = 700;
 
 	/**
 	 * Retrieves the attack range of a specific unit.
