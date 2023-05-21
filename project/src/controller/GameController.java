@@ -30,7 +30,7 @@ import utils.TransitionUtil;
 
 /**
  * The GameController class is the class that control about the {@link #gameMap}
- * which currently render and the changing of {@link #level} inside the game.
+ * which currently render and the changing of {@link #day} inside the game.
  */
 public class GameController {
 
