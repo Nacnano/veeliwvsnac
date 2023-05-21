@@ -76,7 +76,13 @@ public class ChangeJobPopUp extends VBox {
 	 * Update value inside setting to current value.
 	 */
 	public void quitJob() {
-		GameLogic.setNumberOfWorkers(building, Integer.parseInt(amount.getText()));
+		try {
+			GameLogic.setNumberOfWorkers(building, Integer.parseInt(amount.getText()));
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		
 	}
 
 	/**

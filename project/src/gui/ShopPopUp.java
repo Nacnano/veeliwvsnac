@@ -67,10 +67,15 @@ public class ShopPopUp extends VBox {
 	 * Update values inside shop to current values.
 	 */
 	public void sellMaterial() {
-		GameLogic.sellMaterial(Material.FOOD, Integer.parseInt(food_amount.getText()));
-		GameLogic.sellMaterial(Material.WOOD, Integer.parseInt(wood_amount.getText()));
-		GameLogic.sellMaterial(Material.STONE, Integer.parseInt(stone_amount.getText()));
-		GameLogic.sellMaterial(Material.IRON, Integer.parseInt(iron_amount.getText()));
+		try {
+			GameLogic.sellMaterial(Material.FOOD, Integer.parseInt(food_amount.getText()));
+			GameLogic.sellMaterial(Material.WOOD, Integer.parseInt(wood_amount.getText()));
+			GameLogic.sellMaterial(Material.STONE, Integer.parseInt(stone_amount.getText()));
+			GameLogic.sellMaterial(Material.IRON, Integer.parseInt(iron_amount.getText()));
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	/**
