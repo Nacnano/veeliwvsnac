@@ -159,6 +159,7 @@ public class ChangeJobPopUp extends VBox {
 			try {
 				quitJob();
 				GameScene.getResourceStatus().update(building);
+				GameScene.getWorkerStatus().update();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();

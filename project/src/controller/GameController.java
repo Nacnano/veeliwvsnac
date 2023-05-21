@@ -159,8 +159,8 @@ public class GameController {
 		Position militaryCamp_pos = new Position(7, 10);
 		GameLogic.initBuilding(new MilitaryCamp(), militaryCamp_pos);
 		
-		SwordMan swordMan = new SwordMan();
-		GameLogic.addOurUnit(swordMan, militaryCamp_pos);
+//		SwordMan swordMan = new SwordMan();
+//		GameLogic.addOurUnit(swordMan, militaryCamp_pos);
 		
 	}
 	

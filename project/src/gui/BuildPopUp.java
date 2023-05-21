@@ -8,6 +8,7 @@ import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import game.GameLogic;
+import game.MapRenderer;
 import game.Position;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -111,6 +112,7 @@ public class BuildPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(field, pos);
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -142,6 +144,7 @@ public class BuildPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(mine, pos);
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -173,6 +176,7 @@ public class BuildPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(sawmill, pos);
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -204,6 +208,7 @@ public class BuildPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(smelter, pos);
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -235,6 +240,7 @@ public class BuildPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(house, pos);
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();
@@ -266,7 +272,7 @@ public class BuildPopUp extends VBox {
 		vbox.setOnMouseClicked((event) -> {
 			try {
 				GameLogic.buildBuilding(militaryCamp, pos);
-				System.out.println("   chose mil camp");
+				MapRenderer.render();
 				remove();
 			} catch (UnsupportedOperationException e) {
 				e.printStackTrace();

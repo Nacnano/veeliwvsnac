@@ -11,6 +11,7 @@ import entity.building.Mine;
 import entity.building.Sawmill;
 import entity.building.Smelter;
 import entity.unit.BaseUnit;
+import entity.unit.FieldSwordMan;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -373,7 +374,8 @@ public class DrawUtil {
 	 * @param x      Position in the X-axis
 	 * @param entity The entity to adds the button on
 	 */
-	public static void addUnitButton(int y, int x, BaseUnit unit) {
+	public static void addUnitButton(int y, int x, Cell cell) {
+		BaseUnit unit = cell.getUnit();
 		if (unit == null) {
 			return;
 		}
@@ -389,7 +391,9 @@ public class DrawUtil {
 				else {
 					GameController.gameUpdate(GameController.getSelectedUnit(), unit);
 				}
-				GameScene.addHelpMilitaryPopUp(unit);
+				if (cell.getBuilding() instanceof MilitaryCamp) {
+					GameScene.addHelpMilitaryPopUp(cell);
+				}
 				System.out.println("Clicked! " + unit.getClass().getSimpleName());
 			}
 		});

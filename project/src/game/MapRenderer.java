@@ -214,7 +214,7 @@ public class MapRenderer {
 			}
 			if ((thisCell.getUnit() instanceof BaseUnit) && (frame == 0)) {
 				pq.add(new Node(posY, posX, 3, () -> {
-					DrawUtil.addUnitButton(posY + finalShiftY, posX + finalShiftX, thisCell.getUnit());
+					DrawUtil.addUnitButton(posY + finalShiftY, posX + finalShiftX, thisCell);
 				}));
 			}
 			
