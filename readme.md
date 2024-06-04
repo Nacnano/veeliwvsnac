@@ -6,5 +6,5 @@ This repository was copied from the private repository in the Chulalongkorn's Pr
 
 ### By
 
-- [Warboo](https://github.com/warboo) (Veeliw)
+- [warboo](https://github.com/warboo) (Veeliw)
 - [Nacnano](https://github.com/nacnano) (Nac)
